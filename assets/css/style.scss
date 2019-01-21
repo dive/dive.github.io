@@ -1,0 +1,20 @@
+---
+---
+
+@import "jekyll-theme-midnight";
+
+.wrapper {
+	max-width:800px;
+	margin:0 auto;
+	position:relative;
+	padding: 0 20px;
+}
+
+body { font: 16px/1.6 "OpenSansRegular", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+nav { max-width: 800px; }
+section { margin-top: 0px; max-width: 800px; }
+blockquote { font-style: normal; }
+code { padding: 0px 1px; }
+
+// Rouge overrides
+.highlight .kt { color: #d3b647; }

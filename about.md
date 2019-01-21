@@ -1,18 +1,22 @@
 ---
-layout: page
+layout: default
 title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
-
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
-
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
-
-
-[jekyll-organization]: https://github.com/jekyll
+<script 
+	type="text/javascript" 
+	src="https://platform.linkedin.com/badges/js/profile.js" 
+	async defer>
+</script>
+<div 
+	class="LI-profile-badge"
+	align="center"
+	data-version="v1" 
+	data-size="large" 
+	data-locale="en_US" 
+	data-type="vertical" 
+	data-theme="dark" 
+	data-vanity="artemloenko">
+	<a class="LI-simple-link" href='https://uk.linkedin.com/in/artemloenko?trk=profile-badge'>Artem Loenko</a>
+</div>
