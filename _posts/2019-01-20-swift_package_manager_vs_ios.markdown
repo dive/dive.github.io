@@ -269,7 +269,9 @@ Likely, `swift build & test` produce beneficial debug information and store it i
 $ otool -L .build/debug/ios-framework-packagePackageTests.xctest/Contents/MacOS/ios-framework-packagePackageTests
   /usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)
   /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1252.200.5)
+======
   /System/Library/Frameworks/UIKit.framework/UIKit (compatibility version 1.0.0, current version 61000.0.0)
+======
   @rpath/XCTest.framework/Versions/A/XCTest (compatibility version 1.0.0, current version 14460.20.0)
   @rpath/libswiftCore.dylib (compatibility version 1.0.0, current version 1000.11.42)
   @rpath/libswiftCoreFoundation.dylib (compatibility version 1.0.0, current version 1000.11.42)
@@ -281,11 +283,18 @@ $ otool -L .build/debug/ios-framework-packagePackageTests.xctest/Contents/MacOS/
   @rpath/libswiftMetal.dylib (compatibility version 1.0.0, current version 1000.11.42)
   @rpath/libswiftObjectiveC.dylib (compatibility version 1.0.0, current version 1000.11.42)
   @rpath/libswiftQuartzCore.dylib (compatibility version 1.0.0, current version 1000.11.42)
+======
   @rpath/libswiftUIKit.dylib (compatibility version 1.0.0, current version 1000.11.42)
+======
   @rpath/libswiftXCTest.dylib (compatibility version 1.0.0, current version 1000.11.42)
 ```
 
-For some reasons, it tries to link `UIKit.framework` twice: via `/System/Library/Frameworks` path and via expected `@rpath/libswiftUIKit.dylib`. Let's compare with the information from the module itself:
+As you can see, for some reasons, it tries to link `UIKit.framework` twice: 
+
+- via `/System/Library/Frameworks` path 
+- and via expected `@rpath/libswiftUIKit.dylib`. 
+
+Let's check the information from the module itself with `otool`, to be sure that `load` describes the correct framework to link:
 
 ```bash
 $ otool -l .build/debug/ios_framework_package.build/ios_framework_package.swift.o
@@ -299,7 +308,7 @@ Load command 6
 ...
 ```
 
-Seems correct to me. To remove the confusion, let's try to pass the linking option directly with `-Xswiftc "-lswiftUIKit"`:
+Seems correct to me. To remove the confusion, let's pass the linking option directly with `-Xswiftc "-lswiftUIKit"`:
 
 ```bash
 swift test --verbose \
