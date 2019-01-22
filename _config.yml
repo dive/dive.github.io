@@ -5,6 +5,8 @@ show_downloads: "false"
 twitter_username: justsitandgrin
 github_username:  dive
 
+github_comments_repository: dive/dive.github.io
+
 # Build settings
 markdown: kramdown
 theme: jekyll-theme-midnight

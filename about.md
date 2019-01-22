@@ -9,7 +9,7 @@ permalink: /about/
 	src="https://platform.linkedin.com/badges/js/profile.js" 
 	async defer>
 </script>
-<div 
+<div
 	class="LI-profile-badge"
 	align="center"
 	data-version="v1" 

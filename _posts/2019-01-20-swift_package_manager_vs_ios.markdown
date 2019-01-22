@@ -2,6 +2,7 @@
 layout: default
 title:  "Swift Package Manager builds iOS frameworks :nope:"
 date:   2019-01-20 13:02:00 +0000
+github_comments_issueid: "1"
 categories: swift-package-manager ios
 excerpt_separator: <!--more-->
 ---
