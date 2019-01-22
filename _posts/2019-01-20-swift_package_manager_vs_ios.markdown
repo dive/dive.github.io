@@ -17,7 +17,8 @@ Swift Package Manager doesn't work with iOS. Probably, that's all you can say ab
 - No, you can not use `swift test` because you have to spawn a simulator to run them.
 <!--more-->
 
-# Current State of Swift Package Manager
+## Current State of Swift Package Manager
+* * *
 
 iOS support is a hot topic in [Swift Package Manager][spm] community and time-to-time someone raises this question again, but the reaction can be summarised to the following comments ([full thread][spm_roadmap] on forums.swift.org):
 
@@ -36,7 +37,8 @@ Anyway, we have exciting news about SPM and iOS friendship. [SE-0236: Package Ma
 
 Why will it not solve the problem with iOS support at all? Just read the "[This proposal doesn't handle these problems][SE-0236_proposal]" section.
 
-# Is it possible to build an iOS framework with SPM? Yes! Yes, it is!
+## Is it possible to build an iOS framework with SPM? Yes! Yes, it is!
+* * *
 
 So. If you try to search for solutions to build iOS frameworks with SPM on DuckDuckGo, you will find some instructions ([1][how_to_build_1], [2][how_to_build_2]). But all of them have this step that I hate: `sudo gem install xcodeproj` :disgusting:. Can we do better? Let's try.
 
@@ -154,7 +156,8 @@ class ViewController: UIViewController {
 The full example is available on [GitHub][spm-ios-example].
 Thanks to `CLANG_MODULES_AUTOLINK`, all iOS frameworks will be linked automatically. I didn't try more complex scenarios (when one iOS module depends on another, etc.) because it's not my goal at the moment. But in general, it just works with some limitations. SPM doesn't set up our `xcconfig` for some targets, and you have to include the SPM-generated `.xcodeproj` to your `.xcodeproj`, but all these tradeoffs seem reasonable for this research and our current goal.
 
-# Back to Swift Package Manager
+## Back to Swift Package Manager
+* * *
 
 See. We can do better 🥳. But we forgot about SPM during this Xcode journey. Let's close our fancy dark-themed Xcode, open Terminal and run `swift build` for our iOS'ish package (I'm going to use the package from the [example project](https://github.com/dive/spm-ios-example) mentioned above):
 
@@ -234,7 +237,8 @@ _symbolic ____ 21ios_framework_package16FrameworkPackageC
 
 `lipo` is a bit useless in this case because we were building for a simulator, but `nm` shows everything we need to know - iOS frameworks symbols are available. Unfortunately, `swift build` doesn't produce `.framework` by default. I think it's doable even in this case but let's postpone it 'till next time'.
 
-# Epilogue: swift test
+## Epilogue: swift test
+* * *
 
 And the final call. We already have one unit-test for our package, it uses `UIKit`, and I would mark this experiment as successful if we can run the test target with `swift test`. It's almost impossible, though, because usually, unit-tests for simulator have to spawn to a simulator process. I do not think that it's even possible for _an actual_ iOS project. Anyway.
 
@@ -318,7 +322,8 @@ xctest[18838:9855653](dlopen_preflight(./ios-example/ios-framework-package/.buil
 
 This is the end, my only friend. We can link proper frameworks with minimum efforts, but it's impossible to run these tests for iOS device or simulator without SPM support. It seems that even `xcrun` with `xctest` cannot handle it, we need `xcodebuild` assistance here. Enough these weird logs and useless speeches, let's summarise.
 
-# Summary
+## Summary
+* * *
 
 Thanks for reading, first of all! And what did we learn?
 
