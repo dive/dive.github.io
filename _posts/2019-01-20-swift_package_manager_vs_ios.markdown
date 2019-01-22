@@ -20,7 +20,7 @@ Swift Package Manager doesn't work with iOS. Probably, that's all you can say ab
 ## Current State of Swift Package Manager
 * * *
 
-iOS support is a hot topic in [Swift Package Manager][spm] community and time-to-time someone raises this question again, but the reaction can be summarised to the following comments ([full thread][spm_roadmap] on forums.swift.org):
+iOS support is a hot topic in [Swift Package Manager][spm] community, and from time to time someone raises this question again, but the reaction can be summarised to the following comments ([full thread][spm_roadmap] on forums.swift.org):
 
 [@Rick Ballard][rick_ballard]
 > I think that this will be *best provided by native IDE integration*. However, in the meantime, I'd welcome contributions to help improve Xcode's project generation support.
