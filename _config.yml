@@ -2,6 +2,9 @@ title: just sit and grin
 url: "https://dive.github.io"
 # baseurl: "https://dive.github.io"
 show_downloads: "false"
+author:
+  name: Artem Loenko
+  twitter: justsitandgrin
 twitter_username: justsitandgrin
 github_username:  dive
 
