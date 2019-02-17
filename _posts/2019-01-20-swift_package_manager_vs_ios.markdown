@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Swift Package Manager builds iOS frameworks :nope:"
+title:  "Swift Package Manager builds iOS frameworks (Updated. Xcode 10.2 Beta)"
 author: dive
 date:   2019-01-20 13:02:00 +0000
 github_comments_issueid: "1"
@@ -36,7 +36,19 @@ Anyway, we have exciting news about SPM and iOS friendship. [SE-0236: Package Ma
 
 > Packages should be able to declare the minimum required platform deployment target version. SwiftPM currently uses a hardcoded value for the macOS deployment target. This creates friction for packages which want to use APIs that were introduced after the hardcoded deployment target version.
 
-Why will it not solve the problem with iOS support at all? Just read the "[This proposal doesn't handle these problems][SE-0236_proposal]" section.
+Why will it not solve the problem with iOS support at all? Just read the ["This proposal doesn't handle these problems"][SE-0236_proposal] section.
+
+### Xcode 10.2 Beta
+
+[SE-0236][SE-0236_proposal] was accepted and implemented in Swift 5, and Apple shipped it with the latest Xcode 10.2 beta. It means that you can specify an iOS as a deployment target for your packages with a simple line in your `Package.swift` file:
+
+```swift
+platforms: [ .iOS(.v12) ]
+```
+
+You can find an example in `xcode_10_2_beta` branch in the example [repository](https://github.com/dive/spm-ios-example/tree/xcode_10_2_beta). It is still a beta implementation, and you will have a lot of issues with `build` command, `run` doesn't work as well, but this is a step forward to support iOS finally.
+
+I hope that Apple will announce something *good* on WWDC'19. New IDE for Swift? Open sourced `xcodebuild`? `xcodebuild` replacement based on `llbuild`? Will see. The current state is complicated as much as it can be. We are trying to inject open-sourced platform-agnostic tools into a legacy (?) world of Xcode, and this problem can be solved only in two ways: iOS specific build tools go open source, or Xcode team supports Swift infrastructure.
 
 ## Is it possible to build an iOS framework with SPM? Yes! Yes, it is!
 * * *
@@ -73,6 +85,8 @@ swift package generate-xcodeproj --xcconfig-overrides ./Sources/ios.xcconfig
 Did not know about `xcconfig-overrides`? Me either. It's a hidden and undocumented feature ([commit][xcconfig_overrides_commit]), thanks to [@Daniel Dunbar][daniel_dunbar]! Time to ask Xcode what it thinks about it.
 
 ![Xcode Build Results](/assets/images/2019-01-20-swift_package_manager_vs_ios/xcode_spm_build_results.png ){:class="img-responsive"}
+
+**Note**: You do not have to specify a custom `.xcconfig` file if you are using Xcode 10.2 Beta with Swift 5 Toolchain. Check the [branch](https://github.com/dive/spm-ios-example/tree/xcode_10_2_beta) for more details.
 
 It works! Let's celebrate! But nope. We're not on Medium, so let's try to dig deeper. Let's check how the 'Unit Tests' target works, for example:
 
