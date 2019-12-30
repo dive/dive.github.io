@@ -1,0 +1,22 @@
+baseURL = "http://justsitandgrin.net/"
+languageCode = "en-GB"
+title = "Just sit and grin"
+theme = "blank"
+
+[params]
+  AuthorName = "Artem Loenko"
+  GitHubUser = "dive"
+  SidebarRecentLimit = 5
+
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ""
+    lineNoStart = 1
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = true
+    style = "solarized-light"
+    tabWidth = 4
+
