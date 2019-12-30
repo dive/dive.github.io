@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://justsitandgrin.net/categories/apple/</loc>
+    <lastmod>2019-01-22T22:30:12+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://justsitandgrin.net/categories/</loc>
+    <lastmod>2019-01-22T22:30:12+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://justsitandgrin.net/categories/ios/</loc>
+    <lastmod>2019-01-22T22:30:12+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://justsitandgrin.net/</loc>
+    <lastmod>2019-01-22T22:30:12+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://justsitandgrin.net/posts/xcode_macos_ios_betas/</loc>
+    <lastmod>2019-01-22T22:30:12+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://justsitandgrin.net/posts/</loc>
+    <lastmod>2019-01-22T22:30:12+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://justsitandgrin.net/categories/xcode/</loc>
+    <lastmod>2019-01-22T22:30:12+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://justsitandgrin.net/categories/spm/</loc>
+    <lastmod>2019-01-20T09:25:35+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://justsitandgrin.net/categories/swift/</loc>
+    <lastmod>2019-01-20T09:25:35+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://justsitandgrin.net/posts/swift_package_manager_builds_ios_frameworks/</loc>
+    <lastmod>2019-01-20T09:25:35+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://justsitandgrin.net/tags/</loc>
+  </url>
+  
+</urlset>
