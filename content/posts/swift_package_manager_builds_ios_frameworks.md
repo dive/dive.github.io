@@ -1,8 +1,9 @@
 +++
 title = "Swift Package Manager builds iOS frameworks (Updated. Xcode 10.2 Beta)"
-publishDate = 2019-01-20T00:00:00+00:00
+publishDate = 2019-01-20T09:25:35Z
 categories = ["spm", "swift", "ios"]
 draft = false
+summary = "Swift Package Manager doesn't work with iOS. Probably, that's all you can say about the current state of SPM, but insomnia forced me to extend the answer to the following essay."
 +++
 
 Swift Package Manager doesn't work with iOS. Probably, that's all you can say about the current state of SPM, but insomnia forced me to extend the answer to the following essay.
@@ -43,7 +44,7 @@ Why will it not solve the problem with iOS support at all? Just read the ["This 
 [SE-0236](https://github.com/apple/swift-evolution/blob/master/proposals/0236-package-manager-platform-deployment-settings.md) was accepted and implemented in Swift 5, and Apple shipped it with the latest Xcode 10.2 beta. It means that you can specify an iOS as a deployment target for your packages with a simple line in your `Package.swift` file:
 
 ```swift
-platforms: [ .iOS(.v12) ]
+ platforms: [ .iOS(.v12) ]
 ```
 
 You can find an example in `xcode_10_2_beta` branch in the example [repository](https://github.com/dive/spm-ios-example/tree/xcode%5F10%5F2%5Fbeta). It is still a beta implementation, and you will have a lot of issues with `build` command, `run` doesn't work as well, but this is a step forward to support iOS finally.
@@ -58,7 +59,7 @@ So. If you try to search for solutions to build iOS frameworks with SPM on DuckD
 First of all, let's generate a template:
 
 ```bash
-swift package init --type library
+ swift package init --type library
 ```
 
 Now we have to convince SPM that we want an iOS project when it generates `xcodeproj`. How? With `xcconfig`, of course. Create a file `ios.xcconfig` and put it to `./Sources` folder. For example, let's start with a basic version:
@@ -79,12 +80,12 @@ TARGETED_DEVICE_FAMILY = 1, 2
 Looks good. Let's see what SPM thinks about it:
 
 ```bash
-swift package generate-xcodeproj --xcconfig-overrides ./Sources/ios.xcconfig
+ swift package generate-xcodeproj --xcconfig-overrides ./Sources/ios.xcconfig
 ```
 
 Did not know about `xcconfig-overrides`? Me either. It's a hidden and undocumented feature ([commit](https://github.com/apple/swift-package-manager/commit/713a3e603e6682fe431074617343eb05852d10c5)), thanks to [@Daniel Dunbar](https://github.com/ddunbar)! Time to ask Xcode what it thinks about it.
 
-{{< figure src="/ox-hugo/xcode_spm_build_results.png" >}}
+{{< figure src="/images/xcode_spm_build_results.png" >}}
 
 **Note**: You do not have to specify a custom `.xcconfig` file if you are using Xcode 10.2 Beta with Swift 5 Toolchain. Check the [branch](https://github.com/dive/spm-ios-example/tree/xcode%5F10%5F2%5Fbeta) for more details.
 
@@ -103,7 +104,7 @@ It doesn't. Due to this strange and suspicious `XCTestCaseEntry`. What is this? 
 And the `typealias` looks like this:
 
 ```swift
-public typealias XCTestCaseEntry = (testCaseClass: XCTestCase.Type, allTests: [(String, XCTestCaseClosure)])
+ public typealias XCTestCaseEntry = (testCaseClass: XCTestCase.Type, allTests: [(String, XCTestCaseClosure)])
 ```
 
 Why it doesn't work? The same:
@@ -126,7 +127,7 @@ public func allTests() -> [XCTestCaseEntry] {
 
 See this `&& !os(iOS)`? It's enough to continue our journey. Run Tests again and... We got what we need.
 
-{{< figure src="/ox-hugo/xcode_spm_test_results.png" >}}
+{{< figure src="/images/xcode_spm_test_results.png" >}}
 
 Then I created a simple iOS `ExampleApp` and added the generated `xcodeproj` as a dependency. Of course, I've added some iOS specific code to the framework:
 
@@ -204,7 +205,7 @@ swift build \
 Looks better. We built the binary:
 
 ```bash
-Compile Swift Module 'ios_framework_package' (1 sources)
+ Compile Swift Module 'ios_framework_package' (1 sources)
 ```
 
 Let's make some inspections, just to be sure that everything is fine:

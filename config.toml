@@ -2,10 +2,13 @@ baseURL = "http://justsitandgrin.net/"
 languageCode = "en-GB"
 title = "Just sit and grin"
 theme = "blank"
+copyright = "This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License."
 
 [params]
   AuthorName = "Artem Loenko"
   GitHubUser = "dive"
+  TwitterUser = "justsitandgrin"
+  LinkedInUser = "artemloenko"
   SidebarRecentLimit = 5
 
 [markup]
@@ -19,4 +22,4 @@ theme = "blank"
     noClasses = true
     style = "solarized-light"
     tabWidth = 4
-
+  

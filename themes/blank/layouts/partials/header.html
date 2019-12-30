@@ -1,12 +1,21 @@
 <header>
-	<a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
-	{{ with .Site.Menus.main }}
-	<nav>
-		<ul>
-			{{ range . }}
-			<li><a href="{{ .URL | relURL }}">{{ .Name }}</a></li>
-			{{ end }}
-		</ul>
-	</nav>
-	{{ end }}
+  <a href="{{ .Site.BaseURL }}">Home</a>
+  <a href="https://github.com/{{ .Site.Params.GitHubUser }}">GitHub</a>
+  <a href="https://twitter.com/{{ .Site.Params.TwitterUser }}">Twitter</a>
+  <a href="https://www.linkedin.com/in/{{ .Site.Params.LinkedInUser }}">LinkedIn</a>
+  <a href="{{ .Site.BaseURL }}index.xml">RSS</a>
+  {{ with .Site.Menus.main }}
+  <nav>
+    <ul>
+      {{ range . }}
+      <li><a href="{{ .URL | relURL }}">{{ .Name }}</a></li>
+      {{ end }}
+    </ul>
+  </nav>
+  {{ end }}
+  <hr/>
+
+  {{ with .OutputFormats.Get "rss" -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+  {{ end -}}
 </header>

@@ -1,8 +1,9 @@
 +++
 title = "Note: Xcode 10.2, macOS Mojave 10.14.4, iOS 12.1 and other betas"
-publishDate = 2019-01-22T00:00:00+00:00
+publishDate = 2019-01-22T22:30:12Z
 categories = ["apple", "ios", "xcode"]
 draft = false
+summary = "Quick overview of the recent betas from Apple. iOS centric."
 +++
 
 ## [Swift 5 for Xcode 10.2 beta](https://developer.apple.com/documentation/xcode%5Frelease%5Fnotes/xcode%5F10%5F2%5Frelease%5Fnotes/swift%5F5%5Frelease%5Fnotes%5Ffor%5Fxcode%5F10%5F2) {#swift-5-for-xcode-10-dot-2-beta}
@@ -99,15 +100,15 @@ There are a lot of new warnings for Apple Clang Compiler. And most of them are r
 
 First of all, how to turn them on: Goto to **Build Settings** for your application target, find **"Apple Clang - Custom Compiler Flags"** and put the desired flag to **"Other C Flags"**.
 
-{{< figure src="/ox-hugo/xcode_10_2_custom_compiler_flags.png" >}}
+{{< figure src="/images/xcode_10_2_custom_compiler_flags.png" >}}
 
 I tried to build an old, Objective C based application and found a lot of issues with private headers in public framework headers:
 
-{{< figure src="/ox-hugo/xcode_10_2_beta_clang_private_headers.png" >}}
+{{< figure src="/images/xcode_10_2_beta_clang_private_headers.png" >}}
 
 And some issues with double-quoted imports within frameworks:
 
-{{< figure src="/ox-hugo/xcode_10_2_beta_clang_double_quotes.png" >}}
+{{< figure src="/images/xcode_10_2_beta_clang_double_quotes.png" >}}
 
 I recommend you to run such diagnostics as well and, at least, create issues for your backlog. One day, all these problems will bring you a real headache.
 
@@ -129,9 +130,9 @@ Debugging got new features:
 
 <!--quoteend-->
 
-> > The view debugger presents a more compact 3D layout.
+> The view debugger presents a more compact 3D layout.
 
-{{< figure src="/ox-hugo/xcode_10_2_beta_view_debugger.png" >}}
+{{< figure src="/images/xcode_10_2_beta_view_debugger.png" >}}
 
 > Xcode can now automatically capture a memory graph if a memory resource exception is encountered while debugging. You can enable memory graph captures in the Diagnostics tab of the scheme’s run settings;
 
@@ -139,7 +140,7 @@ Debugging got new features:
 
 > On iOS and watchOS, Xcode shows the memory limit for running apps in the Memory Report as you approach the limit;
 
-{{< figure src="/ox-hugo/xcode_10_2_beta_memory_limit.png" >}}
+{{< figure src="/images/xcode_10_2_beta_memory_limit.png" >}}
 
 See this red line? Watchdog will send `applicationDidReceiveMemoryWarning(...)` when you reach the edge. I thought it would be more useful, to be honest. Like now looks like just a small nice improvement.
 
@@ -156,7 +157,7 @@ And LLDB Debugger got some love as well:
 
 I didn't notice any performance improvements, but `v` produces a better output in some cases but it's not a replacement for `po` in general, it's only about the current stack frame with some limitations. See the examples below.
 
-{{< figure src="/ox-hugo/xcode_10_2_beta_clang_v.png" >}}
+{{< figure src="/images/xcode_10_2_beta_clang_v.png" >}}
 
 
 ### Playgrounds {#playgrounds}
