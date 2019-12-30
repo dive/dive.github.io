@@ -3,6 +3,7 @@ languageCode = "en-GB"
 title = "Just sit and grin"
 theme = "blank"
 copyright = "This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License."
+GoogleAnalytics = "UA-155176206-1"
 
 [params]
   AuthorName = "Artem Loenko"
