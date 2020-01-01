@@ -1,0 +1,47 @@
+body {
+    font-family: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
+    font-size: 100%; 
+    line-height: 1.5;
+    width: 80%;
+    margin: 1% auto;
+}
+
+h1 {
+    margin: 1.0em 0 0.2em 0;
+}
+
+code {
+    font-family: Courier, Verdana, Monaco;
+    font-size: 0.85em;
+}
+
+p code, li code {
+    padding: 0 3px;
+    color: #268bd2;
+    /* background: #eee8d5; */
+}
+
+header a {
+    padding-right: 15px;
+}
+
+header a:link {
+    text-decoration: none;
+}
+
+time {
+    font-size: 0.9em;
+    color: slategray;
+}
+
+blockquote {
+    padding-left: 15px;
+    border-left: 2px solid silver;
+} 
+
+figure img {
+    width: 85%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
