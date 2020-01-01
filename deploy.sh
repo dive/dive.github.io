@@ -1,9 +1,9 @@
 #!/bin/sh -e
 
 echo "Removing the old website"
-pushd public
-git rm -rf *
-popd
+# pushd public
+# git rm -rf *
+# popd
 
 echo "Deploying updates to GitHub..."
 hugo -t blank
