@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Note: Xcode 10.2, macOS Mojave 10.14.4, iOS 12.1 and other betas</title>
+	
+	
+	<link rel="stylesheet" href="/css/style.css">
+	
+</head>
+<body>
+	<header>
+  <a href="http://justsitandgrin.net/">Home</a>
+  <a href="https://github.com/dive">GitHub</a>
+  <a href="https://twitter.com/justsitandgrin">Twitter</a>
+  <a href="https://www.linkedin.com/in/artemloenko">LinkedIn</a>
+  <a href="http://justsitandgrin.net/index.xml">RSS</a>
+  
+  <hr/>
+
+  </header>
+
+	
+	<main>
+		<article>
+			<h1>Note: Xcode 10.2, macOS Mojave 10.14.4, iOS 12.1 and other betas</h1>
+			<time>22.01.2019 22:30</time>
+			<div>
+				<h2 id="swift-5-for-xcode-10-dot-2-beta"><a href="https://developer.apple.com/documentation/xcode%5Frelease%5Fnotes/xcode%5F10%5F2%5Frelease%5Fnotes/swift%5F5%5Frelease%5Fnotes%5Ffor%5Fxcode%5F10%5F2">Swift 5 for Xcode 10.2 beta</a></h2>
+<h3 id="swift">Swift</h3>
+<p>First of all, the latest Xcode beta is bundled with the following Swift version:</p>
+<div class="highlight"><div style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Apple Swift version 5.0 (swiftlang-1001.0.45.7 clang-1001.0.37.7)
+Target: x86_64-apple-darwin18.2.0
+ABI version: 0.6
+</code></pre></td></tr></table>
+</div>
+</div><p>And let's start with the most exciting news:</p>
+<blockquote>
+<p>Swift apps no longer include dynamically linked libraries for the Swift standard library and Swift SDK overlays in build variants for devices running iOS 12.2, watchOS 5.2, and tvOS 12.2. As a result, Swift apps can be smaller when deployed for testing using TestFlight, or when thinning an app archive for local development distribution.</p>
+</blockquote>
+<p>Application Binary Interface stability is coming! And this is excellent news. I think this is the on of the most significant issues at the moment with Swift. Not because of side-effects but due to previously failed promises. Anyway, I even know people who rewrite their Apple Watch extensions to Objective C to reduce the size of binary (something like 15MB vs ~1MB in Objective C). If you want to know more about the state of ABI follow the links: <a href="https://swift.org/abi-stability/#data-layout">Swift - ABI Dashboard</a> and <a href="https://github.com/apple/swift/blob/master/docs/ABIStabilityManifesto.md">Swift ABI Stability Manifesto</a>.</p>
+<blockquote>
+<p>The <code>@dynamicCallable</code> attribute lets you call named types like you call functions using a simple syntactic sugar. The primary use case is dynamic language interoperability. (<a href="https://github.com/apple/swift-evolution/blob/master/proposals/0216-dynamic-callable.md">SE-0216</a>)</p>
+</blockquote>
+<p>Example:</p>
+<div class="highlight"><div style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">@<span style="color:#268bd2">dynamicCallable</span> <span style="color:#859900">struct</span> <span style="color:#cb4b16">ToyCallable</span> {
+    <span style="color:#859900">func</span> <span style="color:#268bd2">dynamicallyCall</span>(<span style="color:#268bd2">withArguments</span>: [<span style="color:#cb4b16">Int</span>]) {}
+    <span style="color:#859900">func</span> <span style="color:#268bd2">dynamicallyCall</span>(<span style="color:#268bd2">withKeywordArguments</span>: <span style="color:#268bd2">KeyValuePairs</span>&lt;<span style="color:#cb4b16">String</span>, <span style="color:#cb4b16">Int</span>&gt;) {}
+}
+
+<span style="color:#859900">let</span> <span style="color:#268bd2">x</span> = <span style="color:#268bd2">ToyCallable</span>()
+
+<span style="color:#268bd2">x</span>(<span style="color:#2aa198;font-weight:bold">1</span>, <span style="color:#2aa198;font-weight:bold">2</span>, <span style="color:#2aa198;font-weight:bold">3</span>)
+<span style="color:#93a1a1;font-style:italic">//</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">D</span><span style="color:#93a1a1;font-style:italic">e</span><span style="color:#93a1a1;font-style:italic">s</span><span style="color:#93a1a1;font-style:italic">u</span><span style="color:#93a1a1;font-style:italic">g</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">r</span><span style="color:#93a1a1;font-style:italic">s</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">t</span><span style="color:#93a1a1;font-style:italic">o</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">`</span><span style="color:#93a1a1;font-style:italic">x</span><span style="color:#93a1a1;font-style:italic">.</span><span style="color:#93a1a1;font-style:italic">d</span><span style="color:#93a1a1;font-style:italic">y</span><span style="color:#93a1a1;font-style:italic">n</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">m</span><span style="color:#93a1a1;font-style:italic">i</span><span style="color:#93a1a1;font-style:italic">c</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">y</span><span style="color:#93a1a1;font-style:italic">C</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">(</span><span style="color:#93a1a1;font-style:italic">w</span><span style="color:#93a1a1;font-style:italic">i</span><span style="color:#93a1a1;font-style:italic">t</span><span style="color:#93a1a1;font-style:italic">h</span><span style="color:#93a1a1;font-style:italic">A</span><span style="color:#93a1a1;font-style:italic">r</span><span style="color:#93a1a1;font-style:italic">g</span><span style="color:#93a1a1;font-style:italic">u</span><span style="color:#93a1a1;font-style:italic">m</span><span style="color:#93a1a1;font-style:italic">e</span><span style="color:#93a1a1;font-style:italic">n</span><span style="color:#93a1a1;font-style:italic">t</span><span style="color:#93a1a1;font-style:italic">s</span><span style="color:#93a1a1;font-style:italic">:</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">[</span><span style="color:#93a1a1;font-style:italic">1</span><span style="color:#93a1a1;font-style:italic">,</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">2</span><span style="color:#93a1a1;font-style:italic">,</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">3</span><span style="color:#93a1a1;font-style:italic">]</span><span style="color:#93a1a1;font-style:italic">)</span><span style="color:#93a1a1;font-style:italic">`</span>
+
+<span style="color:#268bd2">x</span>(<span style="color:#268bd2">label</span>: <span style="color:#2aa198;font-weight:bold">1</span>, <span style="color:#2aa198;font-weight:bold">2</span>)
+<span style="color:#93a1a1;font-style:italic">//</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">D</span><span style="color:#93a1a1;font-style:italic">e</span><span style="color:#93a1a1;font-style:italic">s</span><span style="color:#93a1a1;font-style:italic">u</span><span style="color:#93a1a1;font-style:italic">g</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">r</span><span style="color:#93a1a1;font-style:italic">s</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">t</span><span style="color:#93a1a1;font-style:italic">o</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">`</span><span style="color:#93a1a1;font-style:italic">x</span><span style="color:#93a1a1;font-style:italic">.</span><span style="color:#93a1a1;font-style:italic">d</span><span style="color:#93a1a1;font-style:italic">y</span><span style="color:#93a1a1;font-style:italic">n</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">m</span><span style="color:#93a1a1;font-style:italic">i</span><span style="color:#93a1a1;font-style:italic">c</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">y</span><span style="color:#93a1a1;font-style:italic">C</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">(</span><span style="color:#93a1a1;font-style:italic">w</span><span style="color:#93a1a1;font-style:italic">i</span><span style="color:#93a1a1;font-style:italic">t</span><span style="color:#93a1a1;font-style:italic">h</span><span style="color:#93a1a1;font-style:italic">K</span><span style="color:#93a1a1;font-style:italic">e</span><span style="color:#93a1a1;font-style:italic">y</span><span style="color:#93a1a1;font-style:italic">w</span><span style="color:#93a1a1;font-style:italic">o</span><span style="color:#93a1a1;font-style:italic">r</span><span style="color:#93a1a1;font-style:italic">d</span><span style="color:#93a1a1;font-style:italic">A</span><span style="color:#93a1a1;font-style:italic">r</span><span style="color:#93a1a1;font-style:italic">g</span><span style="color:#93a1a1;font-style:italic">u</span><span style="color:#93a1a1;font-style:italic">m</span><span style="color:#93a1a1;font-style:italic">e</span><span style="color:#93a1a1;font-style:italic">n</span><span style="color:#93a1a1;font-style:italic">t</span><span style="color:#93a1a1;font-style:italic">s</span><span style="color:#93a1a1;font-style:italic">:</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">[</span><span style="color:#93a1a1;font-style:italic">&#34;</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">b</span><span style="color:#93a1a1;font-style:italic">e</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">&#34;</span><span style="color:#93a1a1;font-style:italic">:</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">1</span><span style="color:#93a1a1;font-style:italic">,</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">&#34;</span><span style="color:#93a1a1;font-style:italic">&#34;</span><span style="color:#93a1a1;font-style:italic">:</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">2</span><span style="color:#93a1a1;font-style:italic">]</span><span style="color:#93a1a1;font-style:italic">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>This is a huge topic, and I have mixed feelings about the feature. So, it's better to read the <a href="https://www.hackingwithswift.com/articles/126/whats-new-in-swift-5-0">&ldquo;What’s new in Swift 5.0&rdquo;</a> post from Paul Hudson if you want to learn more about what is coming.</p>
+<blockquote>
+<p>Swift 3 mode has been removed. Supported values for the <code>-swift-version</code> flag are 4, 4.2, and 5.</p>
+</blockquote>
+<p>The time has come. Source compatibility with Swift 3 is no more. It was expected and announced with Swift 5 Roadmap, but still. I highly recommend you to refresh your memory with <a href="https://swift.org/blog/5-0-release-process/">&ldquo;Swift 5.0 Release Process&rdquo;</a> because Swift 5 is almost here. Be ready.</p>
+<blockquote>
+<p>In Swift 5 mode, switches over enumerations that are declared in Objective-C or that come from system frameworks are required to handle <strong>unknown cases</strong> — cases that might be added in the future, or that may be defined privately in an Objective-C implementation file. Formally, Objective-C allows storing any value in an enumeration as long as it fits in the underlying type. These unknown cases can be handled by using the new <code>@unknown default</code> case, which still provides warnings if any known cases are omitted from the switch. They can also be handled using a normal <code>default</code> case.</p>
+<p>If you’ve defined your own enumeration in Objective-C and you don’t need clients to handle unknown cases, you can use the <code>NS_CLOSED_ENUM</code> macro instead of <code>NS_ENUM</code>. The Swift compiler recognizes this and doesn’t require switches to have a default case.</p>
+<p>In Swift 4 and 4.2 modes, you can still use <code>@unknown default</code>. If you omit it and an unknown value is passed into the switch, the program traps at runtime, which is the same behavior as Swift 4.2 in Xcode 10.1. (<a href="https://github.com/apple/swift-evolution/blob/master/proposals/0192-non-exhaustive-enums.md">SE-0192</a>)</p>
+</blockquote>
+<p>It was, and it is a pain, especially if you prefer <strong>no default</strong> approach within `switches`. I remember the ugly workarounds for the new <code>.provisional</code> option of <code>UNAuthorizationOptions</code> property introduced in iOS 12. Now, with an unknown case it's much easier to handle such scenarios.</p>
+<h3 id="swift-package-manager">Swift Package Manager</h3>
+<blockquote>
+<p>Packages can now customize the minimum deployment target setting for Apple platforms when using the Swift 5 Package.swift tools-version. Building a package emits an error if any of the package dependencies of the package specify a minimum deployment target greater than the package’s own minimum deployment target. (<a href="https://github.com/apple/swift-evolution/blob/master/proposals/0236-package-manager-platform-deployment-settings.md">SE-0236</a>)</p>
+</blockquote>
+<p>The most important news to me related to Swift Package Manager. Technically, this change can solve a lot of issues that prevent SPM to be useful in the iOS world. In my previous article &ldquo;Swift Package Manager builds iOS frameworks&rdquo; I tried to analyse the current state of SPM in the context of iOS development. And it seems that I have to reevaluate my thoughts and conclusions now.</p>
+<p>There are some bad issues as well:</p>
+<blockquote>
+<p>Some projects might experience compile time regressions from previous releases;</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<blockquote>
+<p>Swift command line projects crash on launch with “dyld: Library not loaded” errors.
+<strong>Workaround</strong>: Add a user-defined build setting <code>SWIFT_FORCE_STATIC_LINK_STDLIB=YES</code>.</p>
+</blockquote>
+<p>There are a lot of resolved issues and other points in the <a href="https://developer.apple.com/documentation/xcode%5Frelease%5Fnotes/xcode%5F10%5F2%5Frelease%5Fnotes/swift%5F5%5Frelease%5Fnotes%5Ffor%5Fxcode%5F10%5F2">changelog</a> related to Swift 5, but they are specific to what you do. Check them, maybe you want to use inherit designated initialisers with variadic parameters, or you were blocked by the deadlock problem due to complex recursive type definitions involving classes and generics, or struggle with generic type alias within a <code>@objc</code> method.</p>
+<h2 id="xcode-10-dot-2-beta"><a href="https://developer.apple.com/documentation/xcode%5Frelease%5Fnotes/xcode%5F10%5F2%5Frelease%5Fnotes">Xcode 10.2 beta</a></h2>
+<h3 id="apple-clang-compiler">Apple Clang Compiler</h3>
+<p>There are a lot of new warnings for Apple Clang Compiler. And most of them are related to frameworks and modules. It's quite interesting because <!-- raw HTML omitted -->guesses begin<!-- raw HTML omitted --> it can be associated with Swift Package Manager integration as a dependency tool <!-- raw HTML omitted -->guesses end<!-- raw HTML omitted -->. The most important ones, as to me, are:</p>
+<blockquote>
+<p>A new diagnostic identifies framework headers that use quote includes instead of framework style includes. The warning is off by default but you can enable it by passing <code>-Wquoted-include-in-framework-header</code> to <code>clang</code>;</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<blockquote>
+<p>Public headers in a framework might mistakenly <code>#import</code> or <code>#include</code> private headers, which causes layering violations and potential module cycles. There’s a new diagnostic that reports such violations. It’s OFF by default in <code>clang</code> and is controlled by the <code>-Wframework-include-private-from-public</code> flag;</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<blockquote>
+<p>The use of <code>@import</code> in framework headers prevent headers being used without modules. A new diagnostic detects the use of <code>@import</code> in framework headers when you pass the <code>-fmodules</code> flag. The diagnostic is OFF by default in <code>clang</code> and is controlled using the <code>-Watimport-in-framework-header</code> flag;</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<blockquote>
+<p>Previously, omitting the <code>framework</code> keyword when declaring a module for a framework didn’t affect compilation but silently did the wrong thing. A new diagnostic, <code>-Wincomplete-framework-module-declaration</code>, and a new fix-it suggests adding the appropriate keyword. This warning is on by default when you pass the <code>-fmodules</code> flag to <code>clang</code>.</p>
+</blockquote>
+<p>First of all, how to turn them on: Goto to <strong>Build Settings</strong> for your application target, find <strong>&ldquo;Apple Clang - Custom Compiler Flags&rdquo;</strong> and put the desired flag to <strong>&ldquo;Other C Flags&rdquo;</strong>.</p>
+<figure>
+    <img src="/images/xcode_10_2_custom_compiler_flags.png"/> 
+</figure>
+
+<p>I tried to build an old, Objective C based application and found a lot of issues with private headers in public framework headers:</p>
+<figure>
+    <img src="/images/xcode_10_2_beta_clang_private_headers.png"/> 
+</figure>
+
+<p>And some issues with double-quoted imports within frameworks:</p>
+<figure>
+    <img src="/images/xcode_10_2_beta_clang_double_quotes.png"/> 
+</figure>
+
+<p>I recommend you to run such diagnostics as well and, at least, create issues for your backlog. One day, all these problems will bring you a real headache.</p>
+<h3 id="build-system">Build System</h3>
+<p>Also, there is a nice new Build System feature:</p>
+<blockquote>
+<p>Implicit Dependencies now supports finding dependencies in Other Linker Flags for linked frameworks and libraries specified with <code>-framework</code>, <code>-weak_framework</code>, <code>-reexport_framework</code>, <code>-lazy_framework</code>, <code>-weak-l</code>, <code>-reexport-l</code>, <code>-lazy-l</code>, and <code>-l</code>.</p>
+</blockquote>
+<p>It's intriguing as well. In general, it means that you can define your implicit dependencies via <code>.xcconfig</code> or even with <code>xcodebuild</code> options and avoid these Link / Embed phases within Xcode.</p>
+<h3 id="debugging">Debugging</h3>
+<p>Debugging got new features:</p>
+<blockquote>
+<p>UIStackView properties are now presented in the view debugger object inspector;</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<blockquote>
+<p>The view debugger presents a more compact 3D layout.</p>
+</blockquote>
+<figure>
+    <img src="/images/xcode_10_2_beta_view_debugger.png"/> 
+</figure>
+
+<blockquote>
+<p>Xcode can now automatically capture a memory graph if a memory resource exception is encountered while debugging. You can enable memory graph captures in the Diagnostics tab of the scheme’s run settings;</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<blockquote>
+<p>On iOS and watchOS, Xcode shows the memory limit for running apps in the Memory Report as you approach the limit;</p>
+</blockquote>
+<figure>
+    <img src="/images/xcode_10_2_beta_memory_limit.png"/> 
+</figure>
+
+<p>See this red line? Watchdog will send <code>applicationDidReceiveMemoryWarning(...)</code> when you reach the edge. I thought it would be more useful, to be honest. Like now looks like just a small nice improvement.</p>
+<h3 id="lldb-debugger">LLDB Debugger</h3>
+<p>And LLDB Debugger got some love as well:</p>
+<blockquote>
+<p>You can now use <code>$0</code>, <code>$1</code>, … shorthands in LLDB expression evaluation inside closures;</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<blockquote>
+<p>The LLDB debugger has a new command alias, <code>v</code>, for the “frame variable” command to print variables in the current stack frame. Because it bypasses the expression evaluator, <code>v</code> can be a lot faster and should be preferred over <code>p</code> or <code>po</code>.</p>
+</blockquote>
+<p>I didn't notice any performance improvements, but <code>v</code> produces a better output in some cases but it's not a replacement for <code>po</code> in general, it's only about the current stack frame with some limitations. See the examples below.</p>
+<figure>
+    <img src="/images/xcode_10_2_beta_clang_v.png"/> 
+</figure>
+
+<h3 id="playgrounds">Playgrounds</h3>
+<p>My favourite section - Playgrounds! Let's start with known issues:</p>
+<blockquote>
+<p>Playgrounds might not execute!</p>
+</blockquote>
+<p>Unfortunately, this is the only news about Playgrounds in the current beta.</p>
+<h3 id="simulator">Simulator</h3>
+<p>Some notes about Simulator:</p>
+<blockquote>
+<p>Siri <strong>doesn’t work</strong> in watchOS and iOS simulators;</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<blockquote>
+<p>Pasteboard synchronization between macOS and simulated iOS devices is more reliable;</p>
+</blockquote>
+<p>I really hope it does.</p>
+<blockquote>
+<p>You’re now only prompted once to authorize microphone access to all simulator devices</p>
+</blockquote>
+<p>This is a nice improvement because many people have issues with CI and build agents due to this problem. Now a workaround can be automated or, at least, we can update out guides to set up build agents with &ldquo;Run a simulator once&rdquo; step.</p>
+<h3 id="testing">Testing</h3>
+<blockquote>
+<p><code>xccov</code> supports merging multiple coverage reports—and their associated archives—together into an aggregate report and archive. When merging reports together, the aggregate report may be inaccurate for source files that changed in between the time that the original reports were generated. If there were no source changes, the aggregate report and archive will be accurate;</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<blockquote>
+<p><code>xccov</code> now supports diffing Xcode coverage reports, which can be used to calculate coverage changes over time. For example, to diff the coverage reports <code>before.xccovreport</code> and <code>after.xccovreport</code>, invoke <code>xccov</code> as follows: <code>xccov diff --json before.xccovreport after.xccovreport</code>;</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<blockquote>
+<p>Static library and framework targets now appear in the coverage report as top-level entries, with line coverage values that are aggregated across all targets that include the static library or framework. This also resolves an issue where the source files for a static library or framework target would be included in the coverage report even if the target itself was excluded from code coverage in the scheme.</p>
+</blockquote>
+<p>These are excellent news for Continuous Integration. Especially differing. Tell your release engineering team or anyone who is responsible for such things.</p>
+<p>Though, there are some limitations related to testing parallelisation:</p>
+<blockquote>
+<p>Recording doesn’t work from Clones when Parallelization is on;</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<blockquote>
+<p>Profiling tests don’t behave correctly when test parallelization is enabled;</p>
+</blockquote>
+<p>Also, there are some promising bug fixes:</p>
+<blockquote>
+<p>If testing fails due to the test runner crashing on launch, Xcode attempts to generate a rich error message that describes the failure. This failure is present in the test activity log and appears in <code>stdout</code> if you’re using <code>xcodebuild</code>. The error is also present in the structured logs contained in the result bundle.</p>
+</blockquote>
+<p>We have a lot of such issues, and usually, it's not clear at all what is happening. Sometimes, it's related to incorrect linking, sometimes to the system overload. It should help to reduce flakiness.</p>
+<blockquote>
+<p>Crash reports collected during testing no longer omit important fields such as the termination reason and description.</p>
+</blockquote>
+<p>No comments, just 😘 and 🥰.</p>
+<p>And the last one about Xcode, useful for companies with a lot of developers, Xcode now supports <a href="https://support.apple.com/en-gb/guide/mac-help/mchl9388ba1b/mac">macOS content caching service</a>. It means that you can have a caching server with Xcode application in your local network.</p>
+<h3 id="issues">Issues</h3>
+<p>I faced some problems with the beta. Mostly, with third-party tools. <code>carthage</code>, for example, doesn't work with the following error:</p>
+<div class="highlight"><div style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"> Could not find any available simulators for iOS
+</code></pre></td></tr></table>
+</div>
+</div><p>I checked the available simulator, and it seems that something is broken in the current beta; also it's impossible to download other runtimes from Xcode, the list of available simulators is just empty (a radar filled):</p>
+<div class="highlight"><div style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ xcrun simctl list devices --json | grep -A16 12.1
+    <span style="color:#2aa198">&#34;com.apple.CoreSimulator.SimRuntime.iOS-12-1&#34;</span> : [
+      {
+        <span style="color:#2aa198">&#34;availability&#34;</span> : <span style="color:#2aa198">&#34;(unavailable, runtime profile not found)&#34;</span>,
+        <span style="color:#2aa198">&#34;state&#34;</span> : <span style="color:#2aa198">&#34;Shutdown&#34;</span>,
+        <span style="color:#2aa198">&#34;isAvailable&#34;</span> : false,
+        <span style="color:#2aa198">&#34;name&#34;</span> : <span style="color:#2aa198">&#34;iPhone 5s&#34;</span>,
+        <span style="color:#2aa198">&#34;udid&#34;</span> : <span style="color:#2aa198">&#34;DDD36346-A76F-42E8-80F4-6F11E1EE4BEB&#34;</span>,
+        <span style="color:#2aa198">&#34;availabilityError&#34;</span> : <span style="color:#2aa198">&#34;runtime profile not found&#34;</span>
+      },
+      {
+        <span style="color:#2aa198">&#34;availability&#34;</span> : <span style="color:#2aa198">&#34;(unavailable, runtime profile not found)&#34;</span>,
+        <span style="color:#2aa198">&#34;state&#34;</span> : <span style="color:#2aa198">&#34;Shutdown&#34;</span>,
+        <span style="color:#2aa198">&#34;isAvailable&#34;</span> : false,
+        <span style="color:#2aa198">&#34;name&#34;</span> : <span style="color:#2aa198">&#34;iPhone 6&#34;</span>,
+        <span style="color:#2aa198">&#34;udid&#34;</span> : <span style="color:#2aa198">&#34;21794717-BC89-45E4-9F57-8CF9D14A87D1&#34;</span>,
+        <span style="color:#2aa198">&#34;availabilityError&#34;</span> : <span style="color:#2aa198">&#34;runtime profile not found&#34;</span>
+      },
+...
+</code></pre></td></tr></table>
+</div>
+</div><p>It is a beta. And the changelog is enormous. Be patience and reasonable :)</p>
+<h2 id="ios-12-dot-2-beta">iOS 12.2 beta</h2>
+<p>Okay. It seems like they are polishing their tech-debt and applying security patches. Two things are broken:</p>
+<blockquote>
+<p>You might be unable to authenticate within Wallet after selecting a card;</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<blockquote>
+<p>You might be unable to purchase a prepaid data plan using cellular data.</p>
+</blockquote>
+<p>And <strong>Apple News will be available in Canada</strong>.</p>
+<p>Stay tuned.</p>
+<h2 id="macos-mojave-10-dot-14-dot-4-beta">macOS Mojave 10.14.4 beta</h2>
+<p>The only new thing here is a potential issue with Safari 12.1 after upgrading from Safari 10.1.2:</p>
+<blockquote>
+<p>After updating to Safari 12.1 from Safari 10.1.2, web pages might not display. (47335741)
+Workaround: Run the following command in Terminal:
+<code>defaults delete com.apple.Safari</code></p>
+</blockquote>
+<p>With the following consequences:</p>
+<blockquote>
+<p><strong>Warning:</strong> You will lose your previous Safari settings after running the command above.</p>
+</blockquote>
+<h2 id="final-cut">Final cut</h2>
+<p>The article turned out to be much longer than I imagined. So, I put all my thoughts among all the sections above. The short version of the article is - Swift 5 is here!</p>
+<p>Stay tuned and hydrated! And thanks for reading.</p>
+
+			</div>
+			
+			<div>
+				
+			</div>
+		</article>
+	</main>
+<aside>
+	<div>
+		<div>
+			<h3>LATEST POSTS</h3>
+		</div>
+		<div>
+			<ul>
+				
+				<li><a href="/posts/xcode_macos_ios_betas/">Note: Xcode 10.2, macOS Mojave 10.14.4, iOS 12.1 and other betas</a></li>
+				
+				<li><a href="/posts/swift_package_manager_builds_ios_frameworks/">Swift Package Manager builds iOS frameworks (Updated. Xcode 10.2 Beta)</a></li>
+				
+			</ul>
+		</div>
+	</div>
+</aside>
+
+
+	<footer>
+	<p>&copy; 2020 <a href="http://justsitandgrin.net/">Just sit and grin</a></p>
+</footer>
+
+</body>
+</html>
