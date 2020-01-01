@@ -1,15 +1,16 @@
 #!/bin/sh -e
 
-printf "Deploying updates to GitHub..."
+echo "Removing the old website"
+pushd public
+git rm -rf *
+popd
 
+echo "Deploying updates to GitHub..."
 hugo -t blank
 
-cd public
+pushd public
 git add .
-msg="rebuilding site $(date)"
-if [ -n "$*" ]; then
-	msg="$*"
-fi
-git commit -m "$msg"
+git commit -m "rebuilding site $(date)"
+popd
 
 git push origin master
