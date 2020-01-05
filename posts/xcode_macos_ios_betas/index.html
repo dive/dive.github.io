@@ -129,7 +129,7 @@ ABI version: 0.6
 <blockquote>
 <p>Some projects might experience compile time regressions from previous releases;</p>
 </blockquote>
-<!-- raw HTML omitted -->
+<!--quoteend-->
 <blockquote>
 <p>Swift command line projects crash on launch with “dyld: Library not loaded” errors.
 <strong>Workaround</strong>: Add a user-defined build setting <code>SWIFT_FORCE_STATIC_LINK_STDLIB=YES</code>.</p>
@@ -137,19 +137,19 @@ ABI version: 0.6
 <p>There are a lot of resolved issues and other points in the <a href="https://developer.apple.com/documentation/xcode%5Frelease%5Fnotes/xcode%5F10%5F2%5Frelease%5Fnotes/swift%5F5%5Frelease%5Fnotes%5Ffor%5Fxcode%5F10%5F2">changelog</a> related to Swift 5, but they are specific to what you do. Check them, maybe you want to use inherit designated initialisers with variadic parameters, or you were blocked by the deadlock problem due to complex recursive type definitions involving classes and generics, or struggle with generic type alias within a <code>@objc</code> method.</p>
 <h2 id="xcode-10-dot-2-beta"><a href="https://developer.apple.com/documentation/xcode%5Frelease%5Fnotes/xcode%5F10%5F2%5Frelease%5Fnotes">Xcode 10.2 beta</a></h2>
 <h3 id="apple-clang-compiler">Apple Clang Compiler</h3>
-<p>There are a lot of new warnings for Apple Clang Compiler. And most of them are related to frameworks and modules. It's quite interesting because <!-- raw HTML omitted -->guesses begin<!-- raw HTML omitted --> it can be associated with Swift Package Manager integration as a dependency tool <!-- raw HTML omitted -->guesses end<!-- raw HTML omitted -->. The most important ones, as to me, are:</p>
+<p>There are a lot of new warnings for Apple Clang Compiler. And most of them are related to frameworks and modules. It's quite interesting because <span class="underline">guesses begin</span> it can be associated with Swift Package Manager integration as a dependency tool <span class="underline">guesses end</span>. The most important ones, as to me, are:</p>
 <blockquote>
 <p>A new diagnostic identifies framework headers that use quote includes instead of framework style includes. The warning is off by default but you can enable it by passing <code>-Wquoted-include-in-framework-header</code> to <code>clang</code>;</p>
 </blockquote>
-<!-- raw HTML omitted -->
+<!--quoteend-->
 <blockquote>
 <p>Public headers in a framework might mistakenly <code>#import</code> or <code>#include</code> private headers, which causes layering violations and potential module cycles. There’s a new diagnostic that reports such violations. It’s OFF by default in <code>clang</code> and is controlled by the <code>-Wframework-include-private-from-public</code> flag;</p>
 </blockquote>
-<!-- raw HTML omitted -->
+<!--quoteend-->
 <blockquote>
 <p>The use of <code>@import</code> in framework headers prevent headers being used without modules. A new diagnostic detects the use of <code>@import</code> in framework headers when you pass the <code>-fmodules</code> flag. The diagnostic is OFF by default in <code>clang</code> and is controlled using the <code>-Watimport-in-framework-header</code> flag;</p>
 </blockquote>
-<!-- raw HTML omitted -->
+<!--quoteend-->
 <blockquote>
 <p>Previously, omitting the <code>framework</code> keyword when declaring a module for a framework didn’t affect compilation but silently did the wrong thing. A new diagnostic, <code>-Wincomplete-framework-module-declaration</code>, and a new fix-it suggests adding the appropriate keyword. This warning is on by default when you pass the <code>-fmodules</code> flag to <code>clang</code>.</p>
 </blockquote>
@@ -180,7 +180,7 @@ ABI version: 0.6
 <blockquote>
 <p>UIStackView properties are now presented in the view debugger object inspector;</p>
 </blockquote>
-<!-- raw HTML omitted -->
+<!--quoteend-->
 <blockquote>
 <p>The view debugger presents a more compact 3D layout.</p>
 </blockquote>
@@ -191,7 +191,7 @@ ABI version: 0.6
 <blockquote>
 <p>Xcode can now automatically capture a memory graph if a memory resource exception is encountered while debugging. You can enable memory graph captures in the Diagnostics tab of the scheme’s run settings;</p>
 </blockquote>
-<!-- raw HTML omitted -->
+<!--quoteend-->
 <blockquote>
 <p>On iOS and watchOS, Xcode shows the memory limit for running apps in the Memory Report as you approach the limit;</p>
 </blockquote>
@@ -205,7 +205,7 @@ ABI version: 0.6
 <blockquote>
 <p>You can now use <code>$0</code>, <code>$1</code>, … shorthands in LLDB expression evaluation inside closures;</p>
 </blockquote>
-<!-- raw HTML omitted -->
+<!--quoteend-->
 <blockquote>
 <p>The LLDB debugger has a new command alias, <code>v</code>, for the “frame variable” command to print variables in the current stack frame. Because it bypasses the expression evaluator, <code>v</code> can be a lot faster and should be preferred over <code>p</code> or <code>po</code>.</p>
 </blockquote>
@@ -225,7 +225,7 @@ ABI version: 0.6
 <blockquote>
 <p>Siri <strong>doesn’t work</strong> in watchOS and iOS simulators;</p>
 </blockquote>
-<!-- raw HTML omitted -->
+<!--quoteend-->
 <blockquote>
 <p>Pasteboard synchronization between macOS and simulated iOS devices is more reliable;</p>
 </blockquote>
@@ -238,11 +238,11 @@ ABI version: 0.6
 <blockquote>
 <p><code>xccov</code> supports merging multiple coverage reports—and their associated archives—together into an aggregate report and archive. When merging reports together, the aggregate report may be inaccurate for source files that changed in between the time that the original reports were generated. If there were no source changes, the aggregate report and archive will be accurate;</p>
 </blockquote>
-<!-- raw HTML omitted -->
+<!--quoteend-->
 <blockquote>
 <p><code>xccov</code> now supports diffing Xcode coverage reports, which can be used to calculate coverage changes over time. For example, to diff the coverage reports <code>before.xccovreport</code> and <code>after.xccovreport</code>, invoke <code>xccov</code> as follows: <code>xccov diff --json before.xccovreport after.xccovreport</code>;</p>
 </blockquote>
-<!-- raw HTML omitted -->
+<!--quoteend-->
 <blockquote>
 <p>Static library and framework targets now appear in the coverage report as top-level entries, with line coverage values that are aggregated across all targets that include the static library or framework. This also resolves an issue where the source files for a static library or framework target would be included in the coverage report even if the target itself was excluded from code coverage in the scheme.</p>
 </blockquote>
@@ -251,7 +251,7 @@ ABI version: 0.6
 <blockquote>
 <p>Recording doesn’t work from Clones when Parallelization is on;</p>
 </blockquote>
-<!-- raw HTML omitted -->
+<!--quoteend-->
 <blockquote>
 <p>Profiling tests don’t behave correctly when test parallelization is enabled;</p>
 </blockquote>
@@ -328,7 +328,7 @@ Could not find any available simulators <span style="color:#a90d91">for</span> i
 <blockquote>
 <p>You might be unable to authenticate within Wallet after selecting a card;</p>
 </blockquote>
-<!-- raw HTML omitted -->
+<!--quoteend-->
 <blockquote>
 <p>You might be unable to purchase a prepaid data plan using cellular data.</p>
 </blockquote>
@@ -367,6 +367,8 @@ Workaround: Run the following command in Terminal:
 		</div>
 		<div>
 			<ul>
+				
+				<li><a href="/posts/emojis_over_time/">Emojis over time</a></li>
 				
 				<li><a href="/posts/xcode_macos_ios_betas/">Note: Xcode 10.2, macOS Mojave 10.14.4, iOS 12.1 and other betas</a></li>
 				

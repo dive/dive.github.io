@@ -4,31 +4,46 @@
   
   <url>
     <loc>http://justsitandgrin.net/categories/article/</loc>
-    <lastmod>2020-01-05T00:12:36+00:00</lastmod>
+    <lastmod>2020-01-05T16:35:31+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://justsitandgrin.net/categories/</loc>
-    <lastmod>2020-01-05T00:12:36+00:00</lastmod>
+    <lastmod>2020-01-05T16:35:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://justsitandgrin.net/tags/emoji/</loc>
+    <lastmod>2020-01-05T16:35:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://justsitandgrin.net/posts/emojis_over_time/</loc>
+    <lastmod>2020-01-05T16:35:31+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://justsitandgrin.net/tags/ios/</loc>
-    <lastmod>2020-01-05T00:12:36+00:00</lastmod>
+    <lastmod>2020-01-05T16:35:31+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://justsitandgrin.net/</loc>
-    <lastmod>2020-01-05T00:12:36+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://justsitandgrin.net/posts/xcode_macos_ios_betas/</loc>
-    <lastmod>2020-01-05T00:12:36+00:00</lastmod>
+    <lastmod>2020-01-05T16:35:31+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://justsitandgrin.net/posts/</loc>
+    <lastmod>2020-01-05T16:35:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://justsitandgrin.net/tags/</loc>
+    <lastmod>2020-01-05T16:35:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://justsitandgrin.net/posts/xcode_macos_ios_betas/</loc>
     <lastmod>2020-01-05T00:12:36+00:00</lastmod>
   </url>
   
@@ -44,11 +59,6 @@
   
   <url>
     <loc>http://justsitandgrin.net/posts/swift_package_manager_builds_ios_frameworks/</loc>
-    <lastmod>2020-01-05T00:12:36+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://justsitandgrin.net/tags/</loc>
     <lastmod>2020-01-05T00:12:36+00:00</lastmod>
   </url>
   

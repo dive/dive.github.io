@@ -431,7 +431,7 @@ _symbolic ____ 21ios_framework_package16FrameworkPackageC
 </div>
 </div><p><code>lipo</code> is a bit useless in this case because we were building for a simulator, but <code>nm</code> shows everything we need to know - iOS frameworks symbols are available. Unfortunately, <code>swift build</code> doesn't produce <code>.framework</code> by default. I think it's doable even in this case but let's postpone it &lsquo;till next time&rsquo;.</p>
 <h2 id="epilogue-swift-test">Epilogue: swift test</h2>
-<p>And the final call. We already have one unit-test for our package, it uses <code>UIKit</code>, and I would mark this experiment as successful if we can run the test target with <code>swift test</code>. It's almost impossible, though, because usually, unit-tests for simulator have to spawn to a simulator process. I do not think that it's even possible for <!-- raw HTML omitted -->an actual<!-- raw HTML omitted --> iOS project. Anyway.</p>
+<p>And the final call. We already have one unit-test for our package, it uses <code>UIKit</code>, and I would mark this experiment as successful if we can run the test target with <code>swift test</code>. It's almost impossible, though, because usually, unit-tests for simulator have to spawn to a simulator process. I do not think that it's even possible for <span class="underline">an actual</span> iOS project. Anyway.</p>
 <div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -620,6 +620,8 @@ xctest<span style="color:#000">[</span>18838:9855653<span style="color:#000">]</
 		</div>
 		<div>
 			<ul>
+				
+				<li><a href="/posts/emojis_over_time/">Emojis over time</a></li>
 				
 				<li><a href="/posts/xcode_macos_ios_betas/">Note: Xcode 10.2, macOS Mojave 10.14.4, iOS 12.1 and other betas</a></li>
 				
