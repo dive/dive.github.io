@@ -30,32 +30,42 @@
 </head>
 <body>
 	<header>
-  <a href="http://justsitandgrin.net/">Home</a>
-  <a href="https://github.com/dive">GitHub</a>
-  <a href="https://twitter.com/justsitandgrin">Twitter</a>
-  <a href="https://www.linkedin.com/in/artemloenko">LinkedIn</a>
-  <a href="http://justsitandgrin.net/index.xml">RSS</a>
+  <div id="header-container">
+    <div>
+      <span>
+        <a href="http://justsitandgrin.net/">Home</a>
+        <a href="http://justsitandgrin.net/index.xml">RSS</a>
+        
+      </span>
+    </div>
+    <div>
+      <span>
+        <a href="https://github.com/dive">GitHub</a>
+        <a href="https://twitter.com/justsitandgrin">Twitter</a>
+        <a href="https://www.linkedin.com/in/artemloenko">LinkedIn</a>
+      </span>
+    </div>
+  </div>
   
-  <hr/>
 </header>
 
 	
 	<main>
 		<article>
 			<h1>Note: Xcode 10.2, macOS Mojave 10.14.4, iOS 12.1 and other betas</h1>
-			<time>22.01.2019 22:30</time>
+			<time>22.01.2019 23:09</time>
 			<div>
 				<h2 id="swift-5-for-xcode-10-dot-2-beta"><a href="https://developer.apple.com/documentation/xcode%5Frelease%5Fnotes/xcode%5F10%5F2%5Frelease%5Fnotes/swift%5F5%5Frelease%5Fnotes%5Ffor%5Fxcode%5F10%5F2">Swift 5 for Xcode 10.2 beta</a></h2>
 <h3 id="swift">Swift</h3>
 <p>First of all, the latest Xcode beta is bundled with the following Swift version:</p>
-<div class="highlight"><div style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Apple Swift version 5.0 (swiftlang-1001.0.45.7 clang-1001.0.37.7)
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Apple Swift version 5.0 <span style="color:#000">(</span>swiftlang-1001.0.45.7 clang-1001.0.37.7<span style="color:#000">)</span>
 Target: x86_64-apple-darwin18.2.0
 ABI version: 0.6
 </code></pre></td></tr></table>
@@ -69,9 +79,9 @@ ABI version: 0.6
 <p>The <code>@dynamicCallable</code> attribute lets you call named types like you call functions using a simple syntactic sugar. The primary use case is dynamic language interoperability. (<a href="https://github.com/apple/swift-evolution/blob/master/proposals/0216-dynamic-callable.md">SE-0216</a>)</p>
 </blockquote>
 <p>Example:</p>
-<div class="highlight"><div style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
@@ -85,18 +95,18 @@ ABI version: 0.6
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">@<span style="color:#268bd2">dynamicCallable</span> <span style="color:#859900">struct</span> <span style="color:#cb4b16">ToyCallable</span> {
-    <span style="color:#859900">func</span> <span style="color:#268bd2">dynamicallyCall</span>(<span style="color:#268bd2">withArguments</span>: [<span style="color:#cb4b16">Int</span>]) {}
-    <span style="color:#859900">func</span> <span style="color:#268bd2">dynamicallyCall</span>(<span style="color:#268bd2">withKeywordArguments</span>: <span style="color:#268bd2">KeyValuePairs</span>&lt;<span style="color:#cb4b16">String</span>, <span style="color:#cb4b16">Int</span>&gt;) {}
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">@<span style="color:#000">dynamicCallable</span> <span style="color:#a90d91">struct</span> <span style="color:#3f6e75">ToyCallable</span> {
+    <span style="color:#a90d91">func</span> <span style="color:#000">dynamicallyCall</span>(<span style="color:#000">withArguments</span>: [<span style="color:#a90d91">Int</span>]) {}
+    <span style="color:#a90d91">func</span> <span style="color:#000">dynamicallyCall</span>(<span style="color:#000">withKeywordArguments</span>: <span style="color:#000">KeyValuePairs</span>&lt;<span style="color:#a90d91">String</span>, <span style="color:#a90d91">Int</span>&gt;) {}
 }
 
-<span style="color:#859900">let</span> <span style="color:#268bd2">x</span> = <span style="color:#268bd2">ToyCallable</span>()
+<span style="color:#a90d91">let</span> <span style="color:#000">x</span> = <span style="color:#000">ToyCallable</span>()
 
-<span style="color:#268bd2">x</span>(<span style="color:#2aa198;font-weight:bold">1</span>, <span style="color:#2aa198;font-weight:bold">2</span>, <span style="color:#2aa198;font-weight:bold">3</span>)
-<span style="color:#93a1a1;font-style:italic">//</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">D</span><span style="color:#93a1a1;font-style:italic">e</span><span style="color:#93a1a1;font-style:italic">s</span><span style="color:#93a1a1;font-style:italic">u</span><span style="color:#93a1a1;font-style:italic">g</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">r</span><span style="color:#93a1a1;font-style:italic">s</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">t</span><span style="color:#93a1a1;font-style:italic">o</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">`</span><span style="color:#93a1a1;font-style:italic">x</span><span style="color:#93a1a1;font-style:italic">.</span><span style="color:#93a1a1;font-style:italic">d</span><span style="color:#93a1a1;font-style:italic">y</span><span style="color:#93a1a1;font-style:italic">n</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">m</span><span style="color:#93a1a1;font-style:italic">i</span><span style="color:#93a1a1;font-style:italic">c</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">y</span><span style="color:#93a1a1;font-style:italic">C</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">(</span><span style="color:#93a1a1;font-style:italic">w</span><span style="color:#93a1a1;font-style:italic">i</span><span style="color:#93a1a1;font-style:italic">t</span><span style="color:#93a1a1;font-style:italic">h</span><span style="color:#93a1a1;font-style:italic">A</span><span style="color:#93a1a1;font-style:italic">r</span><span style="color:#93a1a1;font-style:italic">g</span><span style="color:#93a1a1;font-style:italic">u</span><span style="color:#93a1a1;font-style:italic">m</span><span style="color:#93a1a1;font-style:italic">e</span><span style="color:#93a1a1;font-style:italic">n</span><span style="color:#93a1a1;font-style:italic">t</span><span style="color:#93a1a1;font-style:italic">s</span><span style="color:#93a1a1;font-style:italic">:</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">[</span><span style="color:#93a1a1;font-style:italic">1</span><span style="color:#93a1a1;font-style:italic">,</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">2</span><span style="color:#93a1a1;font-style:italic">,</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">3</span><span style="color:#93a1a1;font-style:italic">]</span><span style="color:#93a1a1;font-style:italic">)</span><span style="color:#93a1a1;font-style:italic">`</span>
+<span style="color:#000">x</span>(<span style="color:#1c01ce">1</span>, <span style="color:#1c01ce">2</span>, <span style="color:#1c01ce">3</span>)
+<span style="color:#177500">//</span><span style="color:#177500"> </span><span style="color:#177500">D</span><span style="color:#177500">e</span><span style="color:#177500">s</span><span style="color:#177500">u</span><span style="color:#177500">g</span><span style="color:#177500">a</span><span style="color:#177500">r</span><span style="color:#177500">s</span><span style="color:#177500"> </span><span style="color:#177500">t</span><span style="color:#177500">o</span><span style="color:#177500"> </span><span style="color:#177500">`</span><span style="color:#177500">x</span><span style="color:#177500">.</span><span style="color:#177500">d</span><span style="color:#177500">y</span><span style="color:#177500">n</span><span style="color:#177500">a</span><span style="color:#177500">m</span><span style="color:#177500">i</span><span style="color:#177500">c</span><span style="color:#177500">a</span><span style="color:#177500">l</span><span style="color:#177500">l</span><span style="color:#177500">y</span><span style="color:#177500">C</span><span style="color:#177500">a</span><span style="color:#177500">l</span><span style="color:#177500">l</span><span style="color:#177500">(</span><span style="color:#177500">w</span><span style="color:#177500">i</span><span style="color:#177500">t</span><span style="color:#177500">h</span><span style="color:#177500">A</span><span style="color:#177500">r</span><span style="color:#177500">g</span><span style="color:#177500">u</span><span style="color:#177500">m</span><span style="color:#177500">e</span><span style="color:#177500">n</span><span style="color:#177500">t</span><span style="color:#177500">s</span><span style="color:#177500">:</span><span style="color:#177500"> </span><span style="color:#177500">[</span><span style="color:#177500">1</span><span style="color:#177500">,</span><span style="color:#177500"> </span><span style="color:#177500">2</span><span style="color:#177500">,</span><span style="color:#177500"> </span><span style="color:#177500">3</span><span style="color:#177500">]</span><span style="color:#177500">)</span><span style="color:#177500">`</span>
 
-<span style="color:#268bd2">x</span>(<span style="color:#268bd2">label</span>: <span style="color:#2aa198;font-weight:bold">1</span>, <span style="color:#2aa198;font-weight:bold">2</span>)
-<span style="color:#93a1a1;font-style:italic">//</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">D</span><span style="color:#93a1a1;font-style:italic">e</span><span style="color:#93a1a1;font-style:italic">s</span><span style="color:#93a1a1;font-style:italic">u</span><span style="color:#93a1a1;font-style:italic">g</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">r</span><span style="color:#93a1a1;font-style:italic">s</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">t</span><span style="color:#93a1a1;font-style:italic">o</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">`</span><span style="color:#93a1a1;font-style:italic">x</span><span style="color:#93a1a1;font-style:italic">.</span><span style="color:#93a1a1;font-style:italic">d</span><span style="color:#93a1a1;font-style:italic">y</span><span style="color:#93a1a1;font-style:italic">n</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">m</span><span style="color:#93a1a1;font-style:italic">i</span><span style="color:#93a1a1;font-style:italic">c</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">y</span><span style="color:#93a1a1;font-style:italic">C</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">(</span><span style="color:#93a1a1;font-style:italic">w</span><span style="color:#93a1a1;font-style:italic">i</span><span style="color:#93a1a1;font-style:italic">t</span><span style="color:#93a1a1;font-style:italic">h</span><span style="color:#93a1a1;font-style:italic">K</span><span style="color:#93a1a1;font-style:italic">e</span><span style="color:#93a1a1;font-style:italic">y</span><span style="color:#93a1a1;font-style:italic">w</span><span style="color:#93a1a1;font-style:italic">o</span><span style="color:#93a1a1;font-style:italic">r</span><span style="color:#93a1a1;font-style:italic">d</span><span style="color:#93a1a1;font-style:italic">A</span><span style="color:#93a1a1;font-style:italic">r</span><span style="color:#93a1a1;font-style:italic">g</span><span style="color:#93a1a1;font-style:italic">u</span><span style="color:#93a1a1;font-style:italic">m</span><span style="color:#93a1a1;font-style:italic">e</span><span style="color:#93a1a1;font-style:italic">n</span><span style="color:#93a1a1;font-style:italic">t</span><span style="color:#93a1a1;font-style:italic">s</span><span style="color:#93a1a1;font-style:italic">:</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">[</span><span style="color:#93a1a1;font-style:italic">&#34;</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">a</span><span style="color:#93a1a1;font-style:italic">b</span><span style="color:#93a1a1;font-style:italic">e</span><span style="color:#93a1a1;font-style:italic">l</span><span style="color:#93a1a1;font-style:italic">&#34;</span><span style="color:#93a1a1;font-style:italic">:</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">1</span><span style="color:#93a1a1;font-style:italic">,</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">&#34;</span><span style="color:#93a1a1;font-style:italic">&#34;</span><span style="color:#93a1a1;font-style:italic">:</span><span style="color:#93a1a1;font-style:italic"> </span><span style="color:#93a1a1;font-style:italic">2</span><span style="color:#93a1a1;font-style:italic">]</span><span style="color:#93a1a1;font-style:italic">)</span>
+<span style="color:#000">x</span>(<span style="color:#000">label</span>: <span style="color:#1c01ce">1</span>, <span style="color:#1c01ce">2</span>)
+<span style="color:#177500">//</span><span style="color:#177500"> </span><span style="color:#177500">D</span><span style="color:#177500">e</span><span style="color:#177500">s</span><span style="color:#177500">u</span><span style="color:#177500">g</span><span style="color:#177500">a</span><span style="color:#177500">r</span><span style="color:#177500">s</span><span style="color:#177500"> </span><span style="color:#177500">t</span><span style="color:#177500">o</span><span style="color:#177500"> </span><span style="color:#177500">`</span><span style="color:#177500">x</span><span style="color:#177500">.</span><span style="color:#177500">d</span><span style="color:#177500">y</span><span style="color:#177500">n</span><span style="color:#177500">a</span><span style="color:#177500">m</span><span style="color:#177500">i</span><span style="color:#177500">c</span><span style="color:#177500">a</span><span style="color:#177500">l</span><span style="color:#177500">l</span><span style="color:#177500">y</span><span style="color:#177500">C</span><span style="color:#177500">a</span><span style="color:#177500">l</span><span style="color:#177500">l</span><span style="color:#177500">(</span><span style="color:#177500">w</span><span style="color:#177500">i</span><span style="color:#177500">t</span><span style="color:#177500">h</span><span style="color:#177500">K</span><span style="color:#177500">e</span><span style="color:#177500">y</span><span style="color:#177500">w</span><span style="color:#177500">o</span><span style="color:#177500">r</span><span style="color:#177500">d</span><span style="color:#177500">A</span><span style="color:#177500">r</span><span style="color:#177500">g</span><span style="color:#177500">u</span><span style="color:#177500">m</span><span style="color:#177500">e</span><span style="color:#177500">n</span><span style="color:#177500">t</span><span style="color:#177500">s</span><span style="color:#177500">:</span><span style="color:#177500"> </span><span style="color:#177500">[</span><span style="color:#177500">&#34;</span><span style="color:#177500">l</span><span style="color:#177500">a</span><span style="color:#177500">b</span><span style="color:#177500">e</span><span style="color:#177500">l</span><span style="color:#177500">&#34;</span><span style="color:#177500">:</span><span style="color:#177500"> </span><span style="color:#177500">1</span><span style="color:#177500">,</span><span style="color:#177500"> </span><span style="color:#177500">&#34;</span><span style="color:#177500">&#34;</span><span style="color:#177500">:</span><span style="color:#177500"> </span><span style="color:#177500">2</span><span style="color:#177500">]</span><span style="color:#177500">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>This is a huge topic, and I have mixed feelings about the feature. So, it's better to read the <a href="https://www.hackingwithswift.com/articles/126/whats-new-in-swift-5-0">&ldquo;What’s new in Swift 5.0&rdquo;</a> post from Paul Hudson if you want to learn more about what is coming.</p>
@@ -257,18 +267,20 @@ ABI version: 0.6
 <p>And the last one about Xcode, useful for companies with a lot of developers, Xcode now supports <a href="https://support.apple.com/en-gb/guide/mac-help/mchl9388ba1b/mac">macOS content caching service</a>. It means that you can have a caching server with Xcode application in your local network.</p>
 <h3 id="issues">Issues</h3>
 <p>I faced some problems with the beta. Mostly, with third-party tools. <code>carthage</code>, for example, doesn't work with the following error:</p>
-<div class="highlight"><div style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"> Could not find any available simulators for iOS
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">...
+Could not find any available simulators <span style="color:#a90d91">for</span> iOS
 </code></pre></td></tr></table>
 </div>
 </div><p>I checked the available simulator, and it seems that something is broken in the current beta; also it's impossible to download other runtimes from Xcode, the list of available simulators is just empty (a radar filled):</p>
-<div class="highlight"><div style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
@@ -289,24 +301,24 @@ ABI version: 0.6
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ xcrun simctl list devices --json | grep -A16 12.1
-    <span style="color:#2aa198">&#34;com.apple.CoreSimulator.SimRuntime.iOS-12-1&#34;</span> : [
-      {
-        <span style="color:#2aa198">&#34;availability&#34;</span> : <span style="color:#2aa198">&#34;(unavailable, runtime profile not found)&#34;</span>,
-        <span style="color:#2aa198">&#34;state&#34;</span> : <span style="color:#2aa198">&#34;Shutdown&#34;</span>,
-        <span style="color:#2aa198">&#34;isAvailable&#34;</span> : false,
-        <span style="color:#2aa198">&#34;name&#34;</span> : <span style="color:#2aa198">&#34;iPhone 5s&#34;</span>,
-        <span style="color:#2aa198">&#34;udid&#34;</span> : <span style="color:#2aa198">&#34;DDD36346-A76F-42E8-80F4-6F11E1EE4BEB&#34;</span>,
-        <span style="color:#2aa198">&#34;availabilityError&#34;</span> : <span style="color:#2aa198">&#34;runtime profile not found&#34;</span>
-      },
-      {
-        <span style="color:#2aa198">&#34;availability&#34;</span> : <span style="color:#2aa198">&#34;(unavailable, runtime profile not found)&#34;</span>,
-        <span style="color:#2aa198">&#34;state&#34;</span> : <span style="color:#2aa198">&#34;Shutdown&#34;</span>,
-        <span style="color:#2aa198">&#34;isAvailable&#34;</span> : false,
-        <span style="color:#2aa198">&#34;name&#34;</span> : <span style="color:#2aa198">&#34;iPhone 6&#34;</span>,
-        <span style="color:#2aa198">&#34;udid&#34;</span> : <span style="color:#2aa198">&#34;21794717-BC89-45E4-9F57-8CF9D14A87D1&#34;</span>,
-        <span style="color:#2aa198">&#34;availabilityError&#34;</span> : <span style="color:#2aa198">&#34;runtime profile not found&#34;</span>
-      },
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ xcrun simctl list devices --json | grep -A16 12.1
+    <span style="color:#c41a16">&#34;com.apple.CoreSimulator.SimRuntime.iOS-12-1&#34;</span> : <span style="color:#000">[</span>
+      <span style="color:#000">{</span>
+        <span style="color:#c41a16">&#34;availability&#34;</span> : <span style="color:#c41a16">&#34;(unavailable, runtime profile not found)&#34;</span>,
+        <span style="color:#c41a16">&#34;state&#34;</span> : <span style="color:#c41a16">&#34;Shutdown&#34;</span>,
+        <span style="color:#c41a16">&#34;isAvailable&#34;</span> : false,
+        <span style="color:#c41a16">&#34;name&#34;</span> : <span style="color:#c41a16">&#34;iPhone 5s&#34;</span>,
+        <span style="color:#c41a16">&#34;udid&#34;</span> : <span style="color:#c41a16">&#34;DDD36346-A76F-42E8-80F4-6F11E1EE4BEB&#34;</span>,
+        <span style="color:#c41a16">&#34;availabilityError&#34;</span> : <span style="color:#c41a16">&#34;runtime profile not found&#34;</span>
+      <span style="color:#000">}</span>,
+      <span style="color:#000">{</span>
+        <span style="color:#c41a16">&#34;availability&#34;</span> : <span style="color:#c41a16">&#34;(unavailable, runtime profile not found)&#34;</span>,
+        <span style="color:#c41a16">&#34;state&#34;</span> : <span style="color:#c41a16">&#34;Shutdown&#34;</span>,
+        <span style="color:#c41a16">&#34;isAvailable&#34;</span> : false,
+        <span style="color:#c41a16">&#34;name&#34;</span> : <span style="color:#c41a16">&#34;iPhone 6&#34;</span>,
+        <span style="color:#c41a16">&#34;udid&#34;</span> : <span style="color:#c41a16">&#34;21794717-BC89-45E4-9F57-8CF9D14A87D1&#34;</span>,
+        <span style="color:#c41a16">&#34;availabilityError&#34;</span> : <span style="color:#c41a16">&#34;runtime profile not found&#34;</span>
+      <span style="color:#000">}</span>,
 ...
 </code></pre></td></tr></table>
 </div>
@@ -338,7 +350,11 @@ Workaround: Run the following command in Terminal:
 <p>Stay tuned and hydrated! And thanks for reading.</p>
 
 			</div>
-			
+                        
+	                <a href="/tags/ios" class="tags">iOS</a>
+	                
+	                <a href="/tags/xcode" class="tags">Xcode</a>
+	                
 			<div>
 				
 			</div>
@@ -363,7 +379,7 @@ Workaround: Run the following command in Terminal:
 
 
 	<footer>
-	<p>&copy; 2020 <a href="http://justsitandgrin.net/">Just sit and grin</a></p>
+  <p>&copy; 2020 <a href="http://justsitandgrin.net/">Just sit and grin</a></p>
 </footer>
 
 </body>
