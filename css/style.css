@@ -1,24 +1,54 @@
+@media (prefers-color-scheme: light) {
+    :root {
+        --background-color: white;
+        --foreground-color: black;
+        --line-height: 1.4;
+        --word-spacing: .0em;
+        --pre-background: white;
+        --base-color: #ff8647;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #1d1f21;
+        --foreground-color: #c9cacc;
+        --line-height: 1.5;
+        --word-spacing: .05em;
+        --pre-background: #c9cacc;
+        --base-color: #ff8647;
+    }
+}
+
 body {
-    font-family: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
-    font-size: 100%; 
-    line-height: 1.5;
+    font-family: "Merriweather", Georgia, serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 16pt;
+    font-weight: 300;
+    font-kerning: normal;
+    line-height: var(--line-height, 1.5);
+    word-spacing: var(--word-spacing, .0em);
     width: 80%;
     margin: 1% auto;
-}
+    background-color: var(--background-color, white);
+    color: var(--foreground-color, black);
 
-h1 {
-    margin: 1.0em 0 0.2em 0;
-}
-
-code {
-    font-family: Courier, Verdana, Monaco;
-    font-size: 80%;
+    -webkit-font-kerning: normal;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
 p code, li code {
     padding: 0 3px;
     color: #268bd2;
     /* background: #eee8d5; */
+}
+
+pre {
+    font-family: Consolas, Menlo, "Noto Mono", "DejaVu Sans Mono", monospace;
+    background-color: var(--pre-background, white);
+    font-size: 70%;
+    line-height: 1.1;
+    color: black;
 }
 
 a.tags:link {
@@ -40,6 +70,11 @@ a.tags:link {
 
 header a:link {
     text-decoration: none;
+    font-size: 14pt;
+}
+
+a, a:visited {
+    color: var(--base-color);
 }
 
 footer a {
@@ -54,7 +89,7 @@ time {
 
 blockquote {
     padding-left: 15px;
-    border-left: 2px solid silver;
+    border-left: 2px solid var(--base-color);
 } 
 
 img {
@@ -68,7 +103,10 @@ figure img {
     width: 75%;
 }
 
-@media screen and (max-width: 800px) {
+@media only screen and (max-width: 800px) {
+    body {
+        width: 90%;
+    }
     figure {
         margin-inline-start: 0px;
         margin-inline-end: 0px;
