@@ -22,12 +22,12 @@
 
 body {
     font-family: "Merriweather", Georgia, serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 16pt;
+    font-size: 1.05em;
     font-weight: 300;
     font-kerning: normal;
     line-height: var(--line-height, 1.5);
     word-spacing: var(--word-spacing, .0em);
-    width: 80%;
+    width: 900px;
     margin: 1% auto;
     background-color: var(--background-color, white);
     color: var(--foreground-color, black);
@@ -68,13 +68,22 @@ a.tags:link {
     word-spacing: 6px;
 }
 
-header a:link {
+h1 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+header a:link, h1 a:link {
     text-decoration: none;
-    font-size: 14pt;
+    font-size: 0.9em;
+}
+
+header a:hover, h1 a:hover {
+    text-decoration: underline;
 }
 
 a, a:visited {
-    color: var(--base-color);
+    color: var(--foreground-color);
 }
 
 footer a {
