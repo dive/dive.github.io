@@ -34,8 +34,8 @@
   <div id="header-container">
     <div>
       <span>
-        <a href="http://justsitandgrin.net/">Home</a>
-        <a href="http://justsitandgrin.net/index.xml">RSS</a>
+        <a href="http://dive.github.io/">Home</a>
+        <a href="http://dive.github.io/index.xml">RSS</a>
         
       </span>
     </div>
@@ -75,7 +75,7 @@
 <p>The last thing I want from a platform-agnostic open-source package manager is built-in integration with a single-platform commercial closed-source IDE. 😕
 I think this should be done independently by DT team, without any special favouritism by SPM.</p>
 </blockquote>
-<p>And you know what? I agree with these statements. Especially after some researches. In general, SPM is a very &lsquo;young&rsquo; and inflexible project. There are a lot of limitations, especially around <code>generate-xcodeproj</code> options of <code>swift package</code> tool, and it is understandable. Swift is a language, and all related tools should be platform-agnostic as much as possible. Yeah, iOS is the biggest Swift consumer, and Apple contributes to Swift mostly because of iOS. But. It&rsquo;s almost impossible to grow Swift to a mature technology if you&rsquo;re limited and restricted by Xcode / iOS specific things / etc. And, it seems, this is the primary goal for Swift. Just be a language. The fate of Objective C is a good example of why Apple and Swift&rsquo;s community are trying to be agnostic. They are trying to build something big, and lack of iOS support is the price (among many others) at the moment. 💏</p>
+<p>And you know what? I agree with these statements. Especially after some researches. In general, SPM is a very &lsquo;young&rsquo; and inflexible project. There are a lot of limitations, especially around <code>generate-xcodeproj</code> options of <code>swift package</code> tool, and it is understandable. Swift is a language, and all related tools should be platform-agnostic as much as possible. Yeah, iOS is the biggest Swift consumer, and Apple contributes to Swift mostly because of iOS. But. It&rsquo;s almost impossible to grow Swift to a mature technology if you&rsquo;re limited and restricted by Xcode / iOS specific things / etc. And, it seems, this is the primary goal for Swift. Just be a language. The fate of Objective C is a good example of why Apple and Swift&rsquo;s community are trying to be agnostic. They are trying to build something big, and lack of iOS support is the price (among many others) at the moment. 💋</p>
 <p>Anyway, we have exciting news about SPM and iOS friendship. <a href="https://forums.swift.org/t/accepted-with-modifications-se-0236-package-manager-platform-deployment-settings/18420">SE-0236: Package Manager Platform Deployment Settings</a> is accepted with some modifications. And the implementation of this proposal will help a lot to move forward in case of iOS. The base goal is clear and straightforward:</p>
 <blockquote>
 <p>Packages should be able to declare the minimum required platform deployment target version. SwiftPM currently uses a hardcoded value for the macOS deployment target. This creates friction for packages which want to use APIs that were introduced after the hardcoded deployment target version.</p>
@@ -94,7 +94,7 @@ I think this should be done independently by DT team, without any special favour
 </code></pre></td></tr></table>
 </div>
 </div><p>You can find an example in <code>xcode_10_2_beta</code> branch in the example <a href="https://github.com/dive/spm-ios-example/tree/xcode%5F10%5F2%5Fbeta">repository</a>. It is still a beta implementation, and you will have a lot of issues with <code>build</code> command, <code>run</code> doesn&rsquo;t work as well, but this is a step forward to support iOS finally.</p>
-<p>I hope that Apple will announce something <strong>good</strong> on WWDC&rsquo;19. New IDE for Swift? Open sourced <code>xcodebuild</code>? <code>xcodebuild</code> replacement based on <code>llbuild</code>? Will see. The current state is complicated as much as it can be. We are trying to inject open-sourced platform-agnostic tools into a legacy (?) world of Xcode, and this problem can be solved only in two ways: iOS specific build tools go open source, or Xcode team supports Swift infrastructure.</p>
+<p>I hope that Apple will announce something <strong>good</strong> on WWDC'19. New IDE for Swift? Open sourced <code>xcodebuild</code>? <code>xcodebuild</code> replacement based on <code>llbuild</code>? Will see. The current state is complicated as much as it can be. We are trying to inject open-sourced platform-agnostic tools into a legacy (?) world of Xcode, and this problem can be solved only in two ways: iOS specific build tools go open source, or Xcode team supports Swift infrastructure.</p>
 <h2 id="is-it-possible-to-build-an-ios-framework-with-spm-yes-yes-it-is">Is it possible to build an iOS framework with SPM? Yes! Yes, it is!</h2>
 <p>So. If you try to search for solutions to build iOS frameworks with SPM on DuckDuckGo, you will find some instructions (<a href="https://github.com/j-channings/swift-package-manager-ios">1</a>, <a href="https://www.ralfebert.de/ios/swift-package-manager-for-ios-projects/">2</a>). But all of them have this step that I hate: <code>sudo gem install xcodeproj</code> :disgusting:. Can we do better? Let&rsquo;s try.</p>
 <p>First of all, let&rsquo;s generate a template:</p>
@@ -637,7 +637,7 @@ xctest<span style="color:#000">[</span>18838:9855653<span style="color:#000">]</
 
 
 	<footer>
-  <p>&copy; 2020 <a href="http://justsitandgrin.net/">Just sit and grin</a></p>
+  <p>&copy; 2020 <a href="http://dive.github.io/">Just sit and grin</a></p>
 </footer>
 
 </body>
