@@ -7,10 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-GB</language>
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 15 Mar 2020 19:03:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jul 2020 17:26:00 +0100</lastBuildDate>
     
 	<atom:link href="http://dive.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Xcode invocation tool - xed</title>
+      <link>http://dive.github.io/posts/xed_xcode_invocation_tool/</link>
+      <pubDate>Sun, 19 Jul 2020 17:26:00 +0100</pubDate>
+      
+      <guid>http://dive.github.io/posts/xed_xcode_invocation_tool/</guid>
+      <description>&lt;p&gt;&lt;code&gt;xed&lt;/code&gt; is a command-line tool that launches the Xcode application and opens the given documents (&lt;code&gt;xcodeproj&lt;/code&gt;, &lt;code&gt;xcworkspace&lt;/code&gt;, etc.), or opens a new document, optionally with the contents of standard input.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Dr. Anthony Fauci Cold Open - SNL</title>
+      <link>http://dive.github.io/posts/anthony_fauci_brad_pitt/</link>
+      <pubDate>Tue, 19 May 2020 17:26:00 +0100</pubDate>
+      
+      <guid>http://dive.github.io/posts/anthony_fauci_brad_pitt/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;“Oh, Brad Pitt, of course” Dr. Anthony Fauci said.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
     
     <item>
       <title>About Bob Martin&#39;s talk - The Future of Programming (2016)</title>

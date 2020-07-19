@@ -83,14 +83,14 @@ I think this should be done independently by DT team, without any special favour
 <p>Why will it not solve the problem with iOS support at all? Just read the <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0236-package-manager-platform-deployment-settings.md">&ldquo;This proposal doesn&rsquo;t handle these problems&rdquo;</a> section.</p>
 <h3 id="xcode-10-dot-2-beta">Xcode 10.2 Beta</h3>
 <p><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0236-package-manager-platform-deployment-settings.md">SE-0236</a> was accepted and implemented in Swift 5, and Apple shipped it with the latest Xcode 10.2 beta. It means that you can specify an iOS as a deployment target for your packages with a simple line in your <code>Package.swift</code> file:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#177500">// Specify target platforms</span>
-<span style="color:#000">platforms</span>: [ .<span style="color:#000">iOS</span>(.<span style="color:#000">v12</span>) ]
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#75715e">// Specify target platforms</span>
+platforms: [ .iOS(.v12) ]
 </code></pre></td></tr></table>
 </div>
 </div><p>You can find an example in <code>xcode_10_2_beta</code> branch in the example <a href="https://github.com/dive/spm-ios-example/tree/xcode%5F10%5F2%5Fbeta">repository</a>. It is still a beta implementation, and you will have a lot of issues with <code>build</code> command, <code>run</code> doesn&rsquo;t work as well, but this is a step forward to support iOS finally.</p>
@@ -98,20 +98,20 @@ I think this should be done independently by DT team, without any special favour
 <h2 id="is-it-possible-to-build-an-ios-framework-with-spm-yes-yes-it-is">Is it possible to build an iOS framework with SPM? Yes! Yes, it is!</h2>
 <p>So. If you try to search for solutions to build iOS frameworks with SPM on DuckDuckGo, you will find some instructions (<a href="https://github.com/j-channings/swift-package-manager-ios">1</a>, <a href="https://www.ralfebert.de/ios/swift-package-manager-for-ios-projects/">2</a>). But all of them have this step that I hate: <code>sudo gem install xcodeproj</code> :disgusting:. Can we do better? Let&rsquo;s try.</p>
 <p>First of all, let&rsquo;s generate a template:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#177500"># Initialise a package with a library type</span>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Initialise a package with a library type</span>
 swift package init --type library
 </code></pre></td></tr></table>
 </div>
 </div><p>Now we have to convince SPM that we want an iOS project when it generates <code>xcodeproj</code>. How? With <code>xcconfig</code>, of course. Create a file <code>ios.xcconfig</code> and put it to <code>./Sources</code> folder. For example, let&rsquo;s start with a basic version:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
@@ -123,26 +123,26 @@ swift package init --type library
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#000">SDKROOT</span> <span style="color:#000">=</span> iphoneos
-<span style="color:#000">SUPPORTED_PLATFORMS</span> <span style="color:#000">=</span> iphonesimulator iphoneos
-<span style="color:#000">IPHONEOS_DEPLOYMENT_TARGET</span> <span style="color:#000">=</span> 12.0
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">SDKROOT <span style="color:#f92672">=</span> iphoneos
+SUPPORTED_PLATFORMS <span style="color:#f92672">=</span> iphonesimulator iphoneos
+IPHONEOS_DEPLOYMENT_TARGET <span style="color:#f92672">=</span> 12.0
 
-<span style="color:#000">ARCHS</span> <span style="color:#000">=</span> <span style="color:#a90d91">$(</span>ARCHS_STANDARD<span style="color:#a90d91">)</span>
-<span style="color:#000">VALID_ARCHS</span> <span style="color:#000">=</span> <span style="color:#a90d91">$(</span>ARCHS_STANDARD<span style="color:#a90d91">)</span>
+ARCHS <span style="color:#f92672">=</span> <span style="color:#66d9ef">$(</span>ARCHS_STANDARD<span style="color:#66d9ef">)</span>
+VALID_ARCHS <span style="color:#f92672">=</span> <span style="color:#66d9ef">$(</span>ARCHS_STANDARD<span style="color:#66d9ef">)</span>
 
-<span style="color:#000">VALIDATE_PRODUCT</span> <span style="color:#000">=</span> YES
-<span style="color:#000">LD_RUNPATH_SEARCH_PATHS</span> <span style="color:#000">=</span> <span style="color:#a90d91">$(</span>inherited<span style="color:#a90d91">)</span> @executable_path/Frameworks
-<span style="color:#000">TARGETED_DEVICE_FAMILY</span> <span style="color:#000">=</span> 1, <span style="color:#1c01ce">2</span>
+VALIDATE_PRODUCT <span style="color:#f92672">=</span> YES
+LD_RUNPATH_SEARCH_PATHS <span style="color:#f92672">=</span> <span style="color:#66d9ef">$(</span>inherited<span style="color:#66d9ef">)</span> @executable_path/Frameworks
+TARGETED_DEVICE_FAMILY <span style="color:#f92672">=</span> 1, <span style="color:#ae81ff">2</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>Looks good. Let&rsquo;s see what SPM thinks about it:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#177500"># Generate .xcodeproj file for the package in the current folder</span>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Generate .xcodeproj file for the package in the current folder</span>
 swift package generate-xcodeproj --xcconfig-overrides ./Sources/ios.xcconfig
 </code></pre></td></tr></table>
 </div>
@@ -153,15 +153,15 @@ swift package generate-xcodeproj --xcconfig-overrides ./Sources/ios.xcconfig
 
 <p><strong>Note</strong>: You do not have to specify a custom <code>.xcconfig</code> file if you are using Xcode 10.2 Beta with Swift 5 Toolchain. Check the <a href="https://github.com/dive/spm-ios-example/tree/xcode%5F10%5F2%5Fbeta">branch</a> for more details.</p>
 <p>It works! Let&rsquo;s celebrate! But nope. We&rsquo;re not on Medium, so let&rsquo;s try to dig deeper. Let&rsquo;s check how the &lsquo;Unit Tests&rsquo; target works, for example:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">spm-tutorial/Tests/spm-tutorialTests/XCTestManifests.swift:4:28: error: use of undeclared <span style="color:#a90d91">type</span> <span style="color:#c41a16">&#39;XCTestCaseEntry&#39;</span>
-public func allTests<span style="color:#000">()</span> -&gt; <span style="color:#000">[</span>XCTestCaseEntry<span style="color:#000">]</span> <span style="color:#000">{</span>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">spm-tutorial/Tests/spm-tutorialTests/XCTestManifests.swift:4:28: error: use of undeclared type <span style="color:#e6db74">&#39;XCTestCaseEntry&#39;</span>
+public func allTests<span style="color:#f92672">()</span> -&gt; <span style="color:#f92672">[</span>XCTestCaseEntry<span style="color:#f92672">]</span> <span style="color:#f92672">{</span>
                            ^~~~~~~~~~~~~~~
 </code></pre></td></tr></table>
 </div>
@@ -170,15 +170,15 @@ public func allTests<span style="color:#000">()</span> -&gt; <span style="color:
 <p>This is a compound type used by <code>XCTMain</code> to represent tests to run. It combines an <code>XCTestCase</code> subclass type with the list of test case methods to invoke on the class.</p>
 </blockquote>
 <p>And the <code>typealias</code> looks like this:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">...
-<span style="color:#a90d91">public</span> <span style="color:#a90d91">typealias</span> <span style="color:#000">XCTestCaseEntry</span> = (<span style="color:#000">testCaseClass</span>: <span style="color:#000">XCTestCase</span>.<span style="color:#a90d91">Type</span>, <span style="color:#000">allTests</span>: [(<span style="color:#a90d91">String</span>, <span style="color:#000">XCTestCaseClosure</span>)])
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">...
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">typealias</span> XCTestCaseEntry = (testCaseClass: XCTestCase.<span style="color:#66d9ef">Type</span>, allTests: [(String, XCTestCaseClosure)])
 ...
 </code></pre></td></tr></table>
 </div>
@@ -187,9 +187,9 @@ public func allTests<span style="color:#000">()</span> -&gt; <span style="color:
 <p>CoreLibs XCTest only supports desktop platforms</p>
 </blockquote>
 <p>Thanks to <a href="https://github.com/larryonoff">@larryonoff</a> and <a href="https://github.com/apple/swift-corelibs-xctest/pull/176">his work</a> on multi-platform support. But it&rsquo;s still impossible to use it for our needs. You can join this <a href="https://github.com/apple/swift-corelibs-xctest/pull/61">Add Unit Testing Infrastructure</a> thread if you want to learn more about the current state of <code>swift-corelibs-xctest</code>. We will skip this topic and apply the fix to <code>XCTestManifests.swift</code>:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
@@ -200,15 +200,15 @@ public func allTests<span style="color:#000">()</span> -&gt; <span style="color:
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#a90d91">import</span> <span style="color:#3f6e75">XCTest</span>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">XCTest</span>
 
-<span style="color:#633820">#if</span> <span style="color:#000">!</span><span style="color:#633820">os</span>(<span style="color:#633820">macOS</span>) <span style="color:#000">&amp;&amp;</span> <span style="color:#000">!</span><span style="color:#633820">os</span>(<span style="color:#633820">iOS</span>)
-<span style="color:#a90d91">public</span> <span style="color:#a90d91">func</span> <span style="color:#000">allTests</span>() -&gt; [<span style="color:#000">XCTestCaseEntry</span>] {
-    <span style="color:#a90d91">return</span> [
-        <span style="color:#000">testCase</span>(<span style="color:#000">spm_tutorialTests</span>.<span style="color:#000">allTests</span>),
+<span style="color:#75715e">#if</span> <span style="color:#f92672">!</span><span style="color:#75715e">os</span>(<span style="color:#75715e">macOS</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#75715e">os</span>(<span style="color:#75715e">iOS</span>)
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">allTests</span>() -&gt; [XCTestCaseEntry] {
+    <span style="color:#66d9ef">return</span> [
+        testCase(spm_tutorialTests.allTests),
     ]
 }
-<span style="color:#633820">#endif</span>
+<span style="color:#75715e">#endif</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>See this <code>&amp;&amp; !os(iOS)</code>? It&rsquo;s enough to continue our journey. Run Tests again and&hellip; We got what we need.</p>
@@ -217,9 +217,9 @@ public func allTests<span style="color:#000">()</span> -&gt; <span style="color:
 </figure>
 
 <p>Then I created a simple iOS <code>ExampleApp</code> and added the generated <code>xcodeproj</code> as a dependency. Of course, I&rsquo;ve added some iOS specific code to the framework:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
@@ -235,26 +235,26 @@ public func allTests<span style="color:#000">()</span> -&gt; <span style="color:
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#a90d91">import</span> <span style="color:#3f6e75">UIKit</span>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">UIKit</span>
 
-<span style="color:#a90d91">public</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FrameworkPackage</span> {
-    <span style="color:#a90d91">public</span> <span style="color:#a90d91">init</span> () { }
-    <span style="color:#a90d91">public</span> <span style="color:#a90d91">func</span> <span style="color:#000">randomColor</span>() -&gt; <span style="color:#000">UIColor</span> {
-        <span style="color:#a90d91">return</span> <span style="color:#000">UIColor</span>.<span style="color:#000">random</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FrameworkPackage</span> {
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">init</span> () { }
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">randomColor</span>() -&gt; UIColor {
+        <span style="color:#66d9ef">return</span> UIColor.random
     }
 }
 
-<span style="color:#a90d91">public</span> <span style="color:#a90d91">extension</span> <span style="color:#3f6e75">UIColor</span> {
-    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">var</span> <span style="color:#000">random</span>: <span style="color:#000">UIColor</span> {
-        <span style="color:#a90d91">return</span> <span style="color:#000">UIColor</span>(<span style="color:#000">red</span>: .<span style="color:#000">random</span>(<span style="color:#a90d91">in</span>: <span style="color:#1c01ce">0.</span>..<span style="color:#1c01ce">1</span>), <span style="color:#000">green</span>: .<span style="color:#000">random</span>(<span style="color:#a90d91">in</span>: <span style="color:#1c01ce">0.</span>..<span style="color:#1c01ce">1</span>), <span style="color:#000">blue</span>: .<span style="color:#000">random</span>(<span style="color:#a90d91">in</span>: <span style="color:#1c01ce">0.</span>..<span style="color:#1c01ce">1</span>), <span style="color:#000">alpha</span>: <span style="color:#1c01ce">1</span>)
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">extension</span> <span style="color:#a6e22e">UIColor</span> {
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">var</span> random: UIColor {
+        <span style="color:#66d9ef">return</span> UIColor(red: .random(<span style="color:#66d9ef">in</span>: <span style="color:#ae81ff">0.</span>..<span style="color:#ae81ff">1</span>), green: .random(<span style="color:#66d9ef">in</span>: <span style="color:#ae81ff">0.</span>..<span style="color:#ae81ff">1</span>), blue: .random(<span style="color:#66d9ef">in</span>: <span style="color:#ae81ff">0.</span>..<span style="color:#ae81ff">1</span>), alpha: <span style="color:#ae81ff">1</span>)
     }
 }
 </code></pre></td></tr></table>
 </div>
 </div><p>And then reuse it from the example app:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
@@ -271,18 +271,18 @@ public func allTests<span style="color:#000">()</span> -&gt; <span style="color:
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#a90d91">import</span> <span style="color:#3f6e75">UIKit</span>
-<span style="color:#a90d91">import</span> <span style="color:#3f6e75">class</span> <span style="color:#3f6e75">ios_framework_package</span>.<span style="color:#3f6e75">FrameworkPackage</span>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">UIKit</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">class</span> <span style="color:#a6e22e">ios_framework_package</span>.<span style="color:#a6e22e">FrameworkPackage</span>
 
-<span style="color:#a90d91">class</span> <span style="color:#3f6e75">ViewController</span>: <span style="color:#000">UIViewController</span> {
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ViewController</span>: UIViewController {
 
-    <span style="color:#a90d91">override</span> <span style="color:#a90d91">func</span> <span style="color:#000">viewDidLoad</span>() {
-        <span style="color:#a90d91">super</span>.<span style="color:#000">viewDidLoad</span>()
-        <span style="color:#a90d91">self</span>.<span style="color:#000">view</span>.<span style="color:#000">backgroundColor</span> = <span style="color:#000">FrameworkPackage</span>().<span style="color:#000">randomColor</span>()
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">viewDidLoad</span>() {
+        <span style="color:#66d9ef">super</span>.viewDidLoad()
+        <span style="color:#66d9ef">self</span>.view.backgroundColor = FrameworkPackage().randomColor()
     }
 
-    <span style="color:#a90d91">@IBAction</span> <span style="color:#a90d91">func</span> <span style="color:#000">pressed</span>(<span style="color:#a90d91">_</span> <span style="color:#000">button</span>: <span style="color:#000">UIButton</span>) {
-        <span style="color:#a90d91">self</span>.<span style="color:#000">view</span>.<span style="color:#000">backgroundColor</span> = <span style="color:#000">FrameworkPackage</span>().<span style="color:#000">randomColor</span>()
+    <span style="color:#66d9ef">@IBAction</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">pressed</span>(<span style="color:#66d9ef">_</span> button: UIButton) {
+        <span style="color:#66d9ef">self</span>.view.backgroundColor = FrameworkPackage().randomColor()
     }
 
 }
@@ -292,77 +292,77 @@ public func allTests<span style="color:#000">()</span> -&gt; <span style="color:
 Thanks to <code>CLANG_MODULES_AUTOLINK</code>, all iOS frameworks will be linked automatically. I didn&rsquo;t try more complex scenarios (when one iOS module depends on another, etc.) because it&rsquo;s not my goal at the moment. But in general, it just works with some limitations. SPM doesn&rsquo;t set up our <code>xcconfig</code> for some targets, and you have to include the SPM-generated <code>.xcodeproj</code> to your <code>.xcodeproj</code>, but all these tradeoffs seem reasonable for this research and our current goal.</p>
 <h2 id="back-to-swift-package-manager">Back to Swift Package Manager</h2>
 <p>See. We can do better. But we forgot about SPM during this Xcode journey. Let&rsquo;s close our fancy dark-themed Xcode, open Terminal and run <code>swift build</code> for our iOS&rsquo;ish package (I&rsquo;m going to use the package from the <a href="https://github.com/dive/spm-ios-example">example project</a> mentioned above):</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Compile Swift Module <span style="color:#c41a16">&#39;ios_framework_package&#39;</span> <span style="color:#000">(</span><span style="color:#1c01ce">1</span> sources<span style="color:#000">)</span>
-./spm-ios-example/ios-framework-package/Sources/ios-framework-package/ios_framework_package.swift:1:8: error: no such module <span style="color:#c41a16">&#39;UIKit&#39;</span>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Compile Swift Module <span style="color:#e6db74">&#39;ios_framework_package&#39;</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> sources<span style="color:#f92672">)</span>
+./spm-ios-example/ios-framework-package/Sources/ios-framework-package/ios_framework_package.swift:1:8: error: no such module <span style="color:#e6db74">&#39;UIKit&#39;</span>
 import UIKit
        ^
-error: terminated<span style="color:#000">(</span>1<span style="color:#000">)</span>: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-build-tool -f./spm-ios-example/ios-framework-package/.build/debug.yaml main output: ...
+error: terminated<span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-build-tool -f./spm-ios-example/ios-framework-package/.build/debug.yaml main output: ...
 </code></pre></td></tr></table>
 </div>
 </div><p>Okay. <code>no such module 'UIKit'</code>. Can we do better? Doubt it. But let&rsquo;s try. First of all, we have to know where SPM gets all these environment variables, we can ask it with <code>swift build --verbose</code>:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">xcrun --sdk macosx --show-sdk-path
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">xcrun --sdk macosx --show-sdk-path
 xcrun --sdk macosx --show-sdk-platform-path
 xcrun --find clang
 xcrun --sdk macosx --find xctest
-sandbox-exec -p <span style="color:#000">&#39;</span><span style="color:#000">(</span>version 1<span style="color:#000">)</span>
+sandbox-exec -p <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">(</span>version 1<span style="color:#f92672">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>Nice. No magic and jigsaws. Let&rsquo;s try to change some <code>swiftc</code> options to build the project against proper <code>sdk</code> and <code>target</code>:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">swift build <span style="color:#c41a16">\
-</span><span style="color:#c41a16"></span>      -Xswiftc <span style="color:#c41a16">&#34;-sdk&#34;</span> -Xswiftc <span style="color:#c41a16">&#34;`xcrun --sdk iphonesimulator --show-sdk-path`&#34;</span> <span style="color:#c41a16">\
-</span><span style="color:#c41a16"></span>      -Xswiftc <span style="color:#c41a16">&#34;-target&#34;</span> -Xswiftc <span style="color:#c41a16">&#34;x86_64-apple-ios12.1-simulator&#34;</span>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">swift build <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>      -Xswiftc <span style="color:#e6db74">&#34;-sdk&#34;</span> -Xswiftc <span style="color:#e6db74">&#34;`xcrun --sdk iphonesimulator --show-sdk-path`&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>      -Xswiftc <span style="color:#e6db74">&#34;-target&#34;</span> -Xswiftc <span style="color:#e6db74">&#34;x86_64-apple-ios12.1-simulator&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>Looks better. We built the binary:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">...
-Compile Swift Module <span style="color:#c41a16">&#39;ios_framework_package&#39;</span> <span style="color:#000">(</span><span style="color:#1c01ce">1</span> sources<span style="color:#000">)</span>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">...
+Compile Swift Module <span style="color:#e6db74">&#39;ios_framework_package&#39;</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> sources<span style="color:#f92672">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>Let&rsquo;s make some inspections, just to be sure that everything is fine:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ lipo -archs .build/x86_64-apple-macosx10.10/debug/ios_framework_package.build/ios_framework_package.swift.o
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ lipo -archs .build/x86_64-apple-macosx10.10/debug/ios_framework_package.build/ios_framework_package.swift.o
 x86_64
 </code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
@@ -396,59 +396,59 @@ x86_64
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ nm -extern-only -defined-only -just-symbol-name .build/x86_64-apple-macosx10.10/debug/ios_framework_package.build/ios_framework_package.swift.o
-_<span style="color:#000">$S12CoreGraphics7CGFloatVACSBAAWL</span>
-_<span style="color:#000">$S12CoreGraphics7CGFloatVACSBAAWl</span>
-_<span style="color:#000">$S12CoreGraphics7CGFloatVACSLAAWL</span>
-_<span style="color:#000">$S12CoreGraphics7CGFloatVACSLAAWl</span>
-_<span style="color:#000">$S21ios_framework_package16FrameworkPackageC11randomColorSo7UIColorCyF</span>
-_<span style="color:#000">$S21ios_framework_package16FrameworkPackageCACycfC</span>
-_<span style="color:#000">$S21ios_framework_package16FrameworkPackageCACycfc</span>
-_<span style="color:#000">$S21ios_framework_package16FrameworkPackageCMa</span>
-_<span style="color:#000">$S21ios_framework_package16FrameworkPackageCMm</span>
-_<span style="color:#000">$S21ios_framework_package16FrameworkPackageCMn</span>
-_<span style="color:#000">$S21ios_framework_package16FrameworkPackageCN</span>
-_<span style="color:#000">$S21ios_framework_package16FrameworkPackageCfD</span>
-_<span style="color:#000">$S21ios_framework_package16FrameworkPackageCfd</span>
-_<span style="color:#000">$S21ios_framework_packageMXM</span>
-_<span style="color:#000">$SSo7UIColorC21ios_framework_packageE6randomABvgZ</span>
-_<span style="color:#000">$SSo7UIColorC3red5green4blue5alphaAB12CoreGraphics7CGFloatV_A3ItcfC</span>
-_<span style="color:#000">$SSo7UIColorC3red5green4blue5alphaAB12CoreGraphics7CGFloatV_A3ItcfcTO</span>
-_<span style="color:#000">$SSo7UIColorCML</span>
-_<span style="color:#000">$SSo7UIColorCMa</span>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ nm -extern-only -defined-only -just-symbol-name .build/x86_64-apple-macosx10.10/debug/ios_framework_package.build/ios_framework_package.swift.o
+_$S12CoreGraphics7CGFloatVACSBAAWL
+_$S12CoreGraphics7CGFloatVACSBAAWl
+_$S12CoreGraphics7CGFloatVACSLAAWL
+_$S12CoreGraphics7CGFloatVACSLAAWl
+_$S21ios_framework_package16FrameworkPackageC11randomColorSo7UIColorCyF
+_$S21ios_framework_package16FrameworkPackageCACycfC
+_$S21ios_framework_package16FrameworkPackageCACycfc
+_$S21ios_framework_package16FrameworkPackageCMa
+_$S21ios_framework_package16FrameworkPackageCMm
+_$S21ios_framework_package16FrameworkPackageCMn
+_$S21ios_framework_package16FrameworkPackageCN
+_$S21ios_framework_package16FrameworkPackageCfD
+_$S21ios_framework_package16FrameworkPackageCfd
+_$S21ios_framework_packageMXM
+_$SSo7UIColorC21ios_framework_packageE6randomABvgZ
+_$SSo7UIColorC3red5green4blue5alphaAB12CoreGraphics7CGFloatV_A3ItcfC
+_$SSo7UIColorC3red5green4blue5alphaAB12CoreGraphics7CGFloatV_A3ItcfcTO
+_$SSo7UIColorCML
+_$SSo7UIColorCMa
 ___swift_reflection_version
-__swift_FORCE_LOAD_<span style="color:#000">$_swiftCoreFoundation_$_ios_framework_package</span>
-__swift_FORCE_LOAD_<span style="color:#000">$_swiftCoreGraphics_$_ios_framework_package</span>
-__swift_FORCE_LOAD_<span style="color:#000">$_swiftCoreImage_$_ios_framework_package</span>
-__swift_FORCE_LOAD_<span style="color:#000">$_swiftDarwin_$_ios_framework_package</span>
-__swift_FORCE_LOAD_<span style="color:#000">$_swiftDispatch_$_ios_framework_package</span>
-__swift_FORCE_LOAD_<span style="color:#000">$_swiftFoundation_$_ios_framework_package</span>
-__swift_FORCE_LOAD_<span style="color:#000">$_swiftMetal_$_ios_framework_package</span>
-__swift_FORCE_LOAD_<span style="color:#000">$_swiftObjectiveC_$_ios_framework_package</span>
-__swift_FORCE_LOAD_<span style="color:#000">$_swiftQuartzCore_$_ios_framework_package</span>
-__swift_FORCE_LOAD_<span style="color:#000">$_swiftUIKit_$_ios_framework_package</span>
+__swift_FORCE_LOAD_$_swiftCoreFoundation_$_ios_framework_package
+__swift_FORCE_LOAD_$_swiftCoreGraphics_$_ios_framework_package
+__swift_FORCE_LOAD_$_swiftCoreImage_$_ios_framework_package
+__swift_FORCE_LOAD_$_swiftDarwin_$_ios_framework_package
+__swift_FORCE_LOAD_$_swiftDispatch_$_ios_framework_package
+__swift_FORCE_LOAD_$_swiftFoundation_$_ios_framework_package
+__swift_FORCE_LOAD_$_swiftMetal_$_ios_framework_package
+__swift_FORCE_LOAD_$_swiftObjectiveC_$_ios_framework_package
+__swift_FORCE_LOAD_$_swiftQuartzCore_$_ios_framework_package
+__swift_FORCE_LOAD_$_swiftUIKit_$_ios_framework_package
 _symbolic ____ 21ios_framework_package16FrameworkPackageC
 </code></pre></td></tr></table>
 </div>
 </div><p><code>lipo</code> is a bit useless in this case because we were building for a simulator, but <code>nm</code> shows everything we need to know - iOS frameworks symbols are available. Unfortunately, <code>swift build</code> doesn&rsquo;t produce <code>.framework</code> by default. I think it&rsquo;s doable even in this case but let&rsquo;s postpone it &lsquo;till next time&rsquo;.</p>
 <h2 id="epilogue-swift-test">Epilogue: swift test</h2>
 <p>And the final call. We already have one unit-test for our package, it uses <code>UIKit</code>, and I would mark this experiment as successful if we can run the test target with <code>swift test</code>. It&rsquo;s almost impossible, though, because usually, unit-tests for simulator have to spawn to a simulator process. I do not think that it&rsquo;s even possible for <span class="underline">an actual</span> iOS project. Anyway.</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">swift <span style="color:#a90d91">test</span> <span style="color:#c41a16">\
-</span><span style="color:#c41a16"></span>      -Xswiftc <span style="color:#c41a16">&#34;-sdk&#34;</span> -Xswiftc <span style="color:#c41a16">&#34;`xcrun --sdk iphonesimulator --show-sdk-path`&#34;</span> <span style="color:#c41a16">\
-</span><span style="color:#c41a16"></span>      -Xswiftc <span style="color:#c41a16">&#34;-target&#34;</span> -Xswiftc <span style="color:#c41a16">&#34;x86_64-apple-ios12.1-simulator&#34;</span>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">swift test <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>      -Xswiftc <span style="color:#e6db74">&#34;-sdk&#34;</span> -Xswiftc <span style="color:#e6db74">&#34;`xcrun --sdk iphonesimulator --show-sdk-path`&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>      -Xswiftc <span style="color:#e6db74">&#34;-target&#34;</span> -Xswiftc <span style="color:#e6db74">&#34;x86_64-apple-ios12.1-simulator&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>And we face another problem. <code>.xctest</code> bundle is compiled but <code>xctest</code> tool is confused with search paths:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
@@ -460,22 +460,22 @@ _symbolic ____ 21ios_framework_package16FrameworkPackageC
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Compile Swift Module <span style="color:#c41a16">&#39;ios_framework_package&#39;</span> <span style="color:#000">(</span><span style="color:#1c01ce">1</span> sources<span style="color:#000">)</span>
-Compile Swift Module <span style="color:#c41a16">&#39;ios_framework_packageTests&#39;</span> <span style="color:#000">(</span><span style="color:#1c01ce">2</span> sources<span style="color:#000">)</span>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Compile Swift Module <span style="color:#e6db74">&#39;ios_framework_package&#39;</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> sources<span style="color:#f92672">)</span>
+Compile Swift Module <span style="color:#e6db74">&#39;ios_framework_packageTests&#39;</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">2</span> sources<span style="color:#f92672">)</span>
 Linking ./.build/x86_64-apple-macosx10.10/debug/ios-framework-packagePackageTests.xctest/Contents/MacOS/ios-framework-packagePackageTests
-xctest<span style="color:#000">[</span>77129:8746476<span style="color:#000">]</span> The bundle “ios-framework-packagePackageTests.xctest” couldn’t be loaded because it is damaged or missing necessary resources. Try reinstalling the bundle.
-xctest<span style="color:#000">[</span>77129:8746476<span style="color:#000">](</span>dlopen_preflight<span style="color:#000">(</span>.build/x86_64-apple-macosx10.10/debug/ios-framework-packagePackageTests.xctest/Contents/MacOS/ios-framework-packagePackageTests<span style="color:#000">)</span>:
+xctest<span style="color:#f92672">[</span>77129:8746476<span style="color:#f92672">]</span> The bundle “ios-framework-packagePackageTests.xctest” couldn’t be loaded because it is damaged or missing necessary resources. Try reinstalling the bundle.
+xctest<span style="color:#f92672">[</span>77129:8746476<span style="color:#f92672">](</span>dlopen_preflight<span style="color:#f92672">(</span>.build/x86_64-apple-macosx10.10/debug/ios-framework-packagePackageTests.xctest/Contents/MacOS/ios-framework-packagePackageTests<span style="color:#f92672">)</span>:
 
   **Library not loaded: /System/Library/Frameworks/UIKit.framework/UIKit**
 
   Referenced from: .build/x86_64-apple-macosx10.10/debug/ios-framework-packagePackageTests.xctest/Contents/MacOS/ios-framework-packagePackageTests
-  Reason: image not found<span style="color:#000">)</span>
+  Reason: image not found<span style="color:#f92672">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>Likely, <code>swift build &amp; test</code> produce beneficial debug information and store it in <code>.build/debug.yaml</code> with all passed options and arguments. There are no differences with the options for a module itself, so it&rsquo;s time for our command line friends again:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
@@ -498,27 +498,27 @@ xctest<span style="color:#000">[</span>77129:8746476<span style="color:#000">](<
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ otool -L .build/debug/ios-framework-packagePackageTests.xctest/Contents/MacOS/ios-framework-packagePackageTests
-  /usr/lib/libobjc.A.dylib <span style="color:#000">(</span>compatibility version 1.0.0, current version 228.0.0<span style="color:#000">)</span>
-  /usr/lib/libSystem.B.dylib <span style="color:#000">(</span>compatibility version 1.0.0, current version 1252.200.5<span style="color:#000">)</span>
-<span style="color:#000">======</span>
-  /System/Library/Frameworks/UIKit.framework/UIKit <span style="color:#000">(</span>compatibility version 1.0.0, current version 61000.0.0<span style="color:#000">)</span>
-<span style="color:#000">======</span>
-  @rpath/XCTest.framework/Versions/A/XCTest <span style="color:#000">(</span>compatibility version 1.0.0, current version 14460.20.0<span style="color:#000">)</span>
-  @rpath/libswiftCore.dylib <span style="color:#000">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#000">)</span>
-  @rpath/libswiftCoreFoundation.dylib <span style="color:#000">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#000">)</span>
-  @rpath/libswiftCoreGraphics.dylib <span style="color:#000">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#000">)</span>
-  @rpath/libswiftCoreImage.dylib <span style="color:#000">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#000">)</span>
-  @rpath/libswiftDarwin.dylib <span style="color:#000">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#000">)</span>
-  @rpath/libswiftDispatch.dylib <span style="color:#000">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#000">)</span>
-  @rpath/libswiftFoundation.dylib <span style="color:#000">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#000">)</span>
-  @rpath/libswiftMetal.dylib <span style="color:#000">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#000">)</span>
-  @rpath/libswiftObjectiveC.dylib <span style="color:#000">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#000">)</span>
-  @rpath/libswiftQuartzCore.dylib <span style="color:#000">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#000">)</span>
-<span style="color:#000">======</span>
-  @rpath/libswiftUIKit.dylib <span style="color:#000">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#000">)</span>
-<span style="color:#000">======</span>
-  @rpath/libswiftXCTest.dylib <span style="color:#000">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#000">)</span>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ otool -L .build/debug/ios-framework-packagePackageTests.xctest/Contents/MacOS/ios-framework-packagePackageTests
+  /usr/lib/libobjc.A.dylib <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 228.0.0<span style="color:#f92672">)</span>
+  /usr/lib/libSystem.B.dylib <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 1252.200.5<span style="color:#f92672">)</span>
+<span style="color:#f92672">======</span>
+  /System/Library/Frameworks/UIKit.framework/UIKit <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 61000.0.0<span style="color:#f92672">)</span>
+<span style="color:#f92672">======</span>
+  @rpath/XCTest.framework/Versions/A/XCTest <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 14460.20.0<span style="color:#f92672">)</span>
+  @rpath/libswiftCore.dylib <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#f92672">)</span>
+  @rpath/libswiftCoreFoundation.dylib <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#f92672">)</span>
+  @rpath/libswiftCoreGraphics.dylib <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#f92672">)</span>
+  @rpath/libswiftCoreImage.dylib <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#f92672">)</span>
+  @rpath/libswiftDarwin.dylib <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#f92672">)</span>
+  @rpath/libswiftDispatch.dylib <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#f92672">)</span>
+  @rpath/libswiftFoundation.dylib <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#f92672">)</span>
+  @rpath/libswiftMetal.dylib <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#f92672">)</span>
+  @rpath/libswiftObjectiveC.dylib <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#f92672">)</span>
+  @rpath/libswiftQuartzCore.dylib <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#f92672">)</span>
+<span style="color:#f92672">======</span>
+  @rpath/libswiftUIKit.dylib <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#f92672">)</span>
+<span style="color:#f92672">======</span>
+  @rpath/libswiftXCTest.dylib <span style="color:#f92672">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#f92672">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>As you can see, for some reasons, it tries to link <code>UIKit.framework</code> twice:</p>
@@ -527,9 +527,9 @@ xctest<span style="color:#000">[</span>77129:8746476<span style="color:#000">](<
 <li>and via expected <code>@rpath/libswiftUIKit.dylib</code>.</li>
 </ul>
 <p>Let&rsquo;s check the information from the module itself with <code>otool</code>, to be sure that <code>load</code> describes the correct framework to link:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
@@ -540,35 +540,35 @@ xctest<span style="color:#000">[</span>77129:8746476<span style="color:#000">](<
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ otool -l .build/debug/ios_framework_package.build/ios_framework_package.swift.o
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ otool -l .build/debug/ios_framework_package.build/ios_framework_package.swift.o
 ...
-Load <span style="color:#a90d91">command</span> <span style="color:#1c01ce">6</span>
+Load command <span style="color:#ae81ff">6</span>
      cmd LC_LINKER_OPTION
- cmdsize <span style="color:#1c01ce">32</span>
-   count <span style="color:#1c01ce">2</span>
-  string <span style="color:#177500">#1 -framework</span>
-  string <span style="color:#177500">#2 UIKit</span>
+ cmdsize <span style="color:#ae81ff">32</span>
+   count <span style="color:#ae81ff">2</span>
+  string <span style="color:#75715e">#1 -framework</span>
+  string <span style="color:#75715e">#2 UIKit</span>
 ...
 </code></pre></td></tr></table>
 </div>
 </div><p>Seems correct to me. To remove the confusion, let&rsquo;s pass the linking option directly with <code>-Xswiftc &quot;-lswiftUIKit&quot;</code>:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">swift <span style="color:#a90d91">test</span> --verbose <span style="color:#c41a16">\
-</span><span style="color:#c41a16"></span>      -Xswiftc <span style="color:#c41a16">&#34;-sdk&#34;</span> -Xswiftc <span style="color:#c41a16">&#34;`xcrun --sdk iphonesimulator --show-sdk-path`&#34;</span> <span style="color:#c41a16">\
-</span><span style="color:#c41a16"></span>      -Xswiftc <span style="color:#c41a16">&#34;-target&#34;</span> -Xswiftc <span style="color:#c41a16">&#34;x86_64-apple-ios12.1-simulator&#34;</span> <span style="color:#c41a16">\
-</span><span style="color:#c41a16"></span>      -Xswiftc <span style="color:#c41a16">&#34;-lswiftUIKit&#34;</span>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">swift test --verbose <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>      -Xswiftc <span style="color:#e6db74">&#34;-sdk&#34;</span> -Xswiftc <span style="color:#e6db74">&#34;`xcrun --sdk iphonesimulator --show-sdk-path`&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>      -Xswiftc <span style="color:#e6db74">&#34;-target&#34;</span> -Xswiftc <span style="color:#e6db74">&#34;x86_64-apple-ios12.1-simulator&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>      -Xswiftc <span style="color:#e6db74">&#34;-lswiftUIKit&#34;</span>
 </code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
@@ -579,15 +579,15 @@ Load <span style="color:#a90d91">command</span> <span style="color:#1c01ce">6</s
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">xctest<span style="color:#000">[</span>18838:9855653<span style="color:#000">]</span> The bundle “ios-framework-packagePackageTests.xctest” couldn’t be loaded because it is damaged or missing necessary resources. Try reinstalling the bundle.
-xctest<span style="color:#000">[</span>18838:9855653<span style="color:#000">]</span>dlopen_preflight<span style="color:#000">(</span>./ios-example/ios-framework-package/.build/x86_64-apple-macosx10.10/debug/ios-framework-packagePackageTests.xctest/Contents/MacOS/ios-framework-packagePackageTests<span style="color:#000">)</span>:
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">xctest<span style="color:#f92672">[</span>18838:9855653<span style="color:#f92672">]</span> The bundle “ios-framework-packagePackageTests.xctest” couldn’t be loaded because it is damaged or missing necessary resources. Try reinstalling the bundle.
+xctest<span style="color:#f92672">[</span>18838:9855653<span style="color:#f92672">]</span>dlopen_preflight<span style="color:#f92672">(</span>./ios-example/ios-framework-package/.build/x86_64-apple-macosx10.10/debug/ios-framework-packagePackageTests.xctest/Contents/MacOS/ios-framework-packagePackageTests<span style="color:#f92672">)</span>:
 
       **Library not loaded: @rpath/libswiftUIKit.dylib**
       ...
       Reason: no suitable image found.  Did find:
       /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/libswiftUIKit.dylib: mach-o,
 
-      **but built <span style="color:#a90d91">for</span> simulator <span style="color:#000">(</span>not macOS<span style="color:#000">)</span>**
+      **but built <span style="color:#66d9ef">for</span> simulator <span style="color:#f92672">(</span>not macOS<span style="color:#f92672">)</span>**
 </code></pre></td></tr></table>
 </div>
 </div><p>This is the end, my only friend. We can link proper frameworks with minimum efforts, but it&rsquo;s impossible to run these tests for iOS device or simulator without SPM support. It seems that even <code>xcrun</code> with <code>xctest</code> cannot handle it, we need <code>xcodebuild</code> assistance here. Enough these weird logs and useless speeches, let&rsquo;s summarise.</p>
@@ -622,13 +622,15 @@ xctest<span style="color:#000">[</span>18838:9855653<span style="color:#000">]</
 		<div>
 			<ul>
 				
+				<li><a href="/posts/xed_xcode_invocation_tool/">Xcode invocation tool - xed</a></li>
+				
+				<li><a href="/posts/anthony_fauci_brad_pitt/">Dr. Anthony Fauci Cold Open - SNL</a></li>
+				
 				<li><a href="/posts/bob_martin_the_future_of_programming/">About Bob Martin&#39;s talk - The Future of Programming (2016)</a></li>
 				
 				<li><a href="/posts/emojis_over_time/">Emojis over time</a></li>
 				
 				<li><a href="/posts/xcode_macos_ios_betas/">Note: Xcode 10.2, macOS Mojave 10.14.4, iOS 12.1 and other betas</a></li>
-				
-				<li><a href="/posts/swift_package_manager_builds_ios_frameworks/">Swift Package Manager builds iOS frameworks (Updated. Xcode 10.2 Beta)</a></li>
 				
 			</ul>
 		</div>
