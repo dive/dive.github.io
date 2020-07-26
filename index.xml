@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-GB</language>
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 19 Jul 2020 17:26:00 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2020 16:34:00 +0100</lastBuildDate>
     
 	<atom:link href="http://dive.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Grammarly iOS Keyboard - Unboxing</title>
+      <link>http://dive.github.io/posts/grammarly_ios_unboxing/</link>
+      <pubDate>Sun, 26 Jul 2020 16:34:00 +0100</pubDate>
+      
+      <guid>http://dive.github.io/posts/grammarly_ios_unboxing/</guid>
+      <description>Grammarly is a lovely writing assistant. Twenty million people use the tool across the globe according to the statistics available on the site. I use it too. No complaints, it does its job quite well, and I am a happy user. The only thing that always worried me is the Grammarly iOS Keyboard. As an iOS engineer, I know how easily you can collect different data, sensitive information, and even do not ask users about the consent.</description>
+    </item>
     
     <item>
       <title>Xcode invocation tool - xed</title>
