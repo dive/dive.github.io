@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-GB</language>
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 15 Mar 2020 19:03:00 +0000</lastBuildDate>
-    
-	<atom:link href="http://dive.github.io/tags/objectivec/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 15 Mar 2020 19:03:00 +0000</lastBuildDate><atom:link href="http://dive.github.io/tags/objectivec/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About Bob Martin&#39;s talk - The Future of Programming (2016)</title>
       <link>http://dive.github.io/posts/bob_martin_the_future_of_programming/</link>

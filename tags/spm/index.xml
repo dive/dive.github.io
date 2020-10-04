@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-GB</language>
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Sat, 04 Jan 2020 22:53:00 +0000</lastBuildDate>
-    
-	<atom:link href="http://dive.github.io/tags/spm/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 04 Jan 2020 22:53:00 +0000</lastBuildDate><atom:link href="http://dive.github.io/tags/spm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Swift Package Manager builds iOS frameworks (Updated. Xcode 10.2 Beta)</title>
       <link>http://dive.github.io/posts/swift_package_manager_builds_ios_frameworks/</link>
