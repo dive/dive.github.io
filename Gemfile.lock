@@ -256,6 +256,8 @@ PLATFORMS
 
 DEPENDENCIES
   github-pages
+  jekyll-feed (~> 0.6)
+  kramdown-parser-gfm
 
 BUNDLED WITH
    2.1.4
