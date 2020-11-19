@@ -1,1 +1,30 @@
-remote_theme: "jekyll/minima"
+# Welcome to Jekyll!
+
+# Site settings
+title: Dive's blog
+email: artyom.loenko@mac.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://dive.github.io"
+github_username: dive
+
+# Build settings
+markdown: kramdown
+theme: null
+plugins:
+  - jekyll-feed
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
