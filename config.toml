@@ -1,0 +1,4 @@
+baseURL = 'http://dive.github.io/'
+languageCode = 'en-gb'
+title = "dive's blog"
+theme = 'anubis'
