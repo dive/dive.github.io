@@ -7,76 +7,85 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-GB</language>
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 19 Jul 2020 17:26:00 +0100</lastBuildDate><atom:link href="http://dive.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 May 2021 21:26:00 +0100</lastBuildDate><atom:link href="http://dive.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Xcode</title>
-      <link>http://dive.github.io/tags/xcode/</link>
-      <pubDate>Sun, 19 Jul 2020 17:26:00 +0100</pubDate>
+      <title>#Xcode</title>
+      <link>http://dive.github.io/tags/#xcode/</link>
+      <pubDate>Sun, 16 May 2021 21:26:00 +0100</pubDate>
       
-      <guid>http://dive.github.io/tags/xcode/</guid>
+      <guid>http://dive.github.io/tags/#xcode/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Agile</title>
-      <link>http://dive.github.io/tags/agile/</link>
+      <title>#xcrun</title>
+      <link>http://dive.github.io/tags/#xcrun/</link>
+      <pubDate>Sat, 08 May 2021 11:12:00 +0100</pubDate>
+      
+      <guid>http://dive.github.io/tags/#xcrun/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>#Agile</title>
+      <link>http://dive.github.io/tags/#agile/</link>
       <pubDate>Sun, 15 Mar 2020 19:03:00 +0000</pubDate>
       
-      <guid>http://dive.github.io/tags/agile/</guid>
+      <guid>http://dive.github.io/tags/#agile/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Engineering</title>
-      <link>http://dive.github.io/tags/engineering/</link>
+      <title>#Engineering</title>
+      <link>http://dive.github.io/tags/#engineering/</link>
       <pubDate>Sun, 15 Mar 2020 19:03:00 +0000</pubDate>
       
-      <guid>http://dive.github.io/tags/engineering/</guid>
+      <guid>http://dive.github.io/tags/#engineering/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>ObjectiveC</title>
-      <link>http://dive.github.io/tags/objectivec/</link>
+      <title>#ObjectiveC</title>
+      <link>http://dive.github.io/tags/#objectivec/</link>
       <pubDate>Sun, 15 Mar 2020 19:03:00 +0000</pubDate>
       
-      <guid>http://dive.github.io/tags/objectivec/</guid>
+      <guid>http://dive.github.io/tags/#objectivec/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Emoji</title>
-      <link>http://dive.github.io/tags/emoji/</link>
+      <title>#Emoji</title>
+      <link>http://dive.github.io/tags/#emoji/</link>
       <pubDate>Sun, 05 Jan 2020 16:16:00 +0000</pubDate>
       
-      <guid>http://dive.github.io/tags/emoji/</guid>
+      <guid>http://dive.github.io/tags/#emoji/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>iOS</title>
-      <link>http://dive.github.io/tags/ios/</link>
+      <title>#iOS</title>
+      <link>http://dive.github.io/tags/#ios/</link>
       <pubDate>Sun, 05 Jan 2020 16:16:00 +0000</pubDate>
       
-      <guid>http://dive.github.io/tags/ios/</guid>
+      <guid>http://dive.github.io/tags/#ios/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>SPM</title>
-      <link>http://dive.github.io/tags/spm/</link>
+      <title>#SPM</title>
+      <link>http://dive.github.io/tags/#spm/</link>
       <pubDate>Sat, 04 Jan 2020 22:53:00 +0000</pubDate>
       
-      <guid>http://dive.github.io/tags/spm/</guid>
+      <guid>http://dive.github.io/tags/#spm/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Swift</title>
-      <link>http://dive.github.io/tags/swift/</link>
+      <title>#Swift</title>
+      <link>http://dive.github.io/tags/#swift/</link>
       <pubDate>Sat, 04 Jan 2020 22:53:00 +0000</pubDate>
       
-      <guid>http://dive.github.io/tags/swift/</guid>
+      <guid>http://dive.github.io/tags/#swift/</guid>
       <description></description>
     </item>
     

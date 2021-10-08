@@ -11,10 +11,11 @@
 
     
     
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
 
     
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <header>
@@ -46,19 +47,10 @@
 				<h2 id="swift-5-for-xcode-10-dot-2-beta"><a href="https://developer.apple.com/documentation/xcode%5Frelease%5Fnotes/xcode%5F10%5F2%5Frelease%5Fnotes/swift%5F5%5Frelease%5Fnotes%5Ffor%5Fxcode%5F10%5F2">Swift 5 for Xcode 10.2 beta</a></h2>
 <h3 id="swift">Swift</h3>
 <p>First of all, the latest Xcode beta is bundled with the following Swift version:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Apple Swift version 5.0 <span style="color:#f92672">(</span>swiftlang-1001.0.45.7 clang-1001.0.37.7<span style="color:#f92672">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Apple Swift version 5.0 (swiftlang-1001.0.45.7 clang-1001.0.37.7)
 Target: x86_64-apple-darwin18.2.0
 ABI version: 0.6
-</code></pre></td></tr></table>
-</div>
-</div><p>And let&rsquo;s start with the most exciting news:</p>
+</code></pre></div><p>And let&rsquo;s start with the most exciting news:</p>
 <blockquote>
 <p>Swift apps no longer include dynamically linked libraries for the Swift standard library and Swift SDK overlays in build variants for devices running iOS 12.2, watchOS 5.2, and tvOS 12.2. As a result, Swift apps can be smaller when deployed for testing using TestFlight, or when thinning an app archive for local development distribution.</p>
 </blockquote>
@@ -67,37 +59,19 @@ ABI version: 0.6
 <p>The <code>@dynamicCallable</code> attribute lets you call named types like you call functions using a simple syntactic sugar. The primary use case is dynamic language interoperability. (<a href="https://github.com/apple/swift-evolution/blob/master/proposals/0216-dynamic-callable.md">SE-0216</a>)</p>
 </blockquote>
 <p>Example:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">@dynamicCallable <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ToyCallable</span> {
-    <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">dynamicallyCall</span>(withArguments: [Int]) {}
-    <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">dynamicallyCall</span>(withKeywordArguments: KeyValuePairs&lt;String, Int&gt;) {}
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">@<span style="color:#268bd2">dynamicCallable</span> <span style="color:#859900">struct</span> <span style="color:#cb4b16">ToyCallable</span> {
+    <span style="color:#859900">func</span> <span style="color:#268bd2">dynamicallyCall</span>(<span style="color:#268bd2">withArguments</span>: [<span style="color:#cb4b16">Int</span>]) {}
+    <span style="color:#859900">func</span> <span style="color:#268bd2">dynamicallyCall</span>(<span style="color:#268bd2">withKeywordArguments</span>: <span style="color:#268bd2">KeyValuePairs</span>&lt;<span style="color:#cb4b16">String</span>, <span style="color:#cb4b16">Int</span>&gt;) {}
 }
 
-<span style="color:#66d9ef">let</span> x = ToyCallable()
+<span style="color:#859900">let</span> <span style="color:#268bd2">x</span> = <span style="color:#268bd2">ToyCallable</span>()
 
-x(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
-<span style="color:#75715e">// Desugars to `x.dynamicallyCall(withArguments: [1, 2, 3])`</span>
+<span style="color:#268bd2">x</span>(<span style="color:#2aa198;font-weight:bold">1</span>, <span style="color:#2aa198;font-weight:bold">2</span>, <span style="color:#2aa198;font-weight:bold">3</span>)
+<span style="color:#93a1a1;font-style:italic">// Desugars to `x.dynamicallyCall(withArguments: [1, 2, 3])`</span>
 
-x(label: <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
-<span style="color:#75715e">// Desugars to `x.dynamicallyCall(withKeywordArguments: [&#34;label&#34;: 1, &#34;&#34;: 2])</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>This is a huge topic, and I have mixed feelings about the feature. So, it&rsquo;s better to read the <a href="https://www.hackingwithswift.com/articles/126/whats-new-in-swift-5-0">&ldquo;What’s new in Swift 5.0&rdquo;</a> post from Paul Hudson if you want to learn more about what is coming.</p>
+<span style="color:#268bd2">x</span>(<span style="color:#268bd2">label</span>: <span style="color:#2aa198;font-weight:bold">1</span>, <span style="color:#2aa198;font-weight:bold">2</span>)
+<span style="color:#93a1a1;font-style:italic">// Desugars to `x.dynamicallyCall(withKeywordArguments: [&#34;label&#34;: 1, &#34;&#34;: 2])</span>
+</code></pre></div><p>This is a huge topic, and I have mixed feelings about the feature. So, it&rsquo;s better to read the <a href="https://www.hackingwithswift.com/articles/126/whats-new-in-swift-5-0">&ldquo;What’s new in Swift 5.0&rdquo;</a> post from Paul Hudson if you want to learn more about what is coming.</p>
 <blockquote>
 <p>Swift 3 mode has been removed. Supported values for the <code>-swift-version</code> flag are 4, 4.2, and 5.</p>
 </blockquote>
@@ -249,62 +223,29 @@ x(label: <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</sp
 <p>And the last one about Xcode, useful for companies with a lot of developers, Xcode now supports <a href="https://support.apple.com/en-gb/guide/mac-help/mchl9388ba1b/mac">macOS content caching service</a>. It means that you can have a caching server with Xcode application in your local network.</p>
 <h3 id="issues">Issues</h3>
 <p>I faced some problems with the beta. Mostly, with third-party tools. <code>carthage</code>, for example, doesn&rsquo;t work with the following error:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">...
-Could not find any available simulators <span style="color:#66d9ef">for</span> iOS
-</code></pre></td></tr></table>
-</div>
-</div><p>I checked the available simulator, and it seems that something is broken in the current beta; also it&rsquo;s impossible to download other runtimes from Xcode, the list of available simulators is just empty (a radar filled):</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ xcrun simctl list devices --json | grep -A16 12.1
-    <span style="color:#e6db74">&#34;com.apple.CoreSimulator.SimRuntime.iOS-12-1&#34;</span> : <span style="color:#f92672">[</span>
-      <span style="color:#f92672">{</span>
-        <span style="color:#e6db74">&#34;availability&#34;</span> : <span style="color:#e6db74">&#34;(unavailable, runtime profile not found)&#34;</span>,
-        <span style="color:#e6db74">&#34;state&#34;</span> : <span style="color:#e6db74">&#34;Shutdown&#34;</span>,
-        <span style="color:#e6db74">&#34;isAvailable&#34;</span> : false,
-        <span style="color:#e6db74">&#34;name&#34;</span> : <span style="color:#e6db74">&#34;iPhone 5s&#34;</span>,
-        <span style="color:#e6db74">&#34;udid&#34;</span> : <span style="color:#e6db74">&#34;DDD36346-A76F-42E8-80F4-6F11E1EE4BEB&#34;</span>,
-        <span style="color:#e6db74">&#34;availabilityError&#34;</span> : <span style="color:#e6db74">&#34;runtime profile not found&#34;</span>
-      <span style="color:#f92672">}</span>,
-      <span style="color:#f92672">{</span>
-        <span style="color:#e6db74">&#34;availability&#34;</span> : <span style="color:#e6db74">&#34;(unavailable, runtime profile not found)&#34;</span>,
-        <span style="color:#e6db74">&#34;state&#34;</span> : <span style="color:#e6db74">&#34;Shutdown&#34;</span>,
-        <span style="color:#e6db74">&#34;isAvailable&#34;</span> : false,
-        <span style="color:#e6db74">&#34;name&#34;</span> : <span style="color:#e6db74">&#34;iPhone 6&#34;</span>,
-        <span style="color:#e6db74">&#34;udid&#34;</span> : <span style="color:#e6db74">&#34;21794717-BC89-45E4-9F57-8CF9D14A87D1&#34;</span>,
-        <span style="color:#e6db74">&#34;availabilityError&#34;</span> : <span style="color:#e6db74">&#34;runtime profile not found&#34;</span>
-      <span style="color:#f92672">}</span>,
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">...
+Could not find any available simulators <span style="color:#859900">for</span> iOS
+</code></pre></div><p>I checked the available simulator, and it seems that something is broken in the current beta; also it&rsquo;s impossible to download other runtimes from Xcode, the list of available simulators is just empty (a radar filled):</p>
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ xcrun simctl list devices --json | grep -A16 12.1
+    <span style="color:#2aa198">&#34;com.apple.CoreSimulator.SimRuntime.iOS-12-1&#34;</span> : [
+      {
+        <span style="color:#2aa198">&#34;availability&#34;</span> : <span style="color:#2aa198">&#34;(unavailable, runtime profile not found)&#34;</span>,
+        <span style="color:#2aa198">&#34;state&#34;</span> : <span style="color:#2aa198">&#34;Shutdown&#34;</span>,
+        <span style="color:#2aa198">&#34;isAvailable&#34;</span> : false,
+        <span style="color:#2aa198">&#34;name&#34;</span> : <span style="color:#2aa198">&#34;iPhone 5s&#34;</span>,
+        <span style="color:#2aa198">&#34;udid&#34;</span> : <span style="color:#2aa198">&#34;DDD36346-A76F-42E8-80F4-6F11E1EE4BEB&#34;</span>,
+        <span style="color:#2aa198">&#34;availabilityError&#34;</span> : <span style="color:#2aa198">&#34;runtime profile not found&#34;</span>
+      },
+      {
+        <span style="color:#2aa198">&#34;availability&#34;</span> : <span style="color:#2aa198">&#34;(unavailable, runtime profile not found)&#34;</span>,
+        <span style="color:#2aa198">&#34;state&#34;</span> : <span style="color:#2aa198">&#34;Shutdown&#34;</span>,
+        <span style="color:#2aa198">&#34;isAvailable&#34;</span> : false,
+        <span style="color:#2aa198">&#34;name&#34;</span> : <span style="color:#2aa198">&#34;iPhone 6&#34;</span>,
+        <span style="color:#2aa198">&#34;udid&#34;</span> : <span style="color:#2aa198">&#34;21794717-BC89-45E4-9F57-8CF9D14A87D1&#34;</span>,
+        <span style="color:#2aa198">&#34;availabilityError&#34;</span> : <span style="color:#2aa198">&#34;runtime profile not found&#34;</span>
+      },
 ...
-</code></pre></td></tr></table>
-</div>
-</div><p>It is a beta. And the changelog is enormous. Be patience and reasonable :)</p>
+</code></pre></div><p>It is a beta. And the changelog is enormous. Be patience and reasonable :)</p>
 <h2 id="ios-12-dot-2-beta">iOS 12.2 beta</h2>
 <p>Okay. It seems like they are polishing their tech-debt and applying security patches. Two things are broken:</p>
 <blockquote>
@@ -333,9 +274,9 @@ Workaround: Run the following command in Terminal:
 
 			</div>
 			
-			<a href="/tags/ios" class="tags">iOS</a>
+			<a href="/tags/#ios" class="tags">#iOS</a>
 			
-			<a href="/tags/xcode" class="tags">Xcode</a>
+			<a href="/tags/#xcode" class="tags">#Xcode</a>
 			
 			<div>
 				
@@ -350,15 +291,15 @@ Workaround: Run the following command in Terminal:
 		<div>
 			<ul>
 				
+				<li><a href="/posts/get_current_selected.xcode/">How to get the current selected Xcode and list installed</a></li>
+				
+				<li><a href="/posts/multiple_xcode_versions_and_xcrun/">Multiple Xcode versions or Why `xcrun` is your friend</a></li>
+				
 				<li><a href="/posts/twitter_digest_september_2020/">Twitter Digest / October, 2020</a></li>
 				
 				<li><a href="/posts/grammarly_ios_unboxing/">Grammarly iOS Keyboard - Unboxing</a></li>
 				
 				<li><a href="/posts/xed_xcode_invocation_tool/">Xcode invocation tool - xed</a></li>
-				
-				<li><a href="/posts/anthony_fauci_brad_pitt/">Dr. Anthony Fauci Cold Open - SNL</a></li>
-				
-				<li><a href="/posts/bob_martin_the_future_of_programming/">About Bob Martin&#39;s talk - The Future of Programming (2016)</a></li>
 				
 			</ul>
 		</div>
@@ -370,5 +311,6 @@ Workaround: Run the following command in Terminal:
   <p>&copy; 2021 <a href="http://dive.github.io/">Just sit and grin</a></p>
 </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
   </body>
 </html>

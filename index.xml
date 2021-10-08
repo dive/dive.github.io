@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-GB</language>
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 04 Oct 2020 14:50:00 +0100</lastBuildDate><atom:link href="http://dive.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 May 2021 21:26:00 +0100</lastBuildDate><atom:link href="http://dive.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to get the current selected Xcode and list installed</title>
+      <link>http://dive.github.io/posts/get_current_selected.xcode/</link>
+      <pubDate>Sun, 16 May 2021 21:26:00 +0100</pubDate>
+      
+      <guid>http://dive.github.io/posts/get_current_selected.xcode/</guid>
+      <description>&lt;p&gt;Some tips &amp;amp; tricks on how to get the current selected Xcode and check for available local versions.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Multiple Xcode versions or Why `xcrun` is your friend</title>
+      <link>http://dive.github.io/posts/multiple_xcode_versions_and_xcrun/</link>
+      <pubDate>Sat, 08 May 2021 11:12:00 +0100</pubDate>
+      
+      <guid>http://dive.github.io/posts/multiple_xcode_versions_and_xcrun/</guid>
+      <description>&lt;p&gt;I recently spent a few hours helping a friend of mine investigate a weird issue in their Continuous Development infrastructure. Builds were failing with different fatal errors mostly related to SDK paths and &lt;code&gt;.platform&lt;/code&gt; directory locations. At first sight, it was clear that something is wrong with the current selected Xcode, but all our initial attempts to catch the problem failed.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Twitter Digest / October, 2020</title>
       <link>http://dive.github.io/posts/twitter_digest_september_2020/</link>
