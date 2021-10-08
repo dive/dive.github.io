@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Xcode invocation tool - xed</title>
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Xcode invocation tool - xed"/>
+<meta name="twitter:description" content="xed is a command-line tool that launches the Xcode application and opens the given documents (xcodeproj, xcworkspace, etc.), or opens a new document, optionally with the contents of standard input."/>
+
+    
+    
+    <link rel="stylesheet" href="/css/style.css">
+
+    
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <header>
+  <div id="header-container">
+    <div>
+      <span>
+        <a href="http://dive.github.io/">Home</a>
+        <a href="http://dive.github.io/index.xml">RSS</a>
+        
+      </span>
+    </div>
+    <div>
+      <span>
+        <a href="https://github.com/dive">GitHub</a>
+        <a href="https://twitter.com/justsitandgrin">Twitter</a>
+        <a href="https://www.linkedin.com/in/artemloenko">LinkedIn</a>
+      </span>
+    </div>
+  </div>
+  
+</header>
+
+    
+	<main>
+		<article>
+			<h1 class="title">Xcode invocation tool - xed</h1>
+			<time>19.07.2020 17:26</time>
+			<div>
+				<p><code>xed</code> is a command-line tool that launches the Xcode application and opens the given documents (<code>xcodeproj</code>, <code>xcworkspace</code>, etc.), or opens a new document, optionally with the contents of standard input.</p>
+<p>If you work from the command line, this tool is a better option than <code>open</code> (which can open Xcode projects as well). Why?</p>
+<ul>
+<li><code>xed</code> knows about the current selected Xcode version (<code>open</code> behaves unpredictably if you have multiple Xcode installed)</li>
+<li>You can use it open all files from a specific commit (with a little help explained below). It is useful on code-reviews or when you want to explore significant changes in the repository</li>
+<li>You can use it as a &ldquo;quick open&rdquo; helper. Helps with monorepo phenomena, when you have hundreds of projects in the repository (I will show you an example below)</li>
+</ul>
+<h2 id="note-about-the-current-selected-xcode-version">Note about the current selected Xcode version</h2>
+<p>The current selected Xcode is controlled by <code>xcode-select</code> tool. You can check the current selected version with <code>xcode-select -p</code> (or <code>xcode-select --print-path</code>) and change it with <code>sudo xcode-select -s PATH_TO_XCODE</code> (or <code>sudo xcode-select --switch PATH_TO_XCODE</code>).</p>
+<p><strong>Tips &amp; Tricks</strong>: There is a trick to get the current selected Xcode version without the tool. But your command line has to have full disk access. In some cases, it can be useful, but I recommend to use <code>xcode-select</code> if you have no additional requirements.
+To check the current selected Xcode version without <code>xcode-select</code>, execute the following command:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ readlink /private/var/db/xcode_select_link
+/Volumes/Extended/Archive/Xcode_11.5.app/Contents/Developer
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="base-commands">Base commands</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">xed --launch
+<span style="color:#75715e"># or</span>
+xed -x
+</code></pre></td></tr></table>
+</div>
+</div><p>Launches the current selected Xcode.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">xed Client.xcodeproj
+<span style="color:#75715e"># or</span>
+xed Client.xcworkspace
+</code></pre></td></tr></table>
+</div>
+</div><p>Will open the project with the current selected Xcode and terminate (the process that invoked <code>xed</code> remains in control).</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> xed SourceFile.swift AnotherExample.swift
+</code></pre></td></tr></table>
+</div>
+</div><p>Will open the files. There are two possible outcomes:</p>
+<ul>
+<li>Xcode will navigate to these file within the project if the project that contains these files is already opened</li>
+<li>Xcode will open the files as separate units</li>
+</ul>
+<hr>
+<p>There are more options, like <code>--wait</code> or <code>--line</code>. Please, consult the man page for <code>xed</code>.</p>
+<p><strong>Tips &amp; Tricks</strong>: If you are browsing this article on macOS, you can click on the <a href="x-man-page://xed">Man page for xed</a> link, and it will show you the man page for the command in Terminal.app. There is a special scheme - <code>x-man-page</code> - than can open man pages for any available commands on macOS. For example, the URL for <code>xed</code> looks like <a href="x-man-page://xed">x-man-page://xed</a>.</p>
+<h2 id="open-all-files-with-changes">Open all files with changes</h2>
+<p>You can browse the git history directly in Xcode, and this is a convenient way to navigate the history. But I am not too fond of the Xcode Code Review tool because of the layout (when they show the original source and the version side-by-side), and there is no option to open all the files in the editor. Sometimes it is useful to open all files changed by the commit as regular source files and navigate them one by one.</p>
+<p>To do so, you need a hash of the commit you want to browse. The following command will list all the files in the commit and open them in Xcode:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> xed <span style="color:#66d9ef">$(</span>git diff-tree --no-commit-id --name-only -r COMMIT_HASH<span style="color:#66d9ef">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>You can use the command as an alias for your Bash or zsh configurations.</p>
+<p>Note: if the Xcode project for these files is already opened then Xcode will open them in the context of the project. Otherwise, it will open each file in a separate window.</p>
+<h2 id="quick-search-and-open-projects">Quick search and open projects</h2>
+<p>You need a quick way to search and open projects when you have hundreds of them in your git repository. In my case, I work with two monorepos daily, and I have a significant number of different projects in my &ldquo;projects&rdquo; folder. To be able to navigate and open them as quickly as possible, I developed a script that scans the current folder for all <code>.xcodeproj</code> files, produces a list of them according to the provided search term and then open a specific project with the <code>xed</code> tool.</p>
+<p>Let&rsquo;s take the <a href="https://github.com/mozilla-mobile/firefox-ios">Firefox iOS project</a> as a simple example. The project contains 65 <code>.xcodeproj</code> files in the repository (most of them are third-party Carthage dependencies). Imagine that I work with the repository every day and have to switch between these projects (check demos, run tests, apply fixes, etc.). To help myself, I am using the following script:</p>
+<script type="application/javascript" src="https://gist.github.com/dive/aa5b6713216ba87c0a07ab73440078f4.js"></script>
+
+<p>The script will produce the full list of projects when you run it in the Firefox iOS project and ask you to provide a number to select a project to open:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sh pxed.sh
+...
+60<span style="color:#f92672">)</span> ./Carthage/Checkouts/sentry-cocoa/Sentry.xcodeproj
+61<span style="color:#f92672">)</span> ./Carthage/Checkouts/swift-protobuf/SwiftProtobuf.xcodeproj
+62<span style="color:#f92672">)</span> ./Carthage/Checkouts/telemetry-ios/Telemetry.xcodeproj
+63<span style="color:#f92672">)</span> ./Client.xcodeproj
+64<span style="color:#f92672">)</span> ./FxA/FxA.xcodeproj
+65<span style="color:#f92672">)</span> ./ThirdParty/Deferred/Deferred.xcodeproj
+<span style="color:#75715e">#?</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>If you run it with a search term, &ldquo;demo&rdquo; for example, the list will be limited to projects with the keyword in the name:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sh pxed.sh demo
+Collecting .xcodeproj...
+Please <span style="color:#66d9ef">select</span> a project:
+1<span style="color:#f92672">)</span> ./Carthage/Checkouts/Fuzi/FuziDemo/FuziDemo.xcodeproj
+2<span style="color:#f92672">)</span> ./Carthage/Checkouts/SDWebImage/Examples/SDWebImage Demo.xcodeproj
+3<span style="color:#f92672">)</span> ./Carthage/Checkouts/XCGLogger/DemoApps/iOSDemo/iOSDemo.xcodeproj
+4<span style="color:#f92672">)</span> ./Carthage/Checkouts/XCGLogger/DemoApps/macOSDemo/macOSDemo.xcodeproj
+5<span style="color:#f92672">)</span> ./Carthage/Checkouts/XCGLogger/DemoApps/tvOSDemo/tvOSDemo.xcodeproj
+6<span style="color:#f92672">)</span> ./Carthage/Checkouts/onepassword-app-extension/Demos/App Demo <span style="color:#66d9ef">for</span> iOS Swift/App Demo <span style="color:#66d9ef">for</span> iOS Swift.xcodeproj
+7<span style="color:#f92672">)</span> ./Carthage/Checkouts/onepassword-app-extension/Demos/App Demo <span style="color:#66d9ef">for</span> iOS/App Demo <span style="color:#66d9ef">for</span> iOS.xcodeproj
+8<span style="color:#f92672">)</span> ./Carthage/Checkouts/onepassword-app-extension/Demos/WebView Demo <span style="color:#66d9ef">for</span> iOS Swift/WebView Demo <span style="color:#66d9ef">for</span> iOS Swift.xcodeproj
+9<span style="color:#f92672">)</span> ./Carthage/Checkouts/onepassword-app-extension/Demos/WebView Demo <span style="color:#66d9ef">for</span> iOS/WebView Demo <span style="color:#66d9ef">for</span> iOS.xcodeproj
+<span style="color:#75715e">#?</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>And, finally, the script will open the project straight away if there is only one search result for the keyword:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sh pxed.sh sent
+Collecting .xcodeproj...
+Opening ./Carthage/Checkouts/sentry-cocoa/Sentry.xcodeproj...
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="thanks-for-reading">Thanks for reading</h2>
+<p><a href="https://twitter.com/justsitandgrin">Let me know</a> if you have questions or want to discuss something. Feel free to comment the <a href="https://gist.github.com/dive/aa5b6713216ba87c0a07ab73440078f4">script</a> on GitHub as well.</p>
+			</div>
+			
+			<a href="/tags/xcode" class="tags">Xcode</a>
+			
+			<div>
+				
+			</div>
+		</article>
+	</main>
+<aside>
+	<div>
+		<div>
+			<h3>LATEST POSTS</h3>
+		</div>
+		<div>
+			<ul>
+				
+				<li><a href="/posts/twitter_digest_september_2020/">Twitter Digest / October, 2020</a></li>
+				
+				<li><a href="/posts/grammarly_ios_unboxing/">Grammarly iOS Keyboard - Unboxing</a></li>
+				
+				<li><a href="/posts/xed_xcode_invocation_tool/">Xcode invocation tool - xed</a></li>
+				
+				<li><a href="/posts/anthony_fauci_brad_pitt/">Dr. Anthony Fauci Cold Open - SNL</a></li>
+				
+				<li><a href="/posts/bob_martin_the_future_of_programming/">About Bob Martin&#39;s talk - The Future of Programming (2016)</a></li>
+				
+			</ul>
+		</div>
+	</div>
+</aside>
+
+
+    <footer>
+  <p>&copy; 2021 <a href="http://dive.github.io/">Just sit and grin</a></p>
+</footer>
+
+  </body>
+</html>
