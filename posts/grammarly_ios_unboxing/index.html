@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Grammarly iOS Keyboard - Unboxing</title>
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Grammarly iOS Keyboard - Unboxing"/>
+<meta name="twitter:description" content="Grammarly is a lovely writing assistant. Twenty million people use the tool across the globe according to the statistics available on the site. I use it too. No complaints, it does its job quite well, and I am a happy user. The only thing that always worried me is the Grammarly iOS Keyboard. As an iOS engineer, I know how easily you can collect different data, sensitive information, and even do not ask users about the consent."/>
+
+    
+    
+    <link rel="stylesheet" href="/css/style.css">
+
+    
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <header>
+  <div id="header-container">
+    <div>
+      <span>
+        <a href="http://dive.github.io/">Home</a>
+        <a href="http://dive.github.io/index.xml">RSS</a>
+        
+      </span>
+    </div>
+    <div>
+      <span>
+        <a href="https://github.com/dive">GitHub</a>
+        <a href="https://twitter.com/justsitandgrin">Twitter</a>
+        <a href="https://www.linkedin.com/in/artemloenko">LinkedIn</a>
+      </span>
+    </div>
+  </div>
+  
+</header>
+
+    
+	<main>
+		<article>
+			<h1 class="title">Grammarly iOS Keyboard - Unboxing</h1>
+			<time>26.07.2020 16:34</time>
+			<div>
+				<p><a href="https://www.grammarly.com">Grammarly</a> is a lovely writing assistant. Twenty million people use the tool across the globe according to the statistics available on the site. I use it too. No complaints, it does its job quite well, and I am a happy user. The only thing that always worried me is the <a href="https://www.grammarly.com/keyboard">Grammarly iOS Keyboard</a>. As an iOS engineer, I know how easily you can collect different data, sensitive information, and even do not ask users about the consent. So, let&rsquo;s check what is inside the Grammarly iOS application.</p>
+<!-- more -->
+<h2 id="tl-dr">TL;DR</h2>
+<ul>
+<li>Grammarly iOS uses at least three trackers (Adjust, AppsFlyer, Internal analytics)</li>
+<li>Grammarly Keyboard has access to keystrokes, sensitive data, and able to send them over the network</li>
+</ul>
+<h2 id="frameworks">Frameworks</h2>
+<h3 id="facebook">Facebook</h3>
+<p>From the <code>Grammarly.ipa</code> file it is clear that they are using Facebook SDKs:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜ Grammarly.app_unzip $ find . -iname <span style="color:#e6db74">&#39;*.framework&#39;</span>
+./Frameworks/FacebookLogin.framework
+./Frameworks/FBSDKLoginKit.framework
+./Frameworks/FBSDKCoreKit.framework
+./Frameworks/FacebookCore.framework
+</code></pre></td></tr></table>
+</div>
+</div><p>Yes, they are using Facebook as a Sign In/Sign Up provider, and Facebook explicitly said that this is the only way to authorise users. From the <a href="https://developers.facebook.com/policy/">Facebook Platform Policy</a>:</p>
+<blockquote>
+<p>Section 8. Login</p>
+<p>Point 2. Native iOS and Android apps that implement Facebook Login must use our official SDKs for login.</p>
+</blockquote>
+<p>The only concern here is the way how Facebook treats users and applications that use their SDKs. During 2020, Facebook already damaged a lot of application twice. Check <a href="https://rambo.codes/posts/2020-05-07-the-big-facebook-crash">The big Facebook crash of 2020 and the problem of third-party SDK creep</a> by Guilherme Rambo.</p>
+<h3 id="mspell-framework">MSpell framework</h3>
+<p>This framework also ships with the application, and it seems that this is the engine the Grammarly uses for spell and grammar checks. Some exported functions from the framework, just as an example:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#ae81ff">0000000000080808</span> T __ZN10Dictionary21_loadCommonlyConfusedERKNSt3__16vectorINS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS5_IS7_EEEE
+0000000000080d54 T __ZN10Dictionary24_loadProfanityDictionaryERKNSt3__16vectorINS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS5_IS7_EEEE
+<span style="color:#ae81ff">0000000000082034</span> T __ZN10Dictionary24_loadSensitiveDictionaryERKNSt3__16vectorINS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS5_IS7_EEEE
+00000000000822ac T __ZN10Dictionary27isValidCommonlyConfusedPairERKNSt3__112basic_stringIDsNS0_11char_traitsIDsEENS0_9allocatorIDsEEEES8_
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="trackers">Trackers</h3>
+<p>No surprises here. There are at least three trackers within the application:</p>
+<ol>
+<li><a href="https://www.adjust.com">Adjust</a> - Maximize the impact of your mobile marketing!</li>
+<li><a href="https://www.appsflyer.com">AppsFlyer</a> - Attribute every app install to a marketing campaign and media source!</li>
+<li>Internal tracker located by the <a href="https://f-log-mobile-ios.grammarly.io">https://f-log-mobile-ios.grammarly.io</a> address</li>
+</ol>
+<p>Also, worth to mention that <a href="https://developer.apple.com/documentation/bundleresources/information%5Fproperty%5Flist/nsapptransportsecurity/nsallowsarbitraryloads">NSAllowsArbitraryLoads</a> is disabled for the application. This is good, at least there is no way to send the data to additional third-party services, etc. According to the documentation:</p>
+<blockquote>
+<p>A Boolean value indicating whether App Transport Security restrictions are disabled for all network connections. Disabling ATS means that unsecured HTTP connections are allowed.</p>
+</blockquote>
+<h2 id="grammarly-custom-keyboard">Grammarly Custom Keyboard</h2>
+<p>There is a helpful guide from Apple about custom keyboards - <a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/CustomKeyboard.html">Designing for User Trust</a>:</p>
+<blockquote>
+<p>For keyboards, the following three areas are especially important for establishing and maintaining user trust:</p>
+<ul>
+<li><strong>Safety of keystroke data</strong>. Users want their keystrokes to go to the document or text field they’re typing into, and not to be archived on a server or used for purposes that are not obvious to them.</li>
+<li><strong>Appropriate and minimized use of other user data</strong>. If your keyboard employs other user data, such as from Location Services or the Address Book database, the burden is on you to explain and demonstrate the benefit to your users.</li>
+<li><strong>Accuracy</strong>. Accuracy in converting input events to text is not a privacy issue per se but it impacts trust: With every word typed, users see the accuracy of your code.</li>
+</ul>
+<p>To design for trust, first consider whether to request open access. Although open access makes many things possible for a custom keyboard, it also increases your responsibilities.</p>
+</blockquote>
+<p>And the Grammarly iOS Keyboard uses the Open Access by default. To demonstrate the difference, this is a table with significant capabilities and restrictions for both modes:</p>
+<table>
+<thead>
+<tr>
+<th>Open access off (default)</th>
+<th></th>
+<th>Open access on</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No shared container with containing app</td>
+<td></td>
+<td>Keyboard can access Location Services and Address Book, with user permission</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>No access to file system apart from keyboard’s own container</td>
+<td></td>
+<td>Keyboard and containing app can employ a shared container</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>No ability to participate directly or indirectly in iCloud, Game Center, or In-App Purchase</td>
+<td></td>
+<td>Keyboard can send keystrokes and other input events for server-side processing</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>So, the Grammarly iOS application has access to a lot of things. And what is more important, is able to send keystrokes to the server.</p>
+<h2 id="network-requests">Network requests</h2>
+<p>To illustrate the situation with trackers and the Open Access, let&rsquo;s check which requests are initiated when the Grammarly iOS Keyboard is enabled on your iOS device.</p>
+<p>When you open the Spotlight and Grammarly is the default keyboard, you see the following sequence of requests:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">https://f-log-mobile-ios.grammarly.io
+https://gnar.grammarly.com
+https://data.grammarly.com
+https://f-log-mobile-ios.grammarly.io
+https://t.appsflyer.com
+</code></pre></td></tr></table>
+</div>
+</div><p>All the requests made with the <code>GRKeyboardExtension/1.9.2.3 CFNetwork/1185.2 Darwin/20.0.0</code> user-agent. Also, all the end-points use <a href="https://developer.apple.com/documentation/foundation/url%5Floading%5Fsystem/handling%5Fan%5Fauthentication%5Fchallenge/performing%5Fmanual%5Fserver%5Ftrust%5Fauthentication">Certificate Pinning</a>, so, there is no easy way to check the body of the requests. But it is not the point for the article.</p>
+<p>To illustrate the point, I recorded a video with network activity. Main takeaways are:</p>
+<ul>
+<li>Connections to <a href="https://gnar.grammarly.com">https://gnar.grammarly.com</a> and <a href="https://f-log-mobile-ios.grammarly.com">https://f-log-mobile-ios.grammarly.com</a> are active all the way when you use the keyboard</li>
+<li>It seems that all the actions (when you select a word to fix) are sent to Adjust</li>
+</ul>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/Kz4AhLatdyE" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<p>And yes, the sequence is the same for Safari when you fill in credentials, etc. But do not worry, Apple does not allow to use custom keyboards to fill in passwords. Though, for usernames, phones, emails, etc. Grammarly sends the requests above.</p>
+<h2 id="grammarly-privacy-policy">Grammarly Privacy Policy</h2>
+<p><a href="https://www.grammarly.com/privacy-policy">Privacy Policy | Grammarly</a> states that:</p>
+<ol>
+<li>We do not and will not sell your information. We don’t help companies advertise their products to you.</li>
+<li>We use a small number of trusted third parties to help provide our products.</li>
+</ol>
+<p>But on the other hand, there is a <a href="https://www.grammarly.com/privacy-policy#does-grammarly-share-my-information">Does Grammarly share my Information?</a> section that states:</p>
+<blockquote>
+<p>We only disclose Personal Data to third parties when we have your explicit consent to share your Personal Data.</p>
+</blockquote>
+<p>Standard words, usual phrases. I am not a specialist in this field, but I did not find an option to opt-out in the mobile application.</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>To be clear, I do not think that Grammarly steals your passwords, selling the data, trying to spy on sensitive information intentionally. I am a user of their services for two years and will continue to use it. With one exception - no more Grammarly iOS Keyboard application on my iOS devices. This is too much.</p>
+<h2 id="software-i-used">Software I used</h2>
+<ul>
+<li><a href="http://www.manpagez.com/man/1/nm/osx-10.12.6.php">nm</a> tool - lists the symbols from object files</li>
+<li><a href="https://www.manpagez.com/man/1/otool/">otool</a> - displays specified parts of object files or libraries</li>
+<li><a href="https://proxyman.io">ProxyMan</a> - Modern and Delightful Web Debugging Proxy</li>
+</ul>
+<hr>
+<p>Checked by Grammarly</p>
+
+			</div>
+			
+			<div>
+				
+			</div>
+		</article>
+	</main>
+<aside>
+	<div>
+		<div>
+			<h3>LATEST POSTS</h3>
+		</div>
+		<div>
+			<ul>
+				
+				<li><a href="/posts/twitter_digest_september_2020/">Twitter Digest / October, 2020</a></li>
+				
+				<li><a href="/posts/grammarly_ios_unboxing/">Grammarly iOS Keyboard - Unboxing</a></li>
+				
+				<li><a href="/posts/xed_xcode_invocation_tool/">Xcode invocation tool - xed</a></li>
+				
+				<li><a href="/posts/anthony_fauci_brad_pitt/">Dr. Anthony Fauci Cold Open - SNL</a></li>
+				
+				<li><a href="/posts/bob_martin_the_future_of_programming/">About Bob Martin&#39;s talk - The Future of Programming (2016)</a></li>
+				
+			</ul>
+		</div>
+	</div>
+</aside>
+
+
+    <footer>
+  <p>&copy; 2021 <a href="http://dive.github.io/">Just sit and grin</a></p>
+</footer>
+
+  </body>
+</html>
