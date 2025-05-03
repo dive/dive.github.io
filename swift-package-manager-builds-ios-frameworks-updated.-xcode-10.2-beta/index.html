@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Swift Package Manager builds iOS frameworks (Updated. Xcode 10.2 Beta) | Artem Loenko Website</title>
+<meta name="title" content="Swift Package Manager builds iOS frameworks (Updated. Xcode 10.2 Beta)" />
+<meta name="description" content="Swift Package Manager doesn&rsquo;t work with iOS. Probably, that&rsquo;s all you can say about the current state of SPM, but insomnia forced me to extend the answer to the following essay." />
+<meta name="keywords" content="#iOS,#SPM,#Swift," />
+
+
+<meta property="og:url" content="http://justsitandgrin.im/swift-package-manager-builds-ios-frameworks-updated.-xcode-10.2-beta/">
+  <meta property="og:site_name" content="Artem Loenko Website">
+  <meta property="og:title" content="Swift Package Manager builds iOS frameworks (Updated. Xcode 10.2 Beta)">
+  <meta property="og:description" content="Swift Package Manager doesn’t work with iOS. Probably, that’s all you can say about the current state of SPM, but insomnia forced me to extend the answer to the following essay.">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2019-01-20T09:25:00+00:00">
+    <meta property="article:modified_time" content="2020-01-05T00:12:36+00:00">
+    <meta property="article:tag" content="#IOS">
+    <meta property="article:tag" content="#SPM">
+    <meta property="article:tag" content="#Swift">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Swift Package Manager builds iOS frameworks (Updated. Xcode 10.2 Beta)">
+  <meta name="twitter:description" content="Swift Package Manager doesn’t work with iOS. Probably, that’s all you can say about the current state of SPM, but insomnia forced me to extend the answer to the following essay.">
+
+
+
+
+  <meta itemprop="name" content="Swift Package Manager builds iOS frameworks (Updated. Xcode 10.2 Beta)">
+  <meta itemprop="description" content="Swift Package Manager doesn’t work with iOS. Probably, that’s all you can say about the current state of SPM, but insomnia forced me to extend the answer to the following essay.">
+  <meta itemprop="datePublished" content="2019-01-20T09:25:00+00:00">
+  <meta itemprop="dateModified" content="2020-01-05T00:12:36+00:00">
+  <meta itemprop="wordCount" content="2229">
+  <meta itemprop="keywords" content="#IOS,#SPM,#Swift">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  :root {
+      --width: 720px;
+      --font-main: Verdana, sans-serif;
+      --font-secondary: Verdana, sans-serif;
+      --font-scale: 1em;
+      --background-color: #fff;
+      --heading-color: #222;
+      --text-color: #444;
+      --link-color: #3273dc;
+      --visited-color:  #8b6fcb;
+      --code-background-color: #f2f2f2;
+      --code-color: #222;
+      --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+      :root {
+          --background-color: #01242e;
+          --heading-color: #eee;
+          --text-color: #ddd;
+          --link-color: #8cc2dd;
+          --visited-color:  #8b6fcb;
+          --code-background-color: #000;
+          --code-color: #ddd;
+          --blockquote-color: #ccc;
+      }
+  }
+
+  body {
+      font-family: var(--font-secondary);
+      font-size: var(--font-scale);
+      margin: auto;
+      padding: 20px;
+      max-width: var(--width);
+      text-align: left;
+      background-color: var(--background-color);
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      line-height: 1.5;
+      color: var(--text-color);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-main);
+      color: var(--heading-color);
+  }
+
+  a {
+      color: var(--link-color);
+      cursor: pointer;
+      text-decoration: none;
+  }
+
+  a:hover {
+      text-decoration: underline;
+  }
+
+  nav a {
+      margin-right: 8px;
+  }
+
+  strong, b {
+      color: var(--heading-color);
+  }
+
+  button {
+      margin: 0;
+      cursor: pointer;
+  }
+
+  time {
+   	font-family: monospace;
+    	font-style: normal;
+    	font-size: 15px;
+  }
+
+  main {
+      line-height: 1.6;
+  }
+
+  table {
+      width: 100%;
+  }
+
+  hr {
+      border: 0;
+      border-top: 1px dashed;
+  }
+
+  img {
+      max-width: 100%;
+  }
+
+  code {
+      font-family: monospace;
+      padding: 2px;
+      background-color: var(--code-background-color);
+      color: var(--code-color);
+      border-radius: 3px;
+  }
+
+  blockquote {
+      border-left: 1px solid #999;
+      color: var(--code-color);
+      padding-left: 20px;
+      font-style: italic;
+  }
+
+  footer {
+      padding: 25px 0;
+      text-align: center;
+  }
+
+  .title:hover {
+      text-decoration: none;
+  }
+
+  .title h1 {
+      font-size: 1.5em;
+  }
+
+  .inline {
+      width: auto !important;
+  }
+
+  .highlight, .code {
+      padding: 1px 15px;
+      background-color: var(--code-background-color);
+      color: var(--code-color);
+      border-radius: 3px;
+      margin-block-start: 1em;
+      margin-block-end: 1em;
+      overflow-x: auto;
+  }
+
+   
+  ul.blog-posts {
+      list-style-type: none;
+      padding: unset;
+  }
+
+  ul.blog-posts li {
+      display: flex;
+  }
+
+  ul.blog-posts li span {
+      flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+      color: var(--visited-color);
+  }
+</style>
+
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Artem Loenko Website</h2>
+</a>
+<nav><a href="/">Home</a>
+
+
+<a href="/blog">Blog</a>
+
+</nav>
+</header>
+  <main>
+
+<h1>Swift Package Manager builds iOS frameworks (Updated. Xcode 10.2 Beta)</h1>
+<p>
+  <i>
+    <time datetime='2020-01-04'>
+      04 Jan, 2020
+    </time>
+  </i>
+</p>
+
+<content>
+  <p>Swift Package Manager doesn&rsquo;t work with iOS. Probably, that&rsquo;s all you can say about the current state of SPM, but insomnia forced me to extend the answer to the following essay.</p>
+<h2 id="tl-dr">TL;DR</h2>
+<ul>
+<li>Yes, you can build iOS frameworks with Swift Package Manager;</li>
+<li>Yes, you can adjust settings via <code>.xcconfig</code> and reuse generated <code>.xcodeproj</code> in a real iOS application without 3rd party tools to parse a project structure, scripts on Ruby, etc.;</li>
+<li>Yes, you can use <code>swift build</code> to build your package but only as a library (though, with some additional limitations);</li>
+<li>No, you can not use <code>swift test</code> because you have to spawn a simulator to run them.</li>
+</ul>
+<h2 id="current-state-of-swift-package-manager">Current State of Swift Package Manager</h2>
+<p>iOS support is a hot topic in <a href="https://swift.org/package-manager/">Swift Package Manager</a> community, and from time to time someone raises this question again, but the reaction can be summarised to the following comments (<a href="https://forums.swift.org/t/spm-roadmap/6870">full thread</a> on forums.swift.org):</p>
+<p>@<a href="https://forums.swift.org/u/rballard">Rick Ballard</a></p>
+<blockquote>
+<p>I think that this will be <strong>best provided by native IDE integration</strong>. However, in the meantime, I&rsquo;d welcome contributions to help improve Xcode&rsquo;s project generation support.</p></blockquote>
+<p>@<a href="https://forums.swift.org/u/akashivskyy">Adrian Kashivskyy</a></p>
+<blockquote>
+<p>The last thing I want from a platform-agnostic open-source package manager is built-in integration with a single-platform commercial closed-source IDE. &#x1f615;
+I think this should be done independently by DT team, without any special favouritism by SPM.</p></blockquote>
+<p>And you know what? I agree with these statements. Especially after some researches. In general, SPM is a very &lsquo;young&rsquo; and inflexible project. There are a lot of limitations, especially around <code>generate-xcodeproj</code> options of <code>swift package</code> tool, and it is understandable. Swift is a language, and all related tools should be platform-agnostic as much as possible. Yeah, iOS is the biggest Swift consumer, and Apple contributes to Swift mostly because of iOS. But. It&rsquo;s almost impossible to grow Swift to a mature technology if you&rsquo;re limited and restricted by Xcode / iOS specific things / etc. And, it seems, this is the primary goal for Swift. Just be a language. The fate of Objective C is a good example of why Apple and Swift&rsquo;s community are trying to be agnostic. They are trying to build something big, and lack of iOS support is the price (among many others) at the moment. &#x1f48b;</p>
+<p>Anyway, we have exciting news about SPM and iOS friendship. <a href="https://forums.swift.org/t/accepted-with-modifications-se-0236-package-manager-platform-deployment-settings/18420">SE-0236: Package Manager Platform Deployment Settings</a> is accepted with some modifications. And the implementation of this proposal will help a lot to move forward in case of iOS. The base goal is clear and straightforward:</p>
+<blockquote>
+<p>Packages should be able to declare the minimum required platform deployment target version. SwiftPM currently uses a hardcoded value for the macOS deployment target. This creates friction for packages which want to use APIs that were introduced after the hardcoded deployment target version.</p></blockquote>
+<p>Why will it not solve the problem with iOS support at all? Just read the <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0236-package-manager-platform-deployment-settings.md">&ldquo;This proposal doesn&rsquo;t handle these problems&rdquo;</a> section.</p>
+<h3 id="xcode-10-dot-2-beta">Xcode 10.2 Beta</h3>
+<p><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0236-package-manager-platform-deployment-settings.md">SE-0236</a> was accepted and implemented in Swift 5, and Apple shipped it with the latest Xcode 10.2 beta. It means that you can specify an iOS as a deployment target for your packages with a simple line in your <code>Package.swift</code> file:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic">// Specify target platforms</span>
+</span></span><span style="display:flex;"><span>platforms: [ .iOS(.v12) ]
+</span></span></code></pre></div><p>You can find an example in <code>xcode_10_2_beta</code> branch in the example <a href="https://github.com/dive/spm-ios-example/tree/xcode%5F10%5F2%5Fbeta">repository</a>. It is still a beta implementation, and you will have a lot of issues with <code>build</code> command, <code>run</code> doesn&rsquo;t work as well, but this is a step forward to support iOS finally.</p>
+<p>I hope that Apple will announce something <strong>good</strong> on WWDC'19. New IDE for Swift? Open sourced <code>xcodebuild</code>? <code>xcodebuild</code> replacement based on <code>llbuild</code>? Will see. The current state is complicated as much as it can be. We are trying to inject open-sourced platform-agnostic tools into a legacy (?) world of Xcode, and this problem can be solved only in two ways: iOS specific build tools go open source, or Xcode team supports Swift infrastructure.</p>
+<h2 id="is-it-possible-to-build-an-ios-framework-with-spm-yes-yes-it-is">Is it possible to build an iOS framework with SPM? Yes! Yes, it is!</h2>
+<p>So. If you try to search for solutions to build iOS frameworks with SPM on DuckDuckGo, you will find some instructions (<a href="https://github.com/j-channings/swift-package-manager-ios">1</a>, <a href="https://www.ralfebert.de/ios/swift-package-manager-for-ios-projects/">2</a>). But all of them have this step that I hate: <code>sudo gem install xcodeproj</code> :disgusting:. Can we do better? Let&rsquo;s try.</p>
+<p>First of all, let&rsquo;s generate a template:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># Initialise a package with a library type</span>
+</span></span><span style="display:flex;"><span>swift package init --type library
+</span></span></code></pre></div><p>Now we have to convince SPM that we want an iOS project when it generates <code>xcodeproj</code>. How? With <code>xcconfig</code>, of course. Create a file <code>ios.xcconfig</code> and put it to <code>./Sources</code> folder. For example, let&rsquo;s start with a basic version:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#bb60d5">SDKROOT</span> <span style="color:#666">=</span> iphoneos
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">SUPPORTED_PLATFORMS</span> <span style="color:#666">=</span> iphonesimulator iphoneos
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">IPHONEOS_DEPLOYMENT_TARGET</span> <span style="color:#666">=</span> 12.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">ARCHS</span> <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">$(</span>ARCHS_STANDARD<span style="color:#007020;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">VALID_ARCHS</span> <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">$(</span>ARCHS_STANDARD<span style="color:#007020;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">VALIDATE_PRODUCT</span> <span style="color:#666">=</span> YES
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">LD_RUNPATH_SEARCH_PATHS</span> <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">$(</span>inherited<span style="color:#007020;font-weight:bold">)</span> @executable_path/Frameworks
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">TARGETED_DEVICE_FAMILY</span> <span style="color:#666">=</span> 1, <span style="color:#40a070">2</span>
+</span></span></code></pre></div><p>Looks good. Let&rsquo;s see what SPM thinks about it:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># Generate .xcodeproj file for the package in the current folder</span>
+</span></span><span style="display:flex;"><span>swift package generate-xcodeproj --xcconfig-overrides ./Sources/ios.xcconfig
+</span></span></code></pre></div><p>Did not know about <code>xcconfig-overrides</code>? Me either. It&rsquo;s a hidden and undocumented feature (<a href="https://github.com/apple/swift-package-manager/commit/713a3e603e6682fe431074617343eb05852d10c5">commit</a>), thanks to <a href="https://github.com/ddunbar">@Daniel Dunbar</a>! Time to ask Xcode what it thinks about it.</p>
+<figure><img src="/images/xcode_spm_build_results.png">
+</figure>
+
+<p><strong>Note</strong>: You do not have to specify a custom <code>.xcconfig</code> file if you are using Xcode 10.2 Beta with Swift 5 Toolchain. Check the <a href="https://github.com/dive/spm-ios-example/tree/xcode%5F10%5F2%5Fbeta">branch</a> for more details.</p>
+<p>It works! Let&rsquo;s celebrate! But nope. We&rsquo;re not on Medium, so let&rsquo;s try to dig deeper. Let&rsquo;s check how the &lsquo;Unit Tests&rsquo; target works, for example:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spm-tutorial/Tests/spm-tutorialTests/XCTestManifests.swift:4:28: error: use of undeclared <span style="color:#007020">type</span> <span style="color:#4070a0">&#39;XCTestCaseEntry&#39;</span>
+</span></span><span style="display:flex;"><span>public func allTests<span style="color:#666">()</span> -&gt; <span style="color:#666">[</span>XCTestCaseEntry<span style="color:#666">]</span> <span style="color:#666">{</span>
+</span></span><span style="display:flex;"><span>                           ^~~~~~~~~~~~~~~
+</span></span></code></pre></div><p>It doesn&rsquo;t. Due to this strange and suspicious <code>XCTestCaseEntry</code>. What is this? According to the <a href="https://github.com/apple/swift-corelibs-xctest/blob/237d97cadbc3c51d575c705bf8e4d8456a12827a/Sources/XCTest/Public/XCTestCase.swift#L24">swift-corelibs-xctest</a> source code:</p>
+<blockquote>
+<p>This is a compound type used by <code>XCTMain</code> to represent tests to run. It combines an <code>XCTestCase</code> subclass type with the list of test case methods to invoke on the class.</p></blockquote>
+<p>And the <code>typealias</code> looks like this:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">public</span> <span style="color:#007020;font-weight:bold">typealias</span> XCTestCaseEntry = (testCaseClass: XCTestCase.<span style="color:#007020;font-weight:bold">Type</span>, allTests: [(<span style="color:#007020">String</span>, XCTestCaseClosure)])
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Why it doesn&rsquo;t work? The same:</p>
+<blockquote>
+<p>CoreLibs XCTest only supports desktop platforms</p></blockquote>
+<p>Thanks to <a href="https://github.com/larryonoff">@larryonoff</a> and <a href="https://github.com/apple/swift-corelibs-xctest/pull/176">his work</a> on multi-platform support. But it&rsquo;s still impossible to use it for our needs. You can join this <a href="https://github.com/apple/swift-corelibs-xctest/pull/61">Add Unit Testing Infrastructure</a> thread if you want to learn more about the current state of <code>swift-corelibs-xctest</code>. We will skip this topic and apply the fix to <code>XCTestManifests.swift</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">import</span> <span style="color:#0e84b5;font-weight:bold">XCTest</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020">#if</span> <span style="color:#666">!</span><span style="color:#007020">os</span>(<span style="color:#007020">macOS</span>) <span style="color:#666">&amp;&amp;</span> <span style="color:#666">!</span><span style="color:#007020">os</span>(<span style="color:#007020">iOS</span>)
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">public</span> <span style="color:#007020;font-weight:bold">func</span> <span style="color:#06287e">allTests</span>() -&gt; [XCTestCaseEntry] {
+</span></span><span style="display:flex;"><span>    <span style="color:#007020;font-weight:bold">return</span> [
+</span></span><span style="display:flex;"><span>        testCase(spm_tutorialTests.allTests),
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#007020">#endif</span>
+</span></span></code></pre></div><p>See this <code>&amp;&amp; !os(iOS)</code>? It&rsquo;s enough to continue our journey. Run Tests again and&hellip; We got what we need.</p>
+<figure><img src="/images/xcode_spm_test_results.png">
+</figure>
+
+<p>Then I created a simple iOS <code>ExampleApp</code> and added the generated <code>xcodeproj</code> as a dependency. Of course, I&rsquo;ve added some iOS specific code to the framework:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">import</span> <span style="color:#0e84b5;font-weight:bold">UIKit</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">public</span> <span style="color:#007020;font-weight:bold">final</span> <span style="color:#007020;font-weight:bold">class</span> <span style="color:#0e84b5;font-weight:bold">FrameworkPackage</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#007020;font-weight:bold">public</span> <span style="color:#007020;font-weight:bold">init</span> () { }
+</span></span><span style="display:flex;"><span>    <span style="color:#007020;font-weight:bold">public</span> <span style="color:#007020;font-weight:bold">func</span> <span style="color:#06287e">randomColor</span>() -&gt; UIColor {
+</span></span><span style="display:flex;"><span>        <span style="color:#007020;font-weight:bold">return</span> UIColor.random
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">public</span> <span style="color:#007020;font-weight:bold">extension</span> <span style="color:#0e84b5;font-weight:bold">UIColor</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#007020;font-weight:bold">public</span> <span style="color:#007020;font-weight:bold">static</span> <span style="color:#007020;font-weight:bold">var</span> <span style="color:#bb60d5">random</span>: UIColor {
+</span></span><span style="display:flex;"><span>        <span style="color:#007020;font-weight:bold">return</span> UIColor(red: .random(<span style="color:#007020;font-weight:bold">in</span>: <span style="color:#40a070">0.</span>..<span style="color:#40a070">1</span>), green: .random(<span style="color:#007020;font-weight:bold">in</span>: <span style="color:#40a070">0.</span>..<span style="color:#40a070">1</span>), blue: .random(<span style="color:#007020;font-weight:bold">in</span>: <span style="color:#40a070">0.</span>..<span style="color:#40a070">1</span>), alpha: <span style="color:#40a070">1</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And then reuse it from the example app:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">import</span> <span style="color:#0e84b5;font-weight:bold">UIKit</span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">import</span> <span style="color:#0e84b5;font-weight:bold">class</span> <span style="color:#0e84b5;font-weight:bold">ios_framework_package</span>.<span style="color:#0e84b5;font-weight:bold">FrameworkPackage</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">class</span> <span style="color:#0e84b5;font-weight:bold">ViewController</span>: UIViewController {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020;font-weight:bold">override</span> <span style="color:#007020;font-weight:bold">func</span> <span style="color:#06287e">viewDidLoad</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#007020;font-weight:bold">super</span>.viewDidLoad()
+</span></span><span style="display:flex;"><span>        <span style="color:#007020;font-weight:bold">self</span>.view.backgroundColor = FrameworkPackage().randomColor()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020;font-weight:bold">@IBAction</span> <span style="color:#007020;font-weight:bold">func</span> <span style="color:#06287e">pressed</span>(<span style="color:#007020;font-weight:bold">_</span> button: UIButton) {
+</span></span><span style="display:flex;"><span>        <span style="color:#007020;font-weight:bold">self</span>.view.backgroundColor = FrameworkPackage().randomColor()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The full example is available on <a href="https://github.com/dive/spm-ios-example">GitHub</a>.
+Thanks to <code>CLANG_MODULES_AUTOLINK</code>, all iOS frameworks will be linked automatically. I didn&rsquo;t try more complex scenarios (when one iOS module depends on another, etc.) because it&rsquo;s not my goal at the moment. But in general, it just works with some limitations. SPM doesn&rsquo;t set up our <code>xcconfig</code> for some targets, and you have to include the SPM-generated <code>.xcodeproj</code> to your <code>.xcodeproj</code>, but all these tradeoffs seem reasonable for this research and our current goal.</p>
+<h2 id="back-to-swift-package-manager">Back to Swift Package Manager</h2>
+<p>See. We can do better. But we forgot about SPM during this Xcode journey. Let&rsquo;s close our fancy dark-themed Xcode, open Terminal and run <code>swift build</code> for our iOS&rsquo;ish package (I&rsquo;m going to use the package from the <a href="https://github.com/dive/spm-ios-example">example project</a> mentioned above):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Compile Swift Module <span style="color:#4070a0">&#39;ios_framework_package&#39;</span> <span style="color:#666">(</span><span style="color:#40a070">1</span> sources<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>./spm-ios-example/ios-framework-package/Sources/ios-framework-package/ios_framework_package.swift:1:8: error: no such module <span style="color:#4070a0">&#39;UIKit&#39;</span>
+</span></span><span style="display:flex;"><span>import UIKit
+</span></span><span style="display:flex;"><span>       ^
+</span></span><span style="display:flex;"><span>error: terminated<span style="color:#666">(</span>1<span style="color:#666">)</span>: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-build-tool -f./spm-ios-example/ios-framework-package/.build/debug.yaml main output: ...
+</span></span></code></pre></div><p>Okay. <code>no such module 'UIKit'</code>. Can we do better? Doubt it. But let&rsquo;s try. First of all, we have to know where SPM gets all these environment variables, we can ask it with <code>swift build --verbose</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>xcrun --sdk macosx --show-sdk-path
+</span></span><span style="display:flex;"><span>xcrun --sdk macosx --show-sdk-platform-path
+</span></span><span style="display:flex;"><span>xcrun --find clang
+</span></span><span style="display:flex;"><span>xcrun --sdk macosx --find xctest
+</span></span><span style="display:flex;"><span>sandbox-exec -p <span style="">&#39;</span><span style="color:#666">(</span>version 1<span style="color:#666">)</span>
+</span></span></code></pre></div><p>Nice. No magic and jigsaws. Let&rsquo;s try to change some <code>swiftc</code> options to build the project against proper <code>sdk</code> and <code>target</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>swift build <span style="color:#4070a0;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4070a0;font-weight:bold"></span>      -Xswiftc <span style="color:#4070a0">&#34;-sdk&#34;</span> -Xswiftc <span style="color:#4070a0">&#34;`xcrun --sdk iphonesimulator --show-sdk-path`&#34;</span> <span style="color:#4070a0;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4070a0;font-weight:bold"></span>      -Xswiftc <span style="color:#4070a0">&#34;-target&#34;</span> -Xswiftc <span style="color:#4070a0">&#34;x86_64-apple-ios12.1-simulator&#34;</span>
+</span></span></code></pre></div><p>Looks better. We built the binary:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Compile Swift Module <span style="color:#4070a0">&#39;ios_framework_package&#39;</span> <span style="color:#666">(</span><span style="color:#40a070">1</span> sources<span style="color:#666">)</span>
+</span></span></code></pre></div><p>Let&rsquo;s make some inspections, just to be sure that everything is fine:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ lipo -archs .build/x86_64-apple-macosx10.10/debug/ios_framework_package.build/ios_framework_package.swift.o
+</span></span><span style="display:flex;"><span>x86_64
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ nm -extern-only -defined-only -just-symbol-name .build/x86_64-apple-macosx10.10/debug/ios_framework_package.build/ios_framework_package.swift.o
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$S12CoreGraphics7CGFloatVACSBAAWL</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$S12CoreGraphics7CGFloatVACSBAAWl</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$S12CoreGraphics7CGFloatVACSLAAWL</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$S12CoreGraphics7CGFloatVACSLAAWl</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$S21ios_framework_package16FrameworkPackageC11randomColorSo7UIColorCyF</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$S21ios_framework_package16FrameworkPackageCACycfC</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$S21ios_framework_package16FrameworkPackageCACycfc</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$S21ios_framework_package16FrameworkPackageCMa</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$S21ios_framework_package16FrameworkPackageCMm</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$S21ios_framework_package16FrameworkPackageCMn</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$S21ios_framework_package16FrameworkPackageCN</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$S21ios_framework_package16FrameworkPackageCfD</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$S21ios_framework_package16FrameworkPackageCfd</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$S21ios_framework_packageMXM</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$SSo7UIColorC21ios_framework_packageE6randomABvgZ</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$SSo7UIColorC3red5green4blue5alphaAB12CoreGraphics7CGFloatV_A3ItcfC</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$SSo7UIColorC3red5green4blue5alphaAB12CoreGraphics7CGFloatV_A3ItcfcTO</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$SSo7UIColorCML</span>
+</span></span><span style="display:flex;"><span>_<span style="color:#bb60d5">$SSo7UIColorCMa</span>
+</span></span><span style="display:flex;"><span>___swift_reflection_version
+</span></span><span style="display:flex;"><span>__swift_FORCE_LOAD_<span style="color:#bb60d5">$_swiftCoreFoundation_$_ios_framework_package</span>
+</span></span><span style="display:flex;"><span>__swift_FORCE_LOAD_<span style="color:#bb60d5">$_swiftCoreGraphics_$_ios_framework_package</span>
+</span></span><span style="display:flex;"><span>__swift_FORCE_LOAD_<span style="color:#bb60d5">$_swiftCoreImage_$_ios_framework_package</span>
+</span></span><span style="display:flex;"><span>__swift_FORCE_LOAD_<span style="color:#bb60d5">$_swiftDarwin_$_ios_framework_package</span>
+</span></span><span style="display:flex;"><span>__swift_FORCE_LOAD_<span style="color:#bb60d5">$_swiftDispatch_$_ios_framework_package</span>
+</span></span><span style="display:flex;"><span>__swift_FORCE_LOAD_<span style="color:#bb60d5">$_swiftFoundation_$_ios_framework_package</span>
+</span></span><span style="display:flex;"><span>__swift_FORCE_LOAD_<span style="color:#bb60d5">$_swiftMetal_$_ios_framework_package</span>
+</span></span><span style="display:flex;"><span>__swift_FORCE_LOAD_<span style="color:#bb60d5">$_swiftObjectiveC_$_ios_framework_package</span>
+</span></span><span style="display:flex;"><span>__swift_FORCE_LOAD_<span style="color:#bb60d5">$_swiftQuartzCore_$_ios_framework_package</span>
+</span></span><span style="display:flex;"><span>__swift_FORCE_LOAD_<span style="color:#bb60d5">$_swiftUIKit_$_ios_framework_package</span>
+</span></span><span style="display:flex;"><span>_symbolic ____ 21ios_framework_package16FrameworkPackageC
+</span></span></code></pre></div><p><code>lipo</code> is a bit useless in this case because we were building for a simulator, but <code>nm</code> shows everything we need to know - iOS frameworks symbols are available. Unfortunately, <code>swift build</code> doesn&rsquo;t produce <code>.framework</code> by default. I think it&rsquo;s doable even in this case but let&rsquo;s postpone it &rsquo;till next time&rsquo;.</p>
+<h2 id="epilogue-swift-test">Epilogue: swift test</h2>
+<p>And the final call. We already have one unit-test for our package, it uses <code>UIKit</code>, and I would mark this experiment as successful if we can run the test target with <code>swift test</code>. It&rsquo;s almost impossible, though, because usually, unit-tests for simulator have to spawn to a simulator process. I do not think that it&rsquo;s even possible for <!-- raw HTML omitted -->an actual<!-- raw HTML omitted --> iOS project. Anyway.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>swift <span style="color:#007020">test</span> <span style="color:#4070a0;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4070a0;font-weight:bold"></span>      -Xswiftc <span style="color:#4070a0">&#34;-sdk&#34;</span> -Xswiftc <span style="color:#4070a0">&#34;`xcrun --sdk iphonesimulator --show-sdk-path`&#34;</span> <span style="color:#4070a0;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4070a0;font-weight:bold"></span>      -Xswiftc <span style="color:#4070a0">&#34;-target&#34;</span> -Xswiftc <span style="color:#4070a0">&#34;x86_64-apple-ios12.1-simulator&#34;</span>
+</span></span></code></pre></div><p>And we face another problem. <code>.xctest</code> bundle is compiled but <code>xctest</code> tool is confused with search paths:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Compile Swift Module <span style="color:#4070a0">&#39;ios_framework_package&#39;</span> <span style="color:#666">(</span><span style="color:#40a070">1</span> sources<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>Compile Swift Module <span style="color:#4070a0">&#39;ios_framework_packageTests&#39;</span> <span style="color:#666">(</span><span style="color:#40a070">2</span> sources<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>Linking ./.build/x86_64-apple-macosx10.10/debug/ios-framework-packagePackageTests.xctest/Contents/MacOS/ios-framework-packagePackageTests
+</span></span><span style="display:flex;"><span>xctest<span style="color:#666">[</span>77129:8746476<span style="color:#666">]</span> The bundle “ios-framework-packagePackageTests.xctest” couldn’t be loaded because it is damaged or missing necessary resources. Try reinstalling the bundle.
+</span></span><span style="display:flex;"><span>xctest<span style="color:#666">[</span>77129:8746476<span style="color:#666">](</span>dlopen_preflight<span style="color:#666">(</span>.build/x86_64-apple-macosx10.10/debug/ios-framework-packagePackageTests.xctest/Contents/MacOS/ios-framework-packagePackageTests<span style="color:#666">)</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  **Library not loaded: /System/Library/Frameworks/UIKit.framework/UIKit**
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Referenced from: .build/x86_64-apple-macosx10.10/debug/ios-framework-packagePackageTests.xctest/Contents/MacOS/ios-framework-packagePackageTests
+</span></span><span style="display:flex;"><span>  Reason: image not found<span style="color:#666">)</span>
+</span></span></code></pre></div><p>Likely, <code>swift build &amp; test</code> produce beneficial debug information and store it in <code>.build/debug.yaml</code> with all passed options and arguments. There are no differences with the options for a module itself, so it&rsquo;s time for our command line friends again:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ otool -L .build/debug/ios-framework-packagePackageTests.xctest/Contents/MacOS/ios-framework-packagePackageTests
+</span></span><span style="display:flex;"><span>  /usr/lib/libobjc.A.dylib <span style="color:#666">(</span>compatibility version 1.0.0, current version 228.0.0<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>  /usr/lib/libSystem.B.dylib <span style="color:#666">(</span>compatibility version 1.0.0, current version 1252.200.5<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">======</span>
+</span></span><span style="display:flex;"><span>  /System/Library/Frameworks/UIKit.framework/UIKit <span style="color:#666">(</span>compatibility version 1.0.0, current version 61000.0.0<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">======</span>
+</span></span><span style="display:flex;"><span>  @rpath/XCTest.framework/Versions/A/XCTest <span style="color:#666">(</span>compatibility version 1.0.0, current version 14460.20.0<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>  @rpath/libswiftCore.dylib <span style="color:#666">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>  @rpath/libswiftCoreFoundation.dylib <span style="color:#666">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>  @rpath/libswiftCoreGraphics.dylib <span style="color:#666">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>  @rpath/libswiftCoreImage.dylib <span style="color:#666">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>  @rpath/libswiftDarwin.dylib <span style="color:#666">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>  @rpath/libswiftDispatch.dylib <span style="color:#666">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>  @rpath/libswiftFoundation.dylib <span style="color:#666">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>  @rpath/libswiftMetal.dylib <span style="color:#666">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>  @rpath/libswiftObjectiveC.dylib <span style="color:#666">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>  @rpath/libswiftQuartzCore.dylib <span style="color:#666">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">======</span>
+</span></span><span style="display:flex;"><span>  @rpath/libswiftUIKit.dylib <span style="color:#666">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">======</span>
+</span></span><span style="display:flex;"><span>  @rpath/libswiftXCTest.dylib <span style="color:#666">(</span>compatibility version 1.0.0, current version 1000.11.42<span style="color:#666">)</span>
+</span></span></code></pre></div><p>As you can see, for some reasons, it tries to link <code>UIKit.framework</code> twice:</p>
+<ul>
+<li>via <code>/System/Library/Frameworks</code> path</li>
+<li>and via expected <code>@rpath/libswiftUIKit.dylib</code>.</li>
+</ul>
+<p>Let&rsquo;s check the information from the module itself with <code>otool</code>, to be sure that <code>load</code> describes the correct framework to link:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ otool -l .build/debug/ios_framework_package.build/ios_framework_package.swift.o
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Load <span style="color:#007020">command</span> <span style="color:#40a070">6</span>
+</span></span><span style="display:flex;"><span>     cmd LC_LINKER_OPTION
+</span></span><span style="display:flex;"><span> cmdsize <span style="color:#40a070">32</span>
+</span></span><span style="display:flex;"><span>   count <span style="color:#40a070">2</span>
+</span></span><span style="display:flex;"><span>  string <span style="color:#60a0b0;font-style:italic">#1 -framework</span>
+</span></span><span style="display:flex;"><span>  string <span style="color:#60a0b0;font-style:italic">#2 UIKit</span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Seems correct to me. To remove the confusion, let&rsquo;s pass the linking option directly with <code>-Xswiftc &quot;-lswiftUIKit&quot;</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>swift <span style="color:#007020">test</span> --verbose <span style="color:#4070a0;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4070a0;font-weight:bold"></span>      -Xswiftc <span style="color:#4070a0">&#34;-sdk&#34;</span> -Xswiftc <span style="color:#4070a0">&#34;`xcrun --sdk iphonesimulator --show-sdk-path`&#34;</span> <span style="color:#4070a0;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4070a0;font-weight:bold"></span>      -Xswiftc <span style="color:#4070a0">&#34;-target&#34;</span> -Xswiftc <span style="color:#4070a0">&#34;x86_64-apple-ios12.1-simulator&#34;</span> <span style="color:#4070a0;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span><span style="color:#4070a0;font-weight:bold"></span>      -Xswiftc <span style="color:#4070a0">&#34;-lswiftUIKit&#34;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>xctest<span style="color:#666">[</span>18838:9855653<span style="color:#666">]</span> The bundle “ios-framework-packagePackageTests.xctest” couldn’t be loaded because it is damaged or missing necessary resources. Try reinstalling the bundle.
+</span></span><span style="display:flex;"><span>xctest<span style="color:#666">[</span>18838:9855653<span style="color:#666">]</span>dlopen_preflight<span style="color:#666">(</span>./ios-example/ios-framework-package/.build/x86_64-apple-macosx10.10/debug/ios-framework-packagePackageTests.xctest/Contents/MacOS/ios-framework-packagePackageTests<span style="color:#666">)</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      **Library not loaded: @rpath/libswiftUIKit.dylib**
+</span></span><span style="display:flex;"><span>      ...
+</span></span><span style="display:flex;"><span>      Reason: no suitable image found.  Did find:
+</span></span><span style="display:flex;"><span>      /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/libswiftUIKit.dylib: mach-o,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      **but built <span style="color:#007020;font-weight:bold">for</span> simulator <span style="color:#666">(</span>not macOS<span style="color:#666">)</span>**
+</span></span></code></pre></div><p>This is the end, my only friend. We can link proper frameworks with minimum efforts, but it&rsquo;s impossible to run these tests for iOS device or simulator without SPM support. It seems that even <code>xcrun</code> with <code>xctest</code> cannot handle it, we need <code>xcodebuild</code> assistance here. Enough these weird logs and useless speeches, let&rsquo;s summarise.</p>
+<h2 id="summary">Summary</h2>
+<p>Thanks for reading, first of all! And what did we learn?</p>
+<ul>
+<li>We can use SPM in sporadic cases for iOS just for integration, thanks to <code>.xcconfig</code>;</li>
+<li>Future of iOS and SPM friendship is foggy even with this <a href="https://forums.swift.org/t/accepted-with-modifications-se-0236-package-manager-platform-deployment-settings/18420">SE-0236</a> proposal;</li>
+<li>Swift <code>build</code> and <code>test</code> helpers are useless for us without iOS-specific features and full Xcode support. And it&rsquo;s unlikely to happen. Of course, SPM can be integrated on top of Xcode by Xcode team. For example, they will extend <code>xcodebuild</code> functionality. But it will be a different story which partly concerns SPM.</li>
+</ul>
+<p>About SPM. I think that it&rsquo;s doable in general, and we can improve SPM to support any platform you want. My best guess at the moment is to introduce pipeline plugins for SPM. Where you can transfer the control flow to a separate tool with expected input and output. Something like Xcode custom build phases but smarter and more flexible. It will allow SPM to be platform-agnostic as now, but Xcode team can create a plugin for the whole iOS flow support. Or Uber. Or Google. Or me. Whatever.</p>
+<p>Stay tuned and hydrated!</p>
+
+</content>
+<p>
+  
+  <a href="http://justsitandgrin.im/blog/%23ios/">##IOS</a>
+  
+  <a href="http://justsitandgrin.im/blog/%23spm/">##SPM</a>
+  
+  <a href="http://justsitandgrin.im/blog/%23swift/">##Swift</a>
+  
+</p>
+
+  </main>
+  <footer>
+</footer>
+
+    
+</body>
+
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Multiple Xcode versions or Why `xcrun` is your friend | Artem Loenko Website</title>
+<meta name="title" content="Multiple Xcode versions or Why `xcrun` is your friend" />
+<meta name="description" content="I recently spent a few hours helping a friend of mine investigate a weird issue in their Continuous Development infrastructure. Builds were failing with different fatal errors mostly related to SDK paths and .platform directory locations. At first sight, it was clear that something is wrong with the current selected Xcode, but all our initial attempts to catch the problem failed." />
+<meta name="keywords" content="#Xcode,#xcrun," />
+
+
+<meta property="og:url" content="http://justsitandgrin.im/multiple-xcode-versions-or-why-xcrun-is-your-friend/">
+  <meta property="og:site_name" content="Artem Loenko Website">
+  <meta property="og:title" content="Multiple Xcode versions or Why `xcrun` is your friend">
+  <meta property="og:description" content="I recently spent a few hours helping a friend of mine investigate a weird issue in their Continuous Development infrastructure. Builds were failing with different fatal errors mostly related to SDK paths and .platform directory locations. At first sight, it was clear that something is wrong with the current selected Xcode, but all our initial attempts to catch the problem failed.">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2021-05-08T11:12:00+01:00">
+    <meta property="article:modified_time" content="2021-05-08T11:12:00+01:00">
+    <meta property="article:tag" content="#Xcode">
+    <meta property="article:tag" content="#Xcrun">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Multiple Xcode versions or Why `xcrun` is your friend">
+  <meta name="twitter:description" content="I recently spent a few hours helping a friend of mine investigate a weird issue in their Continuous Development infrastructure. Builds were failing with different fatal errors mostly related to SDK paths and .platform directory locations. At first sight, it was clear that something is wrong with the current selected Xcode, but all our initial attempts to catch the problem failed.">
+
+
+
+
+  <meta itemprop="name" content="Multiple Xcode versions or Why `xcrun` is your friend">
+  <meta itemprop="description" content="I recently spent a few hours helping a friend of mine investigate a weird issue in their Continuous Development infrastructure. Builds were failing with different fatal errors mostly related to SDK paths and .platform directory locations. At first sight, it was clear that something is wrong with the current selected Xcode, but all our initial attempts to catch the problem failed.">
+  <meta itemprop="datePublished" content="2021-05-08T11:12:00+01:00">
+  <meta itemprop="dateModified" content="2021-05-08T11:12:00+01:00">
+  <meta itemprop="wordCount" content="604">
+  <meta itemprop="keywords" content="#Xcode,#Xcrun">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  :root {
+      --width: 720px;
+      --font-main: Verdana, sans-serif;
+      --font-secondary: Verdana, sans-serif;
+      --font-scale: 1em;
+      --background-color: #fff;
+      --heading-color: #222;
+      --text-color: #444;
+      --link-color: #3273dc;
+      --visited-color:  #8b6fcb;
+      --code-background-color: #f2f2f2;
+      --code-color: #222;
+      --blockquote-color: #222;
+  }
+
+  @media (prefers-color-scheme: dark) {
+      :root {
+          --background-color: #01242e;
+          --heading-color: #eee;
+          --text-color: #ddd;
+          --link-color: #8cc2dd;
+          --visited-color:  #8b6fcb;
+          --code-background-color: #000;
+          --code-color: #ddd;
+          --blockquote-color: #ccc;
+      }
+  }
+
+  body {
+      font-family: var(--font-secondary);
+      font-size: var(--font-scale);
+      margin: auto;
+      padding: 20px;
+      max-width: var(--width);
+      text-align: left;
+      background-color: var(--background-color);
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      line-height: 1.5;
+      color: var(--text-color);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-main);
+      color: var(--heading-color);
+  }
+
+  a {
+      color: var(--link-color);
+      cursor: pointer;
+      text-decoration: none;
+  }
+
+  a:hover {
+      text-decoration: underline;
+  }
+
+  nav a {
+      margin-right: 8px;
+  }
+
+  strong, b {
+      color: var(--heading-color);
+  }
+
+  button {
+      margin: 0;
+      cursor: pointer;
+  }
+
+  time {
+   	font-family: monospace;
+    	font-style: normal;
+    	font-size: 15px;
+  }
+
+  main {
+      line-height: 1.6;
+  }
+
+  table {
+      width: 100%;
+  }
+
+  hr {
+      border: 0;
+      border-top: 1px dashed;
+  }
+
+  img {
+      max-width: 100%;
+  }
+
+  code {
+      font-family: monospace;
+      padding: 2px;
+      background-color: var(--code-background-color);
+      color: var(--code-color);
+      border-radius: 3px;
+  }
+
+  blockquote {
+      border-left: 1px solid #999;
+      color: var(--code-color);
+      padding-left: 20px;
+      font-style: italic;
+  }
+
+  footer {
+      padding: 25px 0;
+      text-align: center;
+  }
+
+  .title:hover {
+      text-decoration: none;
+  }
+
+  .title h1 {
+      font-size: 1.5em;
+  }
+
+  .inline {
+      width: auto !important;
+  }
+
+  .highlight, .code {
+      padding: 1px 15px;
+      background-color: var(--code-background-color);
+      color: var(--code-color);
+      border-radius: 3px;
+      margin-block-start: 1em;
+      margin-block-end: 1em;
+      overflow-x: auto;
+  }
+
+   
+  ul.blog-posts {
+      list-style-type: none;
+      padding: unset;
+  }
+
+  ul.blog-posts li {
+      display: flex;
+  }
+
+  ul.blog-posts li span {
+      flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+      color: var(--visited-color);
+  }
+</style>
+
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Artem Loenko Website</h2>
+</a>
+<nav><a href="/">Home</a>
+
+
+<a href="/blog">Blog</a>
+
+</nav>
+</header>
+  <main>
+
+<h1>Multiple Xcode versions or Why `xcrun` is your friend</h1>
+<p>
+  <i>
+    <time datetime='2021-05-08'>
+      08 May, 2021
+    </time>
+  </i>
+</p>
+
+<content>
+  <p>I recently spent a few hours helping a friend of mine investigate a weird issue in their Continuous Development infrastructure. Builds were failing with different fatal errors mostly related to SDK paths and <code>.platform</code> directory locations. At first sight, it was clear that something is wrong with the current selected Xcode, but all our initial attempts to catch the problem failed.</p>
+<p>In the end, we isolated the problem; one of the tools they use changes <code>PATH</code> silently for the environment to simplify access to Xcode tools. Due to their internal logic, the CD pipeline changes a current selected Xcode a few times on the way within the same script. In some cases, the pipeline ended with <code>xcodebuild</code> in the environment&rsquo;s <code>PATH</code> that does not reflect the expected version after the <code>xcode-select --switch</code> command.</p>
+<p>How? Pretty easy, actually. A simplified sequence looked like this:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># Innocent tool extends the `PATH`</span>
+</span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># With the `bin` directory within the current selected Xcode</span>
+</span></span><span style="display:flex;"><span>% <span style="color:#007020">export</span> <span style="color:#bb60d5">PATH</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;/Xcode_12.5_beta_3.app/Contents/Developer/usr/bin:</span><span style="color:#70a0d0">${</span><span style="color:#bb60d5">PATH</span><span style="color:#70a0d0">}</span><span style="color:#4070a0">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># We change Xcode in a proper way</span>
+</span></span><span style="display:flex;"><span>% sudo xcode-select --switch /Xcode_12.1.app/Contents/Developer
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># Due to the overridden `PATH`, `xcodebuild` points to an incorrect version</span>
+</span></span><span style="display:flex;"><span>% xcodebuild -version 
+</span></span><span style="display:flex;"><span>Xcode 12.5
+</span></span><span style="display:flex;"><span>Build version 12E5244e
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># `xcrun` knows the truth</span>
+</span></span><span style="display:flex;"><span>% xcrun xcodebuild -version
+</span></span><span style="display:flex;"><span>Xcode 12.1
+</span></span><span style="display:flex;"><span>Build version 12A7403
+</span></span></code></pre></div><h2 id="xcrun---invoke-xcode-tools-in-a-safer-way"><code>xcrun</code> - Invoke Xcode tools in a safer way</h2>
+<p>According to the documentation:</p>
+<blockquote>
+<p><code>xcrun</code> provides a means to locate or invoke developer tools from the command-line, without requiring users to modify Makefiles or otherwise take inconvenient measures to support multiple Xcode toolchains.</p>
+<p>The tool <code>xcode-select(1)</code> is used to set a system default for the active developer directory and may be overridden by the <code>DEVELOPER_DIR</code> environment variable.</p></blockquote>
+<p>In real life, it means that you can prefix all the calls to Xcode tools with <code>xcrun</code> on CI/CD to avoid the situation I described in the beginning. Want to run <code>xcodebuild</code> – call it via <code>xcrun xcodebuild</code> command, need to run/invoke simulators, use the <code>xcrun simctl</code> command.</p>
+<p>It can save a few hours for your RE/DevOps team at the end of the day. And, depends on the company size, from 5 to 100 hours for your engineers.</p>
+<h2 id="what-else">What else?</h2>
+<p><code>xcrun</code> has a few additional commands.</p>
+<p><code>find</code> – enables &ldquo;find&rdquo; mode, in which the resolved tool path is printed instead of the tool being executed.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ xcrun --find xcodebuild
+</span></span><span style="display:flex;"><span>/Xcode_12.1.app/Contents/Developer/usr/bin/xcodebuild
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ xcrun --find clang
+</span></span><span style="display:flex;"><span>/Xcode_12.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+</span></span></code></pre></div><p>A few helpers to print paths/versions of the selected SDKs.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># Print the path to the selected SDK</span>
+</span></span><span style="display:flex;"><span>$ xcrun --show-sdk-path
+</span></span><span style="display:flex;"><span>/Xcode_12.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># Print the version number of the selected SDK</span>
+</span></span><span style="display:flex;"><span>$ xcrun --show-sdk-version
+</span></span><span style="display:flex;"><span>10.15.6
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># Print the build version number of the selected SDK</span>
+</span></span><span style="display:flex;"><span>$ xcrun --show-sdk-build-version
+</span></span><span style="display:flex;"><span>19G68 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># Print the path to the platform for the selected SDK</span>
+</span></span><span style="display:flex;"><span>$ xcrun --show-sdk-platform-path
+</span></span><span style="display:flex;"><span>/Xcode_12.1.app/Contents/Developer/Platforms/MacOSX.platform
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># Print the version number of the platform for the selected SDK</span>
+</span></span><span style="display:flex;"><span>$ xcrun --show-sdk-platform-version
+</span></span><span style="display:flex;"><span>10.15.6
+</span></span></code></pre></div><p><code>verbose</code> option shows the logic behind the <code>xcrun</code>. For example, you can see that all the mappings are stored within a temporary <code>xcrun_db</code> and populated on the stage when you select a different Xcode version.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>% xcrun --verbose --find git                                              
+</span></span><span style="display:flex;"><span>xcrun: note: <span style="color:#bb60d5">PATH</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#39;/Xcode_12.5_beta_3.app/Contents/Developer/usr/bin/:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin&#39;</span>
+</span></span><span style="display:flex;"><span>xcrun: note: <span style="color:#bb60d5">SDKROOT</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#39;/Xcode_12.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk&#39;</span>
+</span></span><span style="display:flex;"><span>xcrun: note: <span style="color:#bb60d5">TOOLCHAINS</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>xcrun: note: <span style="color:#bb60d5">DEVELOPER_DIR</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#39;/Xcode_12.1.app/Contents/Developer&#39;</span>
+</span></span><span style="display:flex;"><span>xcrun: note: <span style="color:#bb60d5">XCODE_DEVELOPER_USR_PATH</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># The database with all the links</span>
+</span></span><span style="display:flex;"><span>xcrun: note: <span style="color:#bb60d5">xcrun_db</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#39;/var/folders/gn/8j0pyrwj5j3ggxprkczkpwtc0000gn/T/xcrun_db&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>xcrun: note: xcrun via git <span style="color:#666">(</span>xcrun<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>xcrun: note: database key is: git|/Xcode_12.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk<span style="color:#666">||</span>/Xcode_12.1.app/Contents/Developer|
+</span></span><span style="display:flex;"><span>xcrun: note: lookup resolved in <span style="color:#4070a0">&#39;/var/folders/gn/8j0pyrwj5j3ggxprkczkpwtc0000gn/T/xcrun_db&#39;</span> : <span style="color:#4070a0">&#39;/Xcode_12.1.app/Contents/Developer/usr/bin/git&#39;</span>
+</span></span><span style="display:flex;"><span>/Xcode_12.1.app/Contents/Developer/usr/bin/git
+</span></span></code></pre></div><h2 id="side-notes">Side notes</h2>
+<ul>
+<li>Check the previous note about <code>xed</code> – <a href="https://gist.github.com/dive/8d8f222f6851afaea338f853c7d51410">Xcode invocation tool</a></li>
+<li>Create a minor task for your DevOps team to prefix all the calls to Xcode tools with <code>xcrun</code></li>
+</ul>
+<hr>
+<p>Follow me on Twitter – <a href="https://twitter.com/justsitandgrin">@justsitandgrin</a></p>
+</content>
+<p>
+  
+  <a href="http://justsitandgrin.im/blog/%23xcode/">##Xcode</a>
+  
+  <a href="http://justsitandgrin.im/blog/%23xcrun/">##Xcrun</a>
+  
+</p>
+
+  </main>
+  <footer>
+</footer>
+
+    
+</body>
+
+</html>

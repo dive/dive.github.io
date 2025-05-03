@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>#SPM on Artem Loenko Website</title>
+    <link>http://justsitandgrin.im/blog/%23spm/</link>
+    <description>Recent content in #SPM on Artem Loenko Website</description>
+    <generator>Hugo</generator>
+    <language>en-GB</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Sun, 05 Jan 2020 00:12:36 +0000</lastBuildDate>
+    <atom:link href="http://justsitandgrin.im/blog/%23spm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Swift Package Manager builds iOS frameworks (Updated. Xcode 10.2 Beta)</title>
+      <link>http://justsitandgrin.im/swift-package-manager-builds-ios-frameworks-updated.-xcode-10.2-beta/</link>
+      <pubDate>Sun, 20 Jan 2019 09:25:00 +0000</pubDate>
+      <guid>http://justsitandgrin.im/swift-package-manager-builds-ios-frameworks-updated.-xcode-10.2-beta/</guid>
+      <description>Swift Package Manager doesn&amp;rsquo;t work with iOS. Probably, that&amp;rsquo;s all you can say about the current state of SPM, but insomnia forced me to extend the answer to the following essay.</description>
+    </item>
+  </channel>
+</rss>

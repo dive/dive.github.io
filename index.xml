@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on Artem Loenko Website</title>
+    <link>http://justsitandgrin.im/</link>
+    <description>Recent content in Home on Artem Loenko Website</description>
+    <generator>Hugo</generator>
+    <language>en-GB</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Sun, 16 May 2021 21:26:00 +0100</lastBuildDate>
+    <atom:link href="http://justsitandgrin.im/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to get the current selected Xcode and list installed</title>
+      <link>http://justsitandgrin.im/how-to-get-the-current-selected-xcode-and-list-installed/</link>
+      <pubDate>Sun, 16 May 2021 21:26:00 +0100</pubDate>
+      <guid>http://justsitandgrin.im/how-to-get-the-current-selected-xcode-and-list-installed/</guid>
+      <description>&lt;p&gt;Some tips &amp;amp; tricks on how to get the current selected Xcode and check for available local versions.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Multiple Xcode versions or Why `xcrun` is your friend</title>
+      <link>http://justsitandgrin.im/multiple-xcode-versions-or-why-xcrun-is-your-friend/</link>
+      <pubDate>Sat, 08 May 2021 11:12:00 +0100</pubDate>
+      <guid>http://justsitandgrin.im/multiple-xcode-versions-or-why-xcrun-is-your-friend/</guid>
+      <description>&lt;p&gt;I recently spent a few hours helping a friend of mine investigate a weird issue in their Continuous Development infrastructure. Builds were failing with different fatal errors mostly related to SDK paths and &lt;code&gt;.platform&lt;/code&gt; directory locations. At first sight, it was clear that something is wrong with the current selected Xcode, but all our initial attempts to catch the problem failed.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Grammarly iOS Keyboard - Unboxing</title>
+      <link>http://justsitandgrin.im/grammarly-ios-keyboard-unboxing/</link>
+      <pubDate>Sun, 26 Jul 2020 16:34:00 +0100</pubDate>
+      <guid>http://justsitandgrin.im/grammarly-ios-keyboard-unboxing/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.grammarly.com&#34;&gt;Grammarly&lt;/a&gt; is a lovely writing assistant. Twenty million people use the tool across the globe according to the statistics available on the site. I use it too. No complaints, it does its job quite well, and I am a happy user. The only thing that always worried me is the &lt;a href=&#34;https://www.grammarly.com/keyboard&#34;&gt;Grammarly iOS Keyboard&lt;/a&gt;. As an iOS engineer, I know how easily you can collect different data, sensitive information, and even do not ask users about the consent. So, let&amp;rsquo;s check what is inside the Grammarly iOS application.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Xcode invocation tool - xed</title>
+      <link>http://justsitandgrin.im/xcode-invocation-tool-xed/</link>
+      <pubDate>Sun, 19 Jul 2020 17:26:00 +0100</pubDate>
+      <guid>http://justsitandgrin.im/xcode-invocation-tool-xed/</guid>
+      <description>&lt;p&gt;&lt;code&gt;xed&lt;/code&gt; is a command-line tool that launches the Xcode application and opens the given documents (&lt;code&gt;xcodeproj&lt;/code&gt;, &lt;code&gt;xcworkspace&lt;/code&gt;, etc.), or opens a new document, optionally with the contents of standard input.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Dr. Anthony Fauci Cold Open - SNL</title>
+      <link>http://justsitandgrin.im/dr.-anthony-fauci-cold-open-snl/</link>
+      <pubDate>Tue, 19 May 2020 17:26:00 +0100</pubDate>
+      <guid>http://justsitandgrin.im/dr.-anthony-fauci-cold-open-snl/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;“Oh, Brad Pitt, of course” Dr. Anthony Fauci said.&lt;/p&gt;&lt;/blockquote&gt;</description>
+    </item>
+    <item>
+      <title>About Bob Martin&#39;s talk - The Future of Programming (2016)</title>
+      <link>http://justsitandgrin.im/about-bob-martins-talk-the-future-of-programming-2016/</link>
+      <pubDate>Sun, 15 Mar 2020 19:03:00 +0000</pubDate>
+      <guid>http://justsitandgrin.im/about-bob-martins-talk-the-future-of-programming-2016/</guid>
+      <description>I am a bit late to the party, but still. Robert C. Martin, colloquially known as &amp;ldquo;Uncle Bob&amp;rdquo;, gave the exciting talk in May 2016 about the future of the programming. The usefulness of his words still stands, and it is a beautiful history lesson about software engineering, programming as a profession with remarks about Agile and possible future of the industry.</description>
+    </item>
+    <item>
+      <title>Emojis over time</title>
+      <link>http://justsitandgrin.im/emojis-over-time/</link>
+      <pubDate>Sun, 05 Jan 2020 16:16:00 +0000</pubDate>
+      <guid>http://justsitandgrin.im/emojis-over-time/</guid>
+      <description>How have Apple emojis evolved lately (iOS 13.0-13.3) and what is gender-neutral philosophy.</description>
+    </item>
+    <item>
+      <title>Note: Xcode 10.2, macOS Mojave 10.14.4, iOS 12.1 and other betas</title>
+      <link>http://justsitandgrin.im/note-xcode-10.2-macos-mojave-10.14.4-ios-12.1-and-other-betas/</link>
+      <pubDate>Tue, 22 Jan 2019 23:09:00 +0000</pubDate>
+      <guid>http://justsitandgrin.im/note-xcode-10.2-macos-mojave-10.14.4-ios-12.1-and-other-betas/</guid>
+      <description>Quick overview of the recent betas from Apple. iOS centric.</description>
+    </item>
+    <item>
+      <title>Swift Package Manager builds iOS frameworks (Updated. Xcode 10.2 Beta)</title>
+      <link>http://justsitandgrin.im/swift-package-manager-builds-ios-frameworks-updated.-xcode-10.2-beta/</link>
+      <pubDate>Sun, 20 Jan 2019 09:25:00 +0000</pubDate>
+      <guid>http://justsitandgrin.im/swift-package-manager-builds-ios-frameworks-updated.-xcode-10.2-beta/</guid>
+      <description>Swift Package Manager doesn&amp;rsquo;t work with iOS. Probably, that&amp;rsquo;s all you can say about the current state of SPM, but insomnia forced me to extend the answer to the following essay.</description>
+    </item>
+  </channel>
+</rss>

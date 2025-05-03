@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Article on Artem Loenko Website</title>
+    <link>http://justsitandgrin.im/categories/article/</link>
+    <description>Recent content in Article on Artem Loenko Website</description>
+    <generator>Hugo</generator>
+    <language>en-GB</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Sun, 05 Jan 2020 16:35:31 +0000</lastBuildDate>
+    <atom:link href="http://justsitandgrin.im/categories/article/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Emojis over time</title>
+      <link>http://justsitandgrin.im/emojis-over-time/</link>
+      <pubDate>Sun, 05 Jan 2020 16:16:00 +0000</pubDate>
+      <guid>http://justsitandgrin.im/emojis-over-time/</guid>
+      <description>How have Apple emojis evolved lately (iOS 13.0-13.3) and what is gender-neutral philosophy.</description>
+    </item>
+    <item>
+      <title>Note: Xcode 10.2, macOS Mojave 10.14.4, iOS 12.1 and other betas</title>
+      <link>http://justsitandgrin.im/note-xcode-10.2-macos-mojave-10.14.4-ios-12.1-and-other-betas/</link>
+      <pubDate>Tue, 22 Jan 2019 23:09:00 +0000</pubDate>
+      <guid>http://justsitandgrin.im/note-xcode-10.2-macos-mojave-10.14.4-ios-12.1-and-other-betas/</guid>
+      <description>Quick overview of the recent betas from Apple. iOS centric.</description>
+    </item>
+    <item>
+      <title>Swift Package Manager builds iOS frameworks (Updated. Xcode 10.2 Beta)</title>
+      <link>http://justsitandgrin.im/swift-package-manager-builds-ios-frameworks-updated.-xcode-10.2-beta/</link>
+      <pubDate>Sun, 20 Jan 2019 09:25:00 +0000</pubDate>
+      <guid>http://justsitandgrin.im/swift-package-manager-builds-ios-frameworks-updated.-xcode-10.2-beta/</guid>
+      <description>Swift Package Manager doesn&amp;rsquo;t work with iOS. Probably, that&amp;rsquo;s all you can say about the current state of SPM, but insomnia forced me to extend the answer to the following essay.</description>
+    </item>
+  </channel>
+</rss>
