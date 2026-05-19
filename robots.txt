@@ -1,0 +1,5 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://justsitandgrin.im/sitemap-index.xml

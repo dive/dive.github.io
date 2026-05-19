@@ -1,0 +1,415 @@
+<!DOCTYPE html><html dir="ltr" lang="en-GB" class="overflow-y-scroll"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://justsitandgrin.im/posts/coding-agents-use-cases/"><meta name="generator" content="Astro v6.3.3"><!-- Font --><style>@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/81a5937787ff8a0a.woff") format("woff"), url("/_astro/fonts/478e42e4694872ef.ttf") format("truetype");font-display:swap;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/13e056157b226e18.woff") format("woff"), url("/_astro/fonts/0863f4f6964aa89c.ttf") format("truetype");font-display:swap;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/bd02cfaa9ae16fb7.woff") format("woff"), url("/_astro/fonts/792eded6cb3f0350.ttf") format("truetype");font-display:swap;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/fcaa83a753eb8a72.woff") format("woff"), url("/_astro/fonts/87d8fc1072d4917b.ttf") format("truetype");font-display:swap;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/28887fc4ef2e3de1.woff") format("woff"), url("/_astro/fonts/ec883ed4db81a7d9.ttf") format("truetype");font-display:swap;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/a75e78cafb91aeae.woff") format("woff"), url("/_astro/fonts/7a5ee0cfcde31b81.ttf") format("truetype");font-display:swap;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/dcf1118e4db364a7.woff") format("woff"), url("/_astro/fonts/f4e25dfe9d6152ec.ttf") format("truetype");font-display:swap;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/7e09f3d8f911bde0.woff") format("woff"), url("/_astro/fonts/a9df48ecd03749e4.ttf") format("truetype");font-display:swap;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/ba411907dc1f87d9.woff") format("woff"), url("/_astro/fonts/90f9809471092714.ttf") format("truetype");font-display:swap;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/_astro/fonts/fcc9533aee1bcfad.woff") format("woff"), url("/_astro/fonts/dbc9996f99c63e07.ttf") format("truetype");font-display:swap;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-1a30c214885cb404","Google Sans Code-1a30c214885cb404 fallback: Courier New",monospace;}</style><!-- Primary meta --><title>Coding agents &amp; use cases | Artem Loenko</title><meta name="title" content="Coding agents &amp; use cases | Artem Loenko"><meta name="description" content="Field notes on picking a coding agent: what works, what to avoid, and how to decide based on your primary use case."><meta name="author" content="Artem Loenko"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="Artem Loenko"><meta property="og:title" content="Coding agents &amp; use cases | Artem Loenko"><meta property="og:description" content="Field notes on picking a coding agent: what works, what to avoid, and how to decide based on your primary use case."><meta property="og:url" content="https://justsitandgrin.im/posts/coding-agents-use-cases/"><meta property="og:image" content="https://justsitandgrin.im/posts/coding-agents-use-cases/index.png"><!-- Twitter / X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://justsitandgrin.im/posts/coding-agents-use-cases/"><meta property="twitter:title" content="Coding agents &amp; use cases | Artem Loenko"><meta property="twitter:description" content="Field notes on picking a coding agent: what works, what to avoid, and how to decide based on your primary use case."><meta property="twitter:image" content="https://justsitandgrin.im/posts/coding-agents-use-cases/index.png"><!-- RSS autodiscovery --><link rel="alternate" type="application/rss+xml" title="Artem Loenko" href="https://justsitandgrin.im/rss.xml/"><!-- Filled at runtime by theme.ts to match the current background colour --><meta name="theme-color" content=""><!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) -->  <meta property="og:type" content="article"> <meta property="article:published_time" content="2026-02-02T17:00:38.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Coding agents & use cases | Artem Loenko","image":"https://justsitandgrin.im/posts/coding-agents-use-cases/index.png","datePublished":"2026-02-02T17:00:38.000Z","author":[{"@type":"Person","name":"Artem Loenko","url":"https://github.com/dive"}]}</script> <!--
+      Inline FOUC-prevention script: sets data-theme on <html> before
+      the browser paints. Runs synchronously, no defer/async.
+    --><script>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const theme = stored ?? (prefersDark ? "dark" : "light");
+        document.firstElementChild?.setAttribute("data-theme", theme);
+        // Expose value so theme.ts can skip re-detection.
+        window.__theme = { value: theme };
+      })();
+    </script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js"></script><link rel="stylesheet" href="/_astro/Footer.DBlzE8Yh.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-36ssibgs-1"] { view-transition-name: agents; }@layer astro { ::view-transition-old(agents) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(agents) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(agents) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(agents) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: ai; }@layer astro { ::view-transition-old(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: llms; }@layer astro { ::view-transition-old(llms) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(llms) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(llms) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(llms) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col">    <a id="skip-to-content" href="#main-content" class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4"> Skip to content </a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"> <a href="/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> Artem Loenko </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="menu-items" data-label-open="Open menu" data-label-close="Close menu"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden" viewBox="0 0 24 24" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M18 6 6 18M6 6l12 12" /></svg> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" viewBox="0 0 24 24" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 6h16M7 12h13M10 18h10" /></svg> </button> <ul id="menu-items" class="[&>li>a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&>li]:h-8 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium sm:[&>li>a]:px-2 sm:[&>li>a]:py-1"> <li class="col-span-2"> <a href="/posts/" class="active-nav"> Posts </a> </li> <li class="col-span-2"> <a href="/tags/"> Tags </a> </li> <li class="col-span-2"> <a href="/about/"> About </a> </li> <li class="col-span-2"> <a href="/archives/" title="Archives" aria-label="Archives" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 12h4" /></svg> <span class="sm:sr-only">Archives</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/search/" title="Search" aria-label="Search" class="group inline-flex items-center gap-1 hover:text-accent focus-outline relative size-8">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6" /></svg> <span class="sr-only">Search</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline hover:[&>svg]:stroke-accent relative size-12 p-4 sm:size-8" title="Toggle theme" aria-label="auto" aria-live="polite"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z" /></svg> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M14.828 14.828a4 4 0 1 0-5.656-5.656 4 4 0 0 0 5.656 5.656M6.343 17.657l-1.414 1.414M6.343 6.343 4.929 4.929M17.657 6.343l1.414-1.414M17.657 17.657l1.414 1.414M4 12H2M12 4V2M20 12h2M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function c(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),s=document.querySelector("#close-icon");if(!e||!t||!n||!s)return;const a=e.dataset.labelOpen??"Open menu",l=e.dataset.labelClose??"Close menu";e.addEventListener("click",()=>{const o=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",o?"false":"true"),e.setAttribute("aria-label",o?a:l),t.classList.toggle("hidden"),t.classList.toggle("grid"),n.classList.toggle("hidden"),s.classList.toggle("hidden")})}c();document.addEventListener("astro:after-swap",c);</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline hover:text-foreground/75 -ms-2 mt-8 mb-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 6-6 6 6 6" /></svg><span>Go back</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout" data-pagefind-body> <h1 style="view-transition-name:coding-agents-and-use-cases" class="text-accent inline-block text-2xl font-bold sm:text-3xl"> Coding agents &amp; use cases </h1> <div class="my-2 flex items-center gap-2"> <div class="text-muted-foreground flex items-center gap-x-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 min-w-5.5" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM16 3v4M8 3v4M4 11h16M7 14h.013M10.01 14h.005M13.01 14h.005M16.015 14h.005M13.015 17h.005M7.01 17h.005M10.01 17h.005" /></svg>  <time class="text-sm sm:text-base" datetime="2026-02-02T17:00:38.000Z"> 2 Feb, 2026 </time> </div> <span aria-hidden="true" class="text-muted-foreground max-sm:hidden hidden">
+|
+</span>  </div> <article id="article" class="mt-8 w-full app-prose max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"> <p>Tired of agent hype? Pick by <em>use case</em>.</p>
+<p>These are my field notes from ~6 months of advising small &#x26; mid-sized startups on coding agent tooling. The question I hear most is: “which coding agent should we standardise on?”</p>
+<p>My take (February 2026): start with your primary use case &#x26; constraints, not with “today’s best model” lists. In this post, “criteria” means your team &#x26; environment (size, maturity, compliance, local-first, provider lock-in, etc.). “Patterns” means recurring fits/misfits I have seen across tools.</p>
+<p>My rule of thumb for picking a coding agent is simple:</p>
+<ol>
+<li>Pick your primary use case.</li>
+<li>Pick one tool that fits it.</li>
+<li>Stick with it until you have a strong reason to reassess (new constraints, new state-of-the-art models, compliance, a bigger team, etc.).</li>
+</ol>
+<p>If you are currently evaluating five tools at once: stop. Pick one, learn its sharp edges &#x26; align the team.</p>
+<p>Chasing something new breaks the flow &#x26; the flow is your company pulse (I learned this the hard way). Every new thing takes time to master, learn weak &#x26; strong qualities &#x26; build shared intuition. If you chase new things for the sake of it, it becomes a never-ending saga with little real value. Assess new tools, give engineers time to play with them (they will figure it out), but lock migration decisions on the team level.</p>
+<p>I think the most successful outcomes from those consultations surprisingly fell into the <a href="https://ampcode.com/manual">Amp</a> &#x26; <a href="https://opencode.ai">OpenCode</a> buckets most of the time. By “outcomes” I mean engineering productivity, dev happiness &#x26; delivery outcomes. For two different reasons:</p>
+<ol>
+<li>Pre-made choices remove a lot of decisions &#x26; allow you to move faster. This is the case for <a href="https://ampcode.com/manual">Amp</a>.</li>
+<li>Unified multi-model environments &#x26; orchestration can improve morale &#x26; collaboration. This is where <a href="https://opencode.ai">OpenCode</a> shines.</li>
+</ol>
+<p>If you forced me to pick quickly, here is my cheat sheet (it will age fast, but the trade-offs will not).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>If your primary goal is…</th><th>Pick…</th></tr></thead><tbody><tr><td>Strong defaults, fewer decisions</td><td><a href="https://ampcode.com/manual">Amp</a></td></tr><tr><td>Flexibility &#x26; model management</td><td><a href="https://opencode.ai">OpenCode</a></td></tr><tr><td>You already chose a provider</td><td><a href="https://developers.openai.com/codex/cli">OpenAI Codex</a> / <a href="https://code.claude.com/docs/en/overview">Claude Code</a> / <a href="https://geminicli.com">Google Gemini</a></td></tr><tr><td>Owning the pipeline end-to-end</td><td><a href="https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent">Pi Coding Agent</a></td></tr><tr><td>A GUI with an agentic workflow</td><td><a href="https://antigravity.google">Google Antigravity</a></td></tr></tbody></table>
+<h2 id="a-story-i-keep-seeing">A story I keep seeing</h2>
+<p>I have seen this pattern more than once: a team ends up with an uncontrollable mix of tools &#x26; agents — opinionated defaults, different models &#x26; no shared <code>AGENTS.md</code>. If you look at the repo history, the symptoms are predictable:</p>
+<ul>
+<li>unnecessary refactors initiated by an “opinionated” but different model</li>
+<li>“smart” notes added to local <code>AGENTS.md</code> by the most curious engineer</li>
+<li>tooling that does the same thing, but got integrated multiple times by different agents</li>
+</ul>
+<p>No tool will fully save you from this. That is fine. You have to unify the engineering culture around agentic coding first: decide how you evaluate tools, what goes into <code>AGENTS.md</code> &#x26; what “done” looks like. Once the team aligned &#x26; we standardised on <a href="https://ampcode.com/manual">Amp</a>, things improved a lot. Documentation started to shape itself (threads, highlights), prompts got simpler &#x26; more consistent. <a href="https://ampcode.com/manual#oracle">Oracle</a> helped flush out duplication &#x26; converge on the architecture. Most importantly, engineers started to talk about the workflow, share tips &#x26; prompts &#x26; collaborate instead of playing in their own sandbox.</p>
+<h2 id="amp-strong-defaults-fewer-decisions"><a href="https://ampcode.com/manual">Amp</a>: strong defaults, fewer decisions</h2>
+<ul>
+<li>I reach for it when I want to avoid the “so many shiny things!” fatigue &#x26; just work.</li>
+<li>Very reasonable, always up-to-date selection of models (they make the choices &#x26; remove the overhead from the team).</li>
+<li>Some powerful features, like <a href="https://ampcode.com/manual#oracle">Oracle</a> for a second opinion or <a href="https://ampcode.com/manual#librarian">Librarian</a> to search remote codebases.</li>
+<li>Very good functionality for collaboration &#x26; <a href="https://ampcode.com/manual#thread-sharing">thread sharing</a>.</li>
+<li>System prompts are simple &#x26; effective.</li>
+<li>The <a href="https://ampcode.com/manual#pricing">pricing</a> is very reasonable.</li>
+</ul>
+<h2 id="opencode-flexibility--model-management"><a href="https://opencode.ai">OpenCode</a>: flexibility &#x26; model management</h2>
+<ul>
+<li>I reach for it when I need flexibility &#x26; model management inside the team.</li>
+<li>Wise approach to configuring Plan/Build/Explore <a href="https://opencode.ai/docs/agents/#primary-agents">primary agents</a> (different models, handoff).</li>
+<li>Supports the Language Server Protocol (LSP) along the way (kind of good for some cases, but can pollute the context with redundant output, e.g. false-positive diagnostics while the working tree is changing &#x26; can lead to additional unnecessary steps when the LSP server cannot keep up with the changes).</li>
+<li>Easy options to try <a href="https://opencode.ai/docs/models/">new models</a>, frequent “test-drives” of new models for free.</li>
+<li>Convenient <a href="https://opencode.ai/docs/web/">web application</a> &#x26; <a href="https://opencode.ai/docs/share/">sharing</a> capabilities.</li>
+</ul>
+<h2 id="provider-native-tools-openai-codex--claude-code--google-gemini">Provider-native tools: <a href="https://developers.openai.com/codex/cli">OpenAI Codex</a> / <a href="https://code.claude.com/docs/en/overview">Claude Code</a> / <a href="https://geminicli.com">Google Gemini</a></h2>
+<ul>
+<li>I reach for these when a team is already vendor-locked (or simply does not want to think about multi-provider setups).</li>
+<li>These tools are solid.</li>
+<li>Codex supports the plan mode now (<a href="https://github.com/openai/codex/pull/10103">#10103</a>, <a href="https://github.com/openai/codex/pull/9786">#9786</a>).</li>
+<li>Gemini supports <a href="https://geminicli.com/docs/cli/skills/">Agent Skills</a> &#x26; has a nice collection of <a href="https://geminicli.com/extensions/">extensions</a>.</li>
+<li>Claude <a href="https://claudemarketplaces.com">marketplace</a> is thriving as well &#x26; the tool itself is in good shape. <a href="https://x.com/pankajkumar_dev/status/2018187650927349976">Sonnet 5</a> looks promising.</li>
+</ul>
+<h2 id="pi-coding-agent-owning-the-pipeline-end-to-end"><a href="https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent">Pi Coding Agent</a>: owning the pipeline end-to-end</h2>
+<ul>
+<li>I reach for Pi when I want full control over models, prompts, settings, tools, policies, and orchestration.</li>
+<li>Pi is a minimal terminal coding harness. This is it.</li>
+<li>Easily <a href="https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/extensions.md">extensible</a>, supports <a href="https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/providers.md">almost everything</a>, easy to use &#x26; follow.</li>
+<li>Full control over models, prompts, settings, tools &#x26; policies — including orchestration.</li>
+<li>Yes, it is in the heart of the famous <a href="https://openclaw.ai">OpenClaw</a>.</li>
+<li>I think the <a href="https://mariozechner.at/posts/2025-11-30-pi-coding-agent/">What I learned building an opinionated &#x26; minimal coding agent</a> article from the creator of Pi, Mario Zechner, is a solid overview if you’re curious.</li>
+</ul>
+<h2 id="google-antigravity-a-gui-with-an-agentic-workflow"><a href="https://antigravity.google">Google Antigravity</a>: a GUI with an agentic workflow</h2>
+<ul>
+<li>I reach for it when I want a GUI, but still want to stay agentic.</li>
+<li>This tool is good. I think that in the near future we will migrate from the terminal to UX tools like this, slowly but steadily. While I was writing this, OpenAI <a href="https://x.com/OpenAI/status/2018385565289267236">introduced</a> the <a href="https://openai.com/codex/">Codex app</a> for macOS — so my point stands. It hides the complexity, built on top of Visual Studio Code &#x26; is very transparent with <a href="https://antigravity.google/docs/implementation-plan">planning</a>, <a href="https://antigravity.google/docs/task-list">TODOs</a> &#x26; <a href="https://antigravity.google/docs/walkthrough">walkthrough</a>. It generally works well (note: Gemini 3 is not the strongest option, but Google supports Claude models &#x26; even OpenAI GPT-OSS, out of the box).</li>
+<li><a href="https://antigravity.google/docs/browser-subagent">Browser subagent</a> is a very good feature.</li>
+<li>It seems that <a href="https://x.com/pankajkumar_dev/status/2016390256787112091">Gemini 3.5</a> is coming soon.</li>
+</ul>
+<h2 id="models-quick-opinions-february-2026">Models: quick opinions (February 2026)</h2>
+<ul>
+<li><a href="https://platform.openai.com/docs/models/gpt-5.2">GPT-5.2</a> / <a href="https://platform.openai.com/docs/models/gpt-5.2-codex">GPT-5.2-Codex</a> show the best results in my experience (in any agent). Strong reasoning, reasonable expectations from the thinking mode.</li>
+<li>Claude <a href="https://platform.claude.com/docs/en/about-claude/models/overview">Sonnet/Haiku/Opus 4.5</a>. Still solid &#x26; good to go. If you are all in on Anthropic – do not hesitate. The primary reasons I put OpenAI on top are due to the flexibility (Anthropic is very <a href="https://x.com/trq212/status/2009689809875591565">protective</a> about using their subscriptions with other agents, OpenAI is <a href="https://x.com/thsottiaux/status/2010064438033104966">very</a> <a href="https://x.com/thsottiaux/status/2009742187484065881?s=20">open</a> about it). Anyhow, the choice is solid.</li>
+<li>Open models to try (for cost optimisations or if you are looking for self-hosted solutions). I do not treat leaderboards as truth, but they are a decent sanity check:
+<ul>
+<li><a href="https://www.kimi.com/blog/kimi-k2-5.html">Kimi K2.5</a> – the newest very good model ranked (very) high in benchmarks (rank #5 | <a href="https://arena.ai/leaderboard/code">Code Arena leaderboard</a>).</li>
+<li><a href="https://z.ai/blog/glm-4.7">GLM 4.7</a> – very capable even in <a href="https://x.com/dhh/status/2005057904542359980">big tasks</a>. (rank #7 | <a href="https://arena.ai/leaderboard/code">Code Arena leaderboard</a>).</li>
+<li><a href="https://www.minimax.io/news/minimax-m21">MiniMax M2.1</a> – fast, <a href="https://x.com/svpino/status/2015877777732600082">reliable</a> &#x26; almost perfect to run <a href="https://x.com/LiMzba/status/2008312337158074770">locally</a> (rank #8 | <a href="https://arena.ai/leaderboard/code">Code Arena leaderboard</a>).</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/coding-agents-use-cases/code-arena-leaderboard-2026-02-03.png" alt="Code Arena leaderboard (Code), February 2026"></p>
+<p><em>Code Arena “Code” leaderboard screenshot (February 2026). Source: <a href="https://arena.ai/leaderboard/code">Code Arena leaderboard</a>.</em></p>
+<ul>
+<li>Bonus, <a href="https://docs.x.ai/docs/models/grok-4-1-fast-reasoning">xAI Grok 4.1 Fast</a> (Reasoning) is a very capable model for fast tasks &#x26; as a support model (it is very cheap). Give it a try if you have use cases for something simple, but important in your flows.</li>
+</ul>
+<h2 id="things-i-personally-avoid-opinionated">Things I personally avoid (opinionated)</h2>
+<ul>
+<li><a href="https://agentclientprotocol.com/get-started/introduction">Agent Client Protocol</a> (ACP) in the editor of your choice. Magic on top of magic does not scale well (even if it looks convenient), it is better to know the tools you use. I tend to avoid ACP in Visual Studio Code or Zed. At the end of the day, just use the CLI (command-line) version in the embedded terminals (you will lose some fancy features, but you will become more proficient with the solution).</li>
+<li>Default to simple tools over Model Context Protocols (MCPs). Have a use case? Build your own custom prompt or skill. Have something very specific in your flows? Build a simple CLI (command-line) &#x26; give the agent instructions. Introduce MCP only when you have stable APIs &#x26; repeated workflows that justify the interface overhead. <a href="https://mariozechner.at/posts/2025-11-02-what-if-you-dont-need-mcp/">What if you don’t need MCP at all?</a> To build a proper MCP, you need a proper API; if you have a proper API, the agents will be fine without this additional layer.</li>
+<li>Trying every new model that gets hyped on X today. Just do not. Build those boundaries if you have things to do. Allocate one day for experiments, have a clear internal benchmark. But do not rush for every new shiny thing around. If you cannot &#x26; it is distracting, go with the <a href="https://ampcode.com/manual">Amp</a>; their defaults are very strong.</li>
+<li>Sandboxing. The general state of the union is that sandboxing often feels like theatre (especially for enterprise checklists). Codex is a good example: you can tell the agent to read/change files outside of the working directory with no effort, but it will struggle to commit via <code>git</code> because the <code>.git/index.lock</code> is not in the worktree. Guardrails are good, but I think this problem has to be solved one level higher: run the agent in a controlled environment (virtualisation is cheap now) instead of trying to convince a free-thinking tool to follow imaginary rules.</li>
+</ul>
+<h2 id="what-i-use-right-now">What I use (right now)</h2>
+<ul>
+<li>I prefer Pi &#x26; OpenCode.
+<ul>
+<li>For pure development sessions, Pi is good enough for me. Simple, powerful, easy to customise &#x26; (which is important) predictable.</li>
+<li>OpenCode is my go-to tool for planning, investigations &#x26; research. Because it manages model selection quite wisely. You can assign specific models for each major mode &#x26; specify a “small” model (where I use Grok 4.1 Fast).</li>
+</ul>
+</li>
+<li>A note about Amp. It is good. Very good. Especially with the Oracle &#x26; when you need to investigate a complex problem. But due to the way how they choose &#x26; manage models, I cannot use my subscriptions there which is kind of limiting. So, I run it frequently &#x26; it shows great results (even within the generous <a href="https://ampcode.com/news/amp-free-frontier">free $10 per day offer</a>).</li>
+<li>About planning mode. Plenty of people say that it is redundant &#x26; an unnecessary complication; I agree in general. But it saves time. Instead of writing “Let’s discuss”/“Do not make any changes”/etc. you just switch to a plan mode with one keystroke. So, for me a planning mode is a convenience that I appreciate, not a big feature.</li>
+<li>Models:
+<ul>
+<li>For planning I prefer OpenAI GPT-5.2-high.</li>
+<li>For development tasks – GPT-5.2-Codex-high.</li>
+<li>For small tasks, quick questions – xAI Grok 4.1 Fast (sometimes with Thinking).</li>
+</ul>
+</li>
+</ul>
+<p>Remember: bad tools usually do not survive on the market. You do not like (or like, for that matter) something for two reasons: it solves your use case or you have a strong personal opinion about it. As an example, I do not like Visual Studio Code (it always stays in my way) &#x26; prefer Helix which solves my use cases in a great way, but the number of people who installed Catppuccin Theme for VSCode only today is probably higher than the Helix user-base. On the other hand, I think that Safari is the best browser: this is my personal opinion &#x26; I will not survive any serious conversation about it, but it does not change the fact that Google Chrome is great. As the saying goes: “Use tools &#x26; love people, because the opposite never works”.</p> </article> <hr class="my-8 border-dashed">  <div id="btt-btn-container" class="fixed inset-e-4 bottom-8 z-50 md:sticky md:inset-e-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group bg-background relative px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block rotate-90 md:hidden" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg> <span class="group-hover:text-accent sr-only text-sm md:not-sr-only"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 5v14M16 9l-4-4M8 9l4-4" /></svg> Back to top </span> </button> </div> <script data-astro-rerun>
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    });
+
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script> <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"> <li> <a href="/tags/agents/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> Agents </a> </li><li> <a href="/tags/ai/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> AI </a> </li><li> <a href="/tags/llms/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> LLMs </a> </li> </ul> <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">Share this post:</span><div class="text-center"><a href="https://wa.me/?text=https://justsitandgrin.im/posts/coding-agents-use-cases/" title="Share this post via WhatsApp" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m3 21 1.65-3.8a9 9 0 1 1 3.4 2.9z" /><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0za5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" /></svg><span class="sr-only">Share this post via WhatsApp</span> </a><a href="https://www.facebook.com/sharer.php?u=https://justsitandgrin.im/posts/coding-agents-use-cases/" title="Share this post on Facebook" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2z" /></svg><span class="sr-only">Share this post on Facebook</span> </a><a href="https://x.com/intent/post?url=https://justsitandgrin.im/posts/coding-agents-use-cases/" title="Share this post on X" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">Share this post on X</span> </a><a href="https://t.me/share/url?url=https://justsitandgrin.im/posts/coding-agents-use-cases/" title="Share this post via Telegram" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 10-4 4 6 6 4-16-18 7 4 2 2 6 3-4" /></svg><span class="sr-only">Share this post via Telegram</span> </a><a href="https://pinterest.com/pin/create/button/?url=https://justsitandgrin.im/posts/coding-agents-use-cases/" title="Share this post on Pinterest" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m8 20 4-9M10.7 14c.437 1.263 1.43 2 2.55 2 2.071 0 3.75-1.554 3.75-4a5 5 0 1 0-9.7 1.7" /><path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0" /></svg><span class="sr-only">Share this post on Pinterest</span> </a><a href="mailto:?subject=See%20this%20post&amp;body=https://justsitandgrin.im/posts/coding-agents-use-cases/" title="Share this post via email" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="m3 7 9 6 9-6" /></svg><span class="sr-only">Share this post via email</span> </a></div></div> <hr class="my-8 border-dashed"> <div data-pagefind-ignore class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2"> <a href="/posts/ai-for-people/" class="flex w-full gap-1 hover:opacity-75"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg> <div> <span>Previous Post</span> <div class="text-accent/85 text-sm">AI for people</div> </div> </a> <a href="/posts/get-current-selected-xcode/" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"> <div> <span>Next Post</span> <div class="text-accent/85 text-sm">How to get the current selected Xcode and list installed</div> </div> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M13 18l6-6M13 6l6 6" /></svg> </a> </div> </main> <footer class="app-layout mt-auto"> <div class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"> <nav aria-label="Social Links" class="flex flex-wrap items-center gap-1"> <a href="https://github.com/dive" title="GitHub - @dive" class="group inline-flex items-center gap-1 hover:text-accent p-2 sm:p-1">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg> <span class="sr-only">GitHub - @dive</span>  </a><a href="https://twitter.com/justsitandgrin" title="X - @justsitandgrin" class="group inline-flex items-center gap-1 hover:text-accent p-2 sm:p-1">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg> <span class="sr-only">X - @justsitandgrin</span>  </a><a href="https://www.linkedin.com/in/artemloenko/" title="LinkedIn - Artem Loenko" class="group inline-flex items-center gap-1 hover:text-accent p-2 sm:p-1">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M8 11v5M8 8v.01M12 16v-5M16 16v-3a2 2 0 1 0-4 0" /><path d="M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z" /></svg> <span class="sr-only">LinkedIn - Artem Loenko</span>  </a> </nav> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>Copyright &#169; 2026</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>All rights reserved.</span> </div> </div> </footer>   <script type="module">const c="theme",o="light",n="dark";function u(){const e=localStorage.getItem(c);return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?n:o)}let t=window.__theme?.value??u();function a(){localStorage.setItem(c,t),m()}function m(){document.firstElementChild?.setAttribute("data-theme",t),document.querySelector("#theme-btn")?.setAttribute("aria-label",t);const e=window.getComputedStyle(document.body).backgroundColor;document.querySelector("meta[name='theme-color']")?.setAttribute("content",e)}function d(){m(),document.querySelector("#theme-btn")?.addEventListener("click",()=>{t=t===o?n:o,a()})}d();document.addEventListener("astro:after-swap",d);document.addEventListener("astro:before-swap",e=>{const r=document.querySelector("meta[name='theme-color']")?.getAttribute("content");r&&e.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content",r)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:e})=>{t=e?n:o,a()});</script> </body> </html> <script data-astro-rerun>
+  function createProgressBar() {
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    progressContainer.appendChild(progressBar);
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+</script>
